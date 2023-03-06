@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sign In</title>
+    <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-5 my-5">
-                <h2 class="text-center">registration</h2>
+                <h2 class="text-center">Registration</h2>
                 <form class=" mx-5">
                     <div class="form-group mb-2">
                         <label for="username">Username</label>
@@ -27,8 +27,27 @@
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" placeholder="Password">
                     </div>
+                    <div class="row">
+                        <div class="col"> <label for="First name">First name</label>
+                            <input type="text" class="form-control" id="First name" placeholder="First name">
+                        </div>
+
+                        <div class="col"> <label for="Last name">Last name</label>
+                            <input type="text" class="form-control" id="Last name" placeholder="Last name">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col"> <label for="First name">First name</label>
+                            <input type="date" class="form-control" id="First name" placeholder="First name">
+                        </div>
+
+                        <div class="col"> <label for="Last name">City</label>
+                            <input type="" class="form-control" id="City" placeholder="City">
+                        </div>
+                    </div>
                     <div class="form-group mb-2">
-                        <label for="email">email</label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                     <div class="input-group col-6 mt-4">
@@ -39,13 +58,11 @@
                             <option value="municipal employer">municipal employee</option>
                         </select>
                     </div>
+                    <button class="mt-4 mx-auto signlog" type="submit">Register</button>
                 </form>
             </div>
         </div>
     </div>
-
-
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
         integrity="sha384-0oaoe+2KvlOJuz1tt0XTODM+5CvQFJ5/eg/pzLbdN/0pzxST36JgEJ+D5HSPSwKJ"
