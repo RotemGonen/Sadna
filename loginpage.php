@@ -20,7 +20,7 @@ $login_time = date('Y-m-d H:i:s');
 $sql_user = "SELECT * FROM registrations WHERE username='$username'";
 $result_user = $conn->query($sql_user);
 $sql_pass = "SELECT * FROM registrations WHERE password='$password'";
-$result_pass = $conn->query($sql_user);
+$result_pass = $conn->query($sql_pass);
 
 // If the username and password exists, check the login table for a matching email and password
 if ($result_user->num_rows > 0 && $result_pass->num_rows > 0) {
