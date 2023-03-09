@@ -22,8 +22,8 @@
                     <div class="form-group mb-2">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" name="username"
-                            placeholder="Enter username" required pattern="^[a-zA-Z]{2}[a-zA-Z0-9]*$" required>
-                        <div class="invalid-feedback">
+                            placeholder="Enter username" required pattern="^[a-zA-Z]{2}[a-zA-Z0-9]*$">
+                        <div class="invalid-feedback" id="usernamevalid">
                             Please choose a username that starts with at least 2 letters.
                         </div>
                     </div>
@@ -98,14 +98,15 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
         integrity="sha384-0oaoe+2KvlOJuz1tt0XTODM+5CvQFJ5/eg/pzLbdN/0pzxST36JgEJ+D5HSPSwKJ"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//geodata.solutions/includes/statecity.js"></script>
-    <script>(function () {
+    <script>
+        (function () {
             'use strict'
 
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -141,6 +142,26 @@
             var maxDate = year + '-' + month + '-' + day;
             $('input[type="date"]').attr('max', maxDate);
         })
+
+        $(document).ready(function () {
+            // make sure the user name is not already taken
+            $('#username').change(function () {
+                var username = $(this).val();
+                $.post('check_username.php', { username: username }, function (data) {
+                    if (data == 'taken') {
+                        $('#usernamevalid').html('Username already taken');
+                        $('#username').addClass('is-invalid');
+                        var name = $('#username').val()
+                        $('#username').val('')
+                        $('#username').attr('placeholder', (name));
+                    } else {
+                        $('#usernamevalid').html('Please choose a username that starts with at least 2 letters.');
+                        $('#username').removeClass('is-invalid');
+                        $('#username').attr('placeholder', ('Enter username'));
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
