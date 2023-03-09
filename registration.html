@@ -39,14 +39,14 @@
                     <div class="row mb-2">
                         <div class="col"> <label for="first_name">First name</label>
                             <input type="text" class="form-control" id="first_name" name="first_name"
-                                placeholder="First name" required pattern="^[a-zA-Z]{5,}">
+                                placeholder="First name" required pattern="^[A-Za-z]{2,30}$">
                             <div class="invalid-feedback">
                                 Please insert only letters. </div>
                         </div>
 
                         <div class="col"> <label for="last_name">Last name</label>
                             <input type="text" class="form-control" id="last_name" name="last_name"
-                                placeholder="Last name" required pattern="^[a-zA-Z]{5,}">
+                                placeholder="Last name" required pattern="^^[A-Za-z]{2,30}$">
                             <div class="invalid-feedback">
                                 Please insert only letters. </div>
                         </div>
@@ -62,20 +62,28 @@
                     </div>
 
                     <div class="row mb-2">
-                        <input type="hidden" name="country" id="countryId" value="IL" />
-                        <div class="col"> <select name="state" class="states order-pop form-control" id="stateId">
+                        <input type="hidden" name="country" id="countryId" value="IL">
+                        <div class="col"> <select name="state" class="states order-pop form-control" id="stateId"
+                                required>
                                 <option value="">Select State</option>
                             </select>
+                            <div class="invalid-feedback">
+                                The field cannot be empty </div>
                         </div>
                         <div class="col">
-                            <select name="city" class="cities order-alpha form-control" id="cityId">
+                            <select name="city" class="cities order-alpha form-control" id="cityId" required>
                                 <option value="">Select City</option>
                             </select>
+                            <div class="invalid-feedback">
+                                The field cannot be empty </div>
                         </div>
                     </div>
                     <div class="form-group mb-2">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
                     </div>
                     <div class="input-group col-6 mt-4">
                         <label class="input-group-text" for="inputGroupSelect">Select your account type:</label>
@@ -118,7 +126,7 @@
         })()
 
 
-        // setting the min attribute of the arrival and leaving date type to today
+        // setting the max to today
         $(document).ready(function () {
             var today = new Date();
             var year = today.getFullYear();
