@@ -30,9 +30,9 @@ if ($result_user->num_rows > 0 && $result_pass->num_rows > 0) {
     $sql = "INSERT INTO logins (username, password, login_time)
     VALUES ('$username', '$password', '$login_time')";
     if (mysqli_query($conn, $sql)) {
-        echo "login successful"; }
- }
-else 
+        echo "login successful";
+    }
+} else
     echo "Incorrect email or password";
 
- ?>
+?>

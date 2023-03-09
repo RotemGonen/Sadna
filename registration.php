@@ -28,9 +28,10 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO registrations (username, password, first_name, last_name, date_of_birth, state, city, email, account_type)
     VALUES ('$username', '$password', '$first_name', '$last_name', '$date_of_birth', '$state', '$city', '$email', '$account_type')";
     if (mysqli_query($conn, $sql)) {
-        echo "Registration successful";
+        header("Location: http://localhost/sadna/loginpage.html");
     } else {
         echo "Error: " . mysqli_error($conn);
     }
 }
 ?>
+tesstt
