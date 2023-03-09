@@ -107,11 +107,8 @@
     <script src="//geodata.solutions/includes/statecity.js"></script>
     <script>
         (function () {
-            'use strict'
-
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.querySelectorAll('.needs-validation')
-
             // Loop over them and prevent submission
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
@@ -120,7 +117,6 @@
                             event.preventDefault()
                             event.stopPropagation()
                         }
-
                         form.classList.add('was-validated')
                     }, false)
                 })
@@ -151,9 +147,8 @@
                     if (data == 'taken') {
                         $('#usernamevalid').html('Username already taken');
                         $('#username').addClass('is-invalid');
-                        var name = $('#username').val()
                         $('#username').val('')
-                        $('#username').attr('placeholder', (name));
+                        $('#username').attr('placeholder', (username.toLowerCase()));
                     } else {
                         $('#usernamevalid').html('Please choose a username that starts with at least 2 letters.');
                         $('#username').removeClass('is-invalid');
