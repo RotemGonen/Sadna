@@ -12,6 +12,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -64,27 +70,11 @@
 
         <div class="container">
             <div class="col">
-                <!-- the select city element -->
-                <select class="selectpicker form-control" data-live-search="true" id="location-select">
-                    <option value="">-- Select Location --</option>
-                    <?php
-                    // Make a connection to the database
-                    $conn = mysqli_connect("localhost", "test", "12345", "sadna");
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    // Query the table for location field
-                    $sql = "SELECT DISTINCT location FROM sportfield ORDER BY location ASC";
-                    $result = $conn->query($sql);
-                    // Loop through the results and create options
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<option value=\"" . $row["location"] . "\">" . $row["location"] . "</option>";
-                    }
-                    // Close the connection
-                    $conn->close();
-                    ?>
+                <!-- search city bar -->
+                <select class="form-control" id="location-search" style="width: 100%">
                 </select>
-                <select class="selectpicker form-control" data-live-search="true" id="type-select">
+                <!-- search type bar -->
+                <select class="selectpicker form-control mt-2" data-live-search="true" id="type-select">
                     <option value="">-- Select Type --</option>
                     <?php
                     // Make a connection to the database
@@ -128,17 +118,12 @@
         <p>&copy; 20232W89</p>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
-
     <!-- jQuery script to retrieve data and update table -->
     <script>
         $(document).ready(function () {
-            // Listen for changes to location select dropdown
-            $('#type-select').on('change', function () {
-                var location = $('#location-select').val();
+            // Listen for changes to location select dropdown and the type select dropdown
+            $('#type-select,#location-search').on('change', function () {
+                var location = $('#location-search').val();
                 var type = $('#type-select').val();
 
                 if (location && type) {
@@ -178,6 +163,36 @@
                 }
             });
         });
+        // function to get the city
+        $(document).ready(function () {
+            $('#location-search').select2({
+                theme: "classic",
+                placeholder: "Search city...",
+                ajax: {
+                    url: 'retrieve_locations.php',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.location,
+                                    id: item.location
+                                }
+                            })
+                        };
+                    },
+                    placeholder: "Select a state",
+                    allowClear: true
+                },
+            })
+        });
+
     </script>
 </body>
 
