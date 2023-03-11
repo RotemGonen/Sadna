@@ -18,16 +18,12 @@
         <option value="">-- Select Location --</option>
         <?php
         // Make a connection to the database
-        $host = "localhost";
-        $username = "test";
-        $password = "12345";
-        $dbname = "sadna";
-        $conn = new mysqli($host, $username, $password, $dbname);
+        $conn = mysqli_connect("localhost", "test", "12345", "sadna");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
         // Query the table for location field
-        $sql = "SELECT DISTINCT location FROM sportfields ORDER BY location ASC";
+        $sql = "SELECT DISTINCT location FROM sportfield ORDER BY location ASC";
         $result = $conn->query($sql);
         // Loop through the results and create options
         while ($row = $result->fetch_assoc()) {
@@ -37,6 +33,27 @@
         $conn->close();
         ?>
     </select>
+
+    <select class="selectpicker form-control" data-live-search="true" id="type-select">
+        <option value="">-- Select Type --</option>
+        <?php
+        // Make a connection to the database
+        $conn = mysqli_connect("localhost", "test", "12345", "sadna");
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        // Query the table for type field
+        $sql = "SELECT DISTINCT type FROM sportfield ORDER BY type ASC";
+        $result = $conn->query($sql);
+        // Loop through the results and create options
+        while ($row = $result->fetch_assoc()) {
+            echo "<option value=\"" . $row["type"] . "\">" . $row["type"] . "</option>";
+        }
+        // Close the connection
+        $conn->close();
+        ?>
+    </select>
+
 
     <!-- the table element -->
     <div class="table-responsive">
@@ -60,14 +77,16 @@
     <script>
         $(document).ready(function () {
             // Listen for changes to location select dropdown
-            $('#location-select').on('change', function () {
-                var location = $(this).val();
-                if (location) {
+            $('#type-select').on('change', function () {
+                var location = $('#location-select').val();
+                var type = $('#type-select').val();
+
+                if (location && type) {
                     // Send AJAX request to server to retrieve data
                     $.ajax({
                         url: 'retrieve_data.php',
                         method: 'POST',
-                        data: { location: location },
+                        data: { location: location, type: type },
                         dataType: 'json',
                         success: function (data) {
                             // Clear existing table rows

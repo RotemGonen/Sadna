@@ -7,12 +7,11 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-
-
 // Retrieve data based on selected location
-if (isset($_POST['location'])) {
+if (isset($_POST['location']) && isset($_POST['type'])) {
     $location = $_POST['location'];
-    $sql = "SELECT * FROM sportfields WHERE location = '$location'";
+    $type = $_POST['type'];
+    $sql = "SELECT * FROM sportfield WHERE location = '$location' AND type = '$type'";
     $result = mysqli_query($conn, $sql);
     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
     echo json_encode($data);
