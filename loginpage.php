@@ -1,38 +1,82 @@
-<?php
-$host = "localhost"; // database host
-$username = "test"; // database username
-$password = "12345"; // database password
-$dbname = "sadna"; // database name
+<!DOCTYPE html>
+<html>
 
-// Create connection
-$conn = new mysqli($host, $username, $password, $dbname);
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+<header>
+    <div class="container"> <img src="images/4Playlogo.png" class=" mt-3 img-fluid mx-auto d-block w-auto"
+            alt="Responsive image">
+    </div>
+</header>
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$login_time = date('Y-m-d H:i:s');
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 my-5">
+                <h2 class="text-center">Sign In</h2>
+                <form action="loginpagehelper.php" class="needs-validation" method="post" novalidate>
+                    <?php
+                    //check if an error message is present in the URL query parameters
+                    if (isset($_GET['error'])) {
+                        $error = $_GET['error'];
+                    }
 
-// Query the registration table to see if the username and password exists
-$sql_user = "SELECT * FROM registrations WHERE username='$username'";
-$result_user = $conn->query($sql_user);
-$sql_pass = "SELECT * FROM registrations WHERE password='$password'";
-$result_pass = $conn->query($sql_pass);
+                    //display the error message if it is set
+                    if (isset($error)) {
+                        echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+                    }
+                    ?>
+                    <div class="form-group col">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="Enter username" required>
+                        <div class="invalid-feedback">
+                            The field cannot be empty </div>
+                    </div>
+                    <div class="form-group col">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                            required>
+                        <div class="invalid-feedback">
+                            The field cannot be empty </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary col-5 m-auto d-block">Sign In</button>
+                    <p class="mt-3">Doesn't have an account yet? <a href="registration.html">Create an
+                            account</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
 
-// If the username and password exists, check the login table for a matching email and password
-if ($result_user->num_rows > 0 && $result_pass->num_rows > 0) {
-    echo "User is authenticated";
-    echo "<br>";
-    // perform the database insertion
-    $sql = "INSERT INTO logins (username, password, login_time)
-    VALUES ('$username', '$password', '$login_time')";
-    if (mysqli_query($conn, $sql)) {
-        echo "login successful";
-    }
-} else
-    echo "Incorrect email or password";
+    <script>
+        (function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
 
-?>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
+        integrity="sha384-0oaoe+2KvlOJuz1tt0XTODM+5CvQFJ5/eg/pzLbdN/0pzxST36JgEJ+D5HSPSwKJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

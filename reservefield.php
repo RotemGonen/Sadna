@@ -78,24 +78,12 @@
                 <select class="form-control" id="location-search" style="width: 100%">
                 </select>
                 <!-- search type bar -->
-                <select class="selectpicker form-control mt-2" data-live-search="true" id="type-select">
-                    <option value="">-- Select Type --</option>
-                    <?php
-                    // Make a connection to the database
-                    $conn = mysqli_connect("localhost", "test", "12345", "sadna");
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    // Query the table for type field
-                    $sql = "SELECT DISTINCT type FROM sportfield ORDER BY type ASC";
-                    $result = $conn->query($sql);
-                    // Loop through the results and create options
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<option value=\"" . $row["type"] . "\">" . $row["type"] . "</option>";
-                    }
-                    // Close the connection
-                    $conn->close();
-                    ?>
+                <select class="form-control" id="type-select" style="width: 100%">
+                    <option value="אולם ספורט">אולם ספורט</option>
+                    <option value="מגרש ספורט">מגרש ספורט</option>
+                    <option value="כדורגל">כדורגל</option>
+                    <option value="כדורסל">כדורסל</option>
+                    <option value="טניס">טניס</option>
                 </select>
                 <!-- the table element -->
                 <div class="table-responsive">
@@ -169,6 +157,9 @@
         });
         // function to get the city
         $(document).ready(function () {
+            $('#type-select').select2({
+                theme: "classic"
+            })
             $('#location-search').select2({
                 theme: "classic",
                 placeholder: "Search city...",
