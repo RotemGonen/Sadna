@@ -3,45 +3,25 @@
 
 <head>
     <title>MapQuest Example - Multiple Locations</title>
-    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=YOUR_CONSUMER_KEY"></script>
-    <link rel="stylesheet" href="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.css" />
-    <style>
-        #map {
-            width: 100%;
-            height: 500px;
-        }
-    </style>
 </head>
 
 <body>
-    <div id="map"></div>
     <script>
-        L.mapquest.key = "jmImAZZQLeRBECMGlhbjIP3InTwSvj0j";
+        const latitude = 32.122352;
+        const longitude = 34.800920;
 
-        var locations = [
-            { latLng: [37.7749, -122.4194], name: "San Francisco" },
-            { latLng: [34.0522, -118.2437], name: "Los Angeles" },
-            { latLng: [41.8781, -87.6298], name: "Chicago" },
-            { latLng: [40.7128, -74.0060], name: "New York City" }
-        ];
-
-        var map = L.mapquest.map("map", {
-            center: [39.8283, -98.5795],
-            layers: L.mapquest.tileLayer("map"),
-            zoom: 4
-        });
-
-        for (var i = 0; i < locations.length; i++) {
-            L.mapquest.textMarker(locations[i].latLng, {
-                text: locations[i].name,
-                position: "right",
-                icon: {
-                    primaryColor: "#333333",
-                    secondaryColor: "#333333",
-                    size: "sm"
+        const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.address) {
+                    const address = data.address;
+                    console.log(address);
+                } else {
+                    console.log("No results found");
                 }
-            }).addTo(map);
-        }
+            })
+            .catch(error => console.error(error));
     </script>
 </body>
 
