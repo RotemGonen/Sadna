@@ -90,11 +90,9 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Location</th>
-                                <th>X Axis</th>
-                                <th>Y Axis</th>
-                                <th>Type</th>
+                                <th>Map</th>
+                                <th>Street</th>
+                                <th>Number</th>
                             </tr>
                         </thead>
                         <tbody id="table-body">
@@ -131,17 +129,29 @@
                             // Append new rows to table
                             data.forEach(function (row) {
                                 var tr = $('<tr>');
-                                tr.append('<td>' + row.id + '</td>');
-                                tr.append('<td>' + row.location + '</td>');
-                                tr.append('<td>' + row.x_axis + '</td>');
-                                tr.append('<td>' + row.y_axis + '</td>');
-                                tr.append('<td>' + row.type + '</td>');
+
                                 var selectButton = $('<button>').addClass('btn btn-primary').text('Select');
                                 selectButton.click(function () {
                                     // Do something with the selected value
                                     alert(row.id)
                                 });
                                 tr.append($('<td>').append(selectButton));
+
+                                // Fetch the closest street name using OpenStreetMap Nominatim API
+                                const latitude = row.latitude;
+                                const longitude = row.longitude;
+                                const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&zoom=18&format=json`;
+                                fetch(url)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.address) {
+                                            const address = data.address;
+                                            const street = address.road || 'NA';
+                                            const houseNumber = address.house_number || 'NA';
+                                            tr.append('<td>' + street + '</td>'); // Add the street name and number to the table row
+                                            tr.append('<td>' + houseNumber + '</td>'); // Add the street name and number to the table row
+                                        }
+                                    })
                                 $('#table-body').append(tr);
                             });
                         },

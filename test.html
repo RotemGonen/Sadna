@@ -3,25 +3,29 @@
 
 <head>
     <title>MapQuest Example - Multiple Locations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 </head>
 
 <body>
+    <div id="map" style="width: 500px; height: 500px;"></div>
     <script>
-        const latitude = 32.122352;
-        const longitude = 34.800920;
+        // Set up the map
+        var map = L.map('map').setView([31.80309338, 35.10942674], 17);
 
-        const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.address) {
-                    const address = data.address;
-                    console.log(address);
-                } else {
-                    console.log("No results found");
-                }
-            })
-            .catch(error => console.error(error));
+        // Add the tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href=" https://www.openstreetmap.org/">OpenStreetMap</a > contributors',
+            zoom: 18,
+        }).addTo(map);
+
+        // Define the coordinate to display
+        var coordinate = [31.80309338, 35.10942674];
+
+        // Add a marker for the coordinate to the map
+        L.marker(coordinate).addTo(map);
     </script>
 </body>
 
