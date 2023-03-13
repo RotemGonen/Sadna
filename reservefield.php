@@ -7,15 +7,16 @@
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
     <title>4Play | fields</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        th {
+            position: sticky;
+            top: -1%;
+            background-color: white;
+        }
+    </style>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-        crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -79,14 +80,14 @@
         <div class="container">
 
             <div class="row justify-content-around">
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <div>
                         <div style="height:500px;">
                             <div id="map" class="w-100 h-100"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-3 m-md-0">
+                <div class="col-md-5 mt-3 m-md-0">
                     <!-- search city bar -->
                     <div class="form-group">
                         <label for="location-search"> Search city name in (Hebrew)</label>
@@ -105,13 +106,14 @@
                         </select>
                     </div>
                     <!-- the table element -->
-                    <div class="table-responsive">
-                        <table class="table table-striped">
+                    <div class="table-responsive" style="max-height: 300px;">
+                        <table class=" table table-striped">
                             <thead>
                                 <tr>
                                     <th>Map</th>
-                                    <th>Street</th>
-                                    <th>Number</th>
+                                    <th>Lighting</th>
+                                    <th>Accessible</th>
+                                    <th>Parking</th>
                                 </tr>
                             </thead>
                             <tbody id="table-body">
@@ -124,7 +126,7 @@
         </div>
     </main>
 
-    <footer class="container">
+    <footer class=" container">
         <p>&copy; 20232W89</p>
     </footer>
 
@@ -149,29 +151,21 @@
                             // Append new rows to table
                             data.forEach(function (row) {
                                 var tr = $('<tr>');
+                                const latitude = row.latitude;
+                                const longitude = row.longitude;
 
                                 var selectButton = $('<button>').addClass('btn btn-primary').text('Select');
                                 selectButton.click(function () {
-                                    // Do something with the selected value
-                                    alert(row.id)
+                                    changeCoords(latitude, longitude)
                                 });
-                                tr.append($('<td>').append(selectButton));
+                                const lighting = row.lighting;
+                                const suitable_for_the_disabled = row.suitable_for_the_disabled;
+                                const parking = row.parking;
 
-                                // Fetch the closest street name using OpenStreetMap Nominatim API
-                                const latitude = row.latitude;
-                                const longitude = row.longitude;
-                                const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&zoom=18&format=json`;
-                                fetch(url)
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        if (data.address) {
-                                            const address = data.address;
-                                            const street = address.road || 'NA';
-                                            const houseNumber = address.house_number || 'NA';
-                                            tr.append('<td>' + street + '</td>'); // Add the street name and number to the table row
-                                            tr.append('<td>' + houseNumber + '</td>'); // Add the street name and number to the table row
-                                        }
-                                    })
+                                tr.append($('<td>').append(selectButton));
+                                tr.append($('<td>').text(lighting));
+                                tr.append($('<td>').text(suitable_for_the_disabled));
+                                tr.append($('<td>').text(parking));
                                 $('#table-body').append(tr);
                             });
                         },
@@ -220,20 +214,27 @@
 
 
         // Set up the map
-        var map = L.map('map').setView([31.80309338, 35.10942674], 17);
-
+        var map = L.map('map').setView([31.80309338, 35.10942674], 7);
         // Add the tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         }).addTo(map);
+        var markerLayer = L.layerGroup().addTo(map);
 
-        // Define the coordinate to display
-        var coordinate = [31.80309338, 35.10942674];
+        function changeCoords(lat, lng) {
+            // Remove existing marker layer from the map
+            if (markerLayer) {
+                map.removeLayer(markerLayer);
+            }
 
-        // Add a marker for the coordinate to the map
-        L.marker(coordinate).addTo(map);
-    </script>
+            // Create a new marker layer and add it to the map
+            markerLayer = L.layerGroup();
+            var marker = L.marker([lat, lng]);
+            markerLayer.addLayer(marker);
+            map.addLayer(markerLayer);
 
-
+            // Center the map on the new coordinates
+            map.setView([lat, lng], 17);
+        }
     </script>
 </body>
 

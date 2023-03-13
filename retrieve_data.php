@@ -12,7 +12,7 @@ if (!$conn) {
 if (isset($_POST['location']) && isset($_POST['type'])) {
     $location = $_POST['location'];
     $type = $_POST['type'];
-    $sql = "SELECT * FROM sportfield WHERE location = '$location' AND type = '$type' limit 5";
+    $sql = "SELECT * FROM sportfield WHERE location = '$location' AND type = '$type'";
     $result = mysqli_query($conn, $sql);
     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
     echo json_encode($data);
