@@ -111,25 +111,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6 col-md-7">
-                            <!-- search type bar -->
-                            <Label for="type-select">Choose date:</Label> <input type="text" id="datepicker"
+                        <div class="form-group col-6 col-md-4">
+                            <!-- search date bar -->
+                            <Label for="datepicker">Choose date:</Label> <input type="text" id="datepicker"
                                 class="form-control" autocomplete="off">
                         </div>
-                        <div class="form-group col-6 col-md-3">
-                            <!-- search type bar -->
-                            <Label for="type-select">Select Time:</Label>
+                        <div class="form-group col-6 col-md-5">
+                            <!-- search time bar -->
+                            <Label for="selecttime">Select Time:</Label>
                             <select class="form-control col" aria-label="Select Time" id="selecttime">
                                 <option value="">--Select Time--</option>
-                                <option value="10:00 AM">10:00 AM</option>
-                                <option value="11:30 AM">11:30 AM</option>
-                                <option value="1:00 PM">1:00 PM</option>
-                                <option value="2:30 PM">2:30 PM</option>
-                                <option value="4:00 PM">4:00 PM</option>
-                                <option value="5:30 PM">5:30 PM</option>
-                                <option value="7:00 PM">7:00 PM</option>
-                                <option value="8:30 PM">8:30 PM</option>
-                                <option value="10:00 PM">10:00 PM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:30">11:30 AM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:30">2:30 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:30">5:30 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="20:30">8:30 PM</option>
+                                <option value="22:00">10:00 PM</option>
                             </select>
                         </div>
                     </div>
@@ -167,16 +167,18 @@
     <script>
         $(document).ready(function () {
             // Listen for changes to location select dropdown and the type select dropdown
-            $('#type-select,#location-search').on('change', function () {
+            $('#type-select,#location-search,#selecttime,#datepicker').on('change', function () {
                 var location = $('#location-search').val();
                 var type = $('#type-select').val();
+                var time = $('#selecttime').val();
+                var date = $('#datepicker').val();
 
-                if (location && type) {
+                if (location && type && time && date) {
                     // Send AJAX request to server to retrieve data
                     $.ajax({
                         url: 'retrieve_data.php',
                         method: 'POST',
-                        data: { location: location, type: type },
+                        data: { location: location, type: type, date: date, time: time },
                         dataType: 'json',
                         success: function (data) {
                             // Clear existing table rows
@@ -269,22 +271,6 @@
 
             // Center the map on the new coordinates
             map.setView([lat, lng], 17);
-
-            // setting the min date to today
-            $(document).ready(function () {
-                var today = new Date();
-                var year = today.getFullYear();
-                var month = today.getMonth() + 1;
-                var day = today.getDate();
-                if (month < 10) {
-                    month = '0' + month;
-                }
-                if (day < 10) {
-                    day = '0' + day;
-                }
-                var minDate = year + '-' + month + '-' + day;
-                $('input[type="date"]').attr('min', minDate);
-            })
         }
 
 
