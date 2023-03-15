@@ -293,14 +293,15 @@
                 data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime },
                 dataType: 'json',
                 success: function (data) {
-                    // Handle successful response from server
-                    console.log(data);
                 },
                 error: function (xhr, status, error) {
                     // Handle error response from server
                     console.log(xhr.responseText);
                 }
             });
+            // trigger reload the table eventד
+            $('#starttime').change();
+
         });
 
     </script>
