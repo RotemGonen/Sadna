@@ -17,7 +17,8 @@ $endtime = $_POST['endtime'];
 $sql = "INSERT INTO field_reservation (id,date, starttime, endtime) VALUES ('$id', '$date', '$starttime', '$endtime')";
 
 if (mysqli_query($conn, $sql)) {
-    echo "HI";
+    // it passes the error in the diffrent page
+    echo "Query executed successfully";
 } else {
     echo "Error: " . mysqli_error($conn);
 }

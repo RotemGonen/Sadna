@@ -136,7 +136,7 @@
                         <table class=" table">
                             <thead>
                                 <tr>
-                                    <th>Show</th>
+                                    <th>Select</th>
                                     <th>Lighting</th>
                                     <th>Accessible</th>
                                     <th>Parking</th>
@@ -180,7 +180,8 @@
 
                 if (location && type && starttime && endtime && date) {
                     // Send AJAX request to server to retrieve data
-                    console.log(event.type);
+                    console.log('the refresh is run');
+                    $('#confirmbutton').attr('disabled', true);
                     $.ajax({
                         url: 'retrieve_data.php',
                         method: 'POST',
@@ -194,13 +195,13 @@
                                 var tr = $('<tr>');
                                 const latitude = row.latitude;
                                 const longitude = row.longitude;
-                                var selectButton = $('<button>').addClass('btn btn-secondary').text('Show');
+                                var selectButton = $('<button>').addClass('btn btn-secondary').text('Select');
                                 selectButton.click(function () {
                                     changeCoords(latitude, longitude)
                                     $('tr').removeClass('checked');
                                     $(this).closest('tr').addClass('checked');
                                     selectedFieldId = row.id;
-                                    $('#confirmbutton').removeAttr("disabled");
+                                    $('#confirmbutton').attr('disabled', false);
                                 });
                                 const lighting = row.lighting;
                                 const suitable_for_the_disabled = row.suitable_for_the_disabled;
@@ -293,15 +294,15 @@
                 data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime },
                 dataType: 'json',
                 success: function (data) {
+                    $('#starttime').change();
                 },
                 error: function (xhr, status, error) {
                     // Handle error response from server
-                    console.log(xhr.responseText);
+                    $('#starttime').change();
+                    $('#confirmbutton').attr('disabled', true);
                 }
             });
             // trigger reload the table eventד
-            $('#starttime').change();
-
         });
 
     </script>
