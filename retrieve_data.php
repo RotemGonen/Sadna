@@ -17,14 +17,19 @@ if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'
     $endtime = $_POST['endtime'];
 
     $sql = "SELECT sportfield.*
-            FROM sportfield
-            LEFT JOIN field_reservation
-            ON sportfield.id = field_reservation.id
-            AND field_reservation.date = '$date'
-            AND (field_reservation.endtime < '$endtime' AND field_reservation.starttime > '$starttime')
-            WHERE sportfield.location = '$location'
-            AND sportfield.type = '$type'
-            AND field_reservation.id IS NULL";
+    FROM sportfield
+    LEFT JOIN field_reservation
+    ON sportfield.id = field_reservation.id
+    AND field_reservation.date = '$date'
+    AND NOT (
+        field_reservation.endtime BETWEEN '$starttime' AND '$endtime' OR
+        field_reservation.starttime BETWEEN '$starttime' AND '$endtime' OR
+        (field_reservation.starttime < '$starttime' AND field_reservation.endtime > '$endtime')
+    )
+    WHERE sportfield.location = '$location'
+    AND sportfield.type = '$type'
+    AND field_reservation.id IS NULL
+    ";
 
     $result = mysqli_query($conn, $sql);
 

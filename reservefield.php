@@ -117,8 +117,8 @@
                     <div class="row">
                         <div class="form-group col">
                             <!-- search date bar -->
-                            <Label for="datepicker">Choose date:</Label> <input type="text" id="datepicker"
-                                class="form-control" autocomplete="off">
+                            <Label for="datepicker">Choose date:</Label>
+                            <input type="date" id="datepicker" class="form-control" autocomplete="off">
                         </div>
                         <div class="form-group col">
                             <!-- select start time bar -->
@@ -151,7 +151,7 @@
                 </div>
                 <div class="col-md-6 offset-md-3 text-center mt-2">
 
-                    <button class="btn btn-success btn-lg mb-2 mt-2">Reserve</button>
+                    <button class="btn btn-success btn-lg mb-2 mt-2" disabled id="confirmbutton">Confirm</button>
                 </div>
             </div>
         </div>
@@ -164,17 +164,23 @@
 
     <!-- jQuery script to retrieve data and update table -->
     <script>
+        var selectedFieldId = null;
+        var starttime = null;
+        var endtime = null;
+        var date = null;
+
         $(document).ready(function () {
             // Listen for changes to location select dropdown and the type select dropdown
             $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function () {
                 var location = $('#location-search').val();
                 var type = $('#type-select').val();
-                var starttime = $('#starttime').val();
-                var endtime = $('#endtime').val();
-                var date = $('#datepicker').val();
+                starttime = $('#starttime').val();
+                endtime = $('#endtime').val();
+                date = $('#datepicker').val();
 
                 if (location && type && starttime && endtime && date) {
                     // Send AJAX request to server to retrieve data
+                    console.log(event.type);
                     $.ajax({
                         url: 'retrieve_data.php',
                         method: 'POST',
@@ -193,7 +199,8 @@
                                     changeCoords(latitude, longitude)
                                     $('tr').removeClass('checked');
                                     $(this).closest('tr').addClass('checked');
-                                    console.log('Checked row with ID: ' + row.id);
+                                    selectedFieldId = row.id;
+                                    $('#confirmbutton').removeAttr("disabled");
                                 });
                                 const lighting = row.lighting;
                                 const suitable_for_the_disabled = row.suitable_for_the_disabled;
@@ -278,15 +285,24 @@
 
         $(document).ready(function () {
         })
-        $(document).ready(function () {
-            var today = new Date();
-            // Initialize Datepicker
-            $('#datepicker').datepicker({
-                format: 'dd-mm-yyyy',
-                orientation: 'bottom',
-                startDate: today
+
+        $('#confirmbutton').on('click', function () {
+            $.ajax({
+                url: 'insert_reservation.php',
+                method: 'POST',
+                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime },
+                dataType: 'json',
+                success: function (data) {
+                    // Handle successful response from server
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response from server
+                    console.log(xhr.responseText);
+                }
             });
         });
+
     </script>
 </body>
 
