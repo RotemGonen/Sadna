@@ -115,26 +115,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6 col-md-4 mr-md-5">
+                        <div class="form-group col">
                             <!-- search date bar -->
                             <Label for="datepicker">Choose date:</Label> <input type="text" id="datepicker"
                                 class="form-control" autocomplete="off">
                         </div>
-                        <div class="form-group col-6 col-md-5">
-                            <!-- search time bar -->
-                            <Label for="selecttime">Select Time:</Label>
-                            <select class="form-control" aria-label="Select Time" id="selecttime">
-                                <option value="">--Select Time--</option>
-                                <option value="10:00">10:00 AM</option>
-                                <option value="11:30">11:30 AM</option>
-                                <option value="13:00">1:00 PM</option>
-                                <option value="14:30">2:30 PM</option>
-                                <option value="16:00">4:00 PM</option>
-                                <option value="17:30">5:30 PM</option>
-                                <option value="19:00">7:00 PM</option>
-                                <option value="20:30">8:30 PM</option>
-                                <option value="22:00">10:00 PM</option>
-                            </select>
+                        <div class="form-group col">
+                            <!-- select start time bar -->
+                            <Label for="starttime">Select start time:</Label>
+                            <input type="time" class="form-control" id="starttime">
+                        </div>
+                        <div class="form-group col">
+                            <!-- selece end time bar -->
+                            <Label for="endtime">Select end time:</Label>
+                            <input type="time" class="form-control" id="endtime">
                         </div>
                     </div>
                     <!-- the table element -->
@@ -153,12 +147,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6 offset-md-3 text-center mt-2">
 
-                        <button class="btn btn-success btn-lg mb-2 mt-2">Reserve</button>
-                    </div>
+                </div>
+                <div class="col-md-6 offset-md-3 text-center mt-2">
+
+                    <button class="btn btn-success btn-lg mb-2 mt-2">Reserve</button>
                 </div>
             </div>
+        </div>
 
     </main>
 
@@ -170,18 +166,19 @@
     <script>
         $(document).ready(function () {
             // Listen for changes to location select dropdown and the type select dropdown
-            $('#type-select,#location-search,#selecttime,#datepicker').on('change', function () {
+            $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function () {
                 var location = $('#location-search').val();
                 var type = $('#type-select').val();
-                var time = $('#selecttime').val();
+                var starttime = $('#starttime').val();
+                var endtime = $('#endtime').val();
                 var date = $('#datepicker').val();
 
-                if (location && type && time && date) {
+                if (location && type && starttime && endtime && date) {
                     // Send AJAX request to server to retrieve data
                     $.ajax({
                         url: 'retrieve_data.php',
                         method: 'POST',
-                        data: { location: location, type: type, date: date, time: time },
+                        data: { location: location, type: type, date: date, starttime: starttime, endtime: endtime },
                         dataType: 'json',
                         success: function (data) {
                             // Clear existing table rows
@@ -280,11 +277,6 @@
 
 
         $(document).ready(function () {
-            $('#selecttime').select2({
-                placeholder: 'Select time:',
-                allowClear: true,
-                theme: 'classic',
-            });
         })
         $(document).ready(function () {
             var today = new Date();

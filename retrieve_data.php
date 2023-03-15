@@ -9,18 +9,19 @@ if (!$conn) {
 }
 
 // Check if data is being received correctly
-if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['time'])) {
+if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'], $_POST['endtime'])) {
     $location = $_POST['location'];
     $type = $_POST['type'];
     $date = $_POST['date'];
-    $time = $_POST['time'];
+    $starttime = $_POST['starttime'];
+    $endtime = $_POST['endtime'];
 
-    $sql = "SELECT sportfield.*, field_reservation.date, field_reservation.time
+    $sql = "SELECT sportfield.*
             FROM sportfield
             LEFT JOIN field_reservation
             ON sportfield.id = field_reservation.id
             AND field_reservation.date = '$date'
-            AND field_reservation.time = '$time'
+            AND (field_reservation.endtime < '$endtime' AND field_reservation.starttime > '$starttime')
             WHERE sportfield.location = '$location'
             AND sportfield.type = '$type'
             AND field_reservation.id IS NULL";
