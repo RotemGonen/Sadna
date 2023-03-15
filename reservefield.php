@@ -13,6 +13,10 @@
             top: -1%;
             background-color: white;
         }
+
+        .checked {
+            background-color: #cce7e8;
+        }
     </style>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -50,7 +54,7 @@
                     <a class="nav-link" href="#">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Schedule a training</a>
+                    <a class="nav-link" href="#">Meet the trainers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Store</a>
@@ -111,7 +115,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6 col-md-4">
+                        <div class="form-group col-6 col-md-4 mr-md-5">
                             <!-- search date bar -->
                             <Label for="datepicker">Choose date:</Label> <input type="text" id="datepicker"
                                 class="form-control" autocomplete="off">
@@ -119,7 +123,7 @@
                         <div class="form-group col-6 col-md-5">
                             <!-- search time bar -->
                             <Label for="selecttime">Select Time:</Label>
-                            <select class="form-control col" aria-label="Select Time" id="selecttime">
+                            <select class="form-control" aria-label="Select Time" id="selecttime">
                                 <option value="">--Select Time--</option>
                                 <option value="10:00">10:00 AM</option>
                                 <option value="11:30">11:30 AM</option>
@@ -135,11 +139,10 @@
                     </div>
                     <!-- the table element -->
                     <div class="table-responsive" style="max-height: 300px;height: 300px;">
-                        <table class=" table table-striped">
+                        <table class=" table">
                             <thead>
                                 <tr>
-                                    <th>Check Availablity</th>
-                                    <th>Map</th>
+                                    <th>Show</th>
                                     <th>Lighting</th>
                                     <th>Accessible</th>
                                     <th>Parking</th>
@@ -188,17 +191,18 @@
                                 var tr = $('<tr>');
                                 const latitude = row.latitude;
                                 const longitude = row.longitude;
-
-                                var CheckButton = $('<button>').addClass('btn btn-primary').text('Check');
                                 var selectButton = $('<button>').addClass('btn btn-secondary').text('Show');
                                 selectButton.click(function () {
                                     changeCoords(latitude, longitude)
+                                    $('tr').removeClass('checked');
+                                    $(this).closest('tr').addClass('checked');
+                                    console.log('Checked row with ID: ' + row.id);
                                 });
                                 const lighting = row.lighting;
                                 const suitable_for_the_disabled = row.suitable_for_the_disabled;
                                 const parking = row.parking;
 
-                                tr.append($('<td>').append(CheckButton));
+
                                 tr.append($('<td>').append(selectButton));
                                 tr.append($('<td>').text(lighting));
                                 tr.append($('<td>').text(suitable_for_the_disabled));
