@@ -114,12 +114,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <!-- search date bar -->
-                            <Label for="datepicker">Choose date:</Label>
-                            <input type="date" id="datepicker" class="form-control" autocomplete="off">
-                        </div>
+                    <div class="row" id="form-row">
                         <div class="form-group col">
                             <!-- select start time bar -->
                             <Label for="starttime">Select start time:</Label>
@@ -129,6 +124,11 @@
                             <!-- selece end time bar -->
                             <Label for="endtime">Select end time:</Label>
                             <input type="time" class="form-control" id="endtime">
+                        </div>
+                        <div class="form-group col">
+                            <!-- search date bar -->
+                            <Label for="datepicker">Choose date:</Label>
+                            <input type="date" id="datepicker" class="form-control" autocomplete="off">
                         </div>
                     </div>
                     <!-- the table element -->
@@ -285,6 +285,65 @@
 
 
         $(document).ready(function () {
+            $(function () {
+                var today = new Date().toISOString().split('T')[0];
+                $('#datepicker').attr('min', today);
+            });
+
+            const startTime = document.getElementById('starttime');
+            const endTime = document.getElementById('endtime');
+
+            endTime.addEventListener('change', checkTimeDifference);
+            startTime.addEventListener('change', checkTimeDifference);
+
+            function checkTimeDifference() {
+                const start = new Date(`01/01/2022 ${startTime.value}`);
+                const end = new Date(`01/01/2022 ${endTime.value}`);
+
+                const timeDiff = (end.getTime() - start.getTime()) / 1000 / 60; // Difference in minutes
+
+                if (startTime.value !== "" && endTime.value !== "") {
+                    let errorMessage = "";
+
+                    // check for time difference
+                    if (timeDiff < 45 || timeDiff > 90) {
+                        errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
+                    }
+
+                    // check for start and end times
+                    if (startTime.value >= endTime.value) {
+                        errorMessage = "The start time cannot be after or equal to the end time.";
+                    }
+
+                    if (errorMessage !== "") {
+                        // Find existing alert, if any
+                        const alertDiv = document.querySelector(".alert.alert-danger");
+
+                        if (alertDiv) {
+                            // Update existing alert's text, if it exists
+                            alertDiv.textContent = errorMessage;
+                            endTime.value = "";
+                        } else {
+                            // Create new alert if there isn't one already
+                            const alertDiv = document.createElement("div");
+                            alertDiv.classList.add("alert", "alert-danger");
+                            alertDiv.classList.add("alert", "col");
+                            alertDiv.textContent = errorMessage;
+
+                            const inputRow = document.querySelector("#form-row");
+                            endTime.value = "";
+                            inputRow.appendChild(alertDiv);
+
+                            // Remove the alert after 5 seconds
+                            setTimeout(() => {
+                                alertDiv.remove();
+                            }, 5000);
+                        }
+                    }
+                }
+            }
+
+
         })
 
         $('#confirmbutton').on('click', function () {
@@ -302,9 +361,8 @@
                     $('#confirmbutton').attr('disabled', true);
                 }
             });
-            // trigger reload the table eventד
-        });
 
+        });
     </script>
 </body>
 
