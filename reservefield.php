@@ -118,12 +118,12 @@
                         <div class="form-group col">
                             <!-- select start time bar -->
                             <Label for="starttime">Select start time:</Label>
-                            <input type="time" class="form-control" id="starttime">
+                            <input type="time" class="form-control" id="starttime" min="08:00" max="23:00">
                         </div>
                         <div class="form-group col">
                             <!-- selece end time bar -->
                             <Label for="endtime">Select end time:</Label>
-                            <input type="time" class="form-control" id="endtime">
+                            <input type="time" class="form-control" id="endtime" min="08:00" max="23:00" step="900">
                         </div>
                         <div class="form-group col">
                             <!-- search date bar -->
@@ -168,6 +168,75 @@
         var starttime = null;
         var endtime = null;
         var date = null;
+        var flag = false;
+
+        $(document).ready(function () {
+            $(function () {
+                var today = new Date().toISOString().split('T')[0];
+                $('#datepicker').attr('min', today);
+            });
+
+            const startTime = document.getElementById('starttime');
+            const endTime = document.getElementById('endtime');
+
+            endTime.addEventListener('change', checkTimeDifference);
+            startTime.addEventListener('change', checkTimeDifference);
+
+            function checkTimeDifference() {
+                const start = new Date(`01/01/2022 ${startTime.value}`);
+                const end = new Date(`01/01/2022 ${endTime.value}`);
+
+                const timeDiff = (end.getTime() - start.getTime()) / 1000 / 60; // Difference in minutes
+
+                if (startTime.value !== "" && endTime.value !== "") {
+                    let errorMessage = "";
+
+                    // check for time difference
+                    if (timeDiff < 45 || timeDiff > 90) {
+                        errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
+                    }
+
+                    // check for start and end times
+                    if (startTime.value >= endTime.value) {
+                        errorMessage = "The start time cannot be before or equal to the end time.";
+                    }
+
+                    if (errorMessage !== "") {
+                        // Find existing alert, if any
+                        const alertDiv = document.querySelector(".alert.alert-danger");
+
+                        if (alertDiv) {
+                            // Update existing alert's text, if it exists
+                            alertDiv.textContent = errorMessage;
+                            endTime.value = "";
+                            flag = false;
+                        } else {
+                            // Create new alert if there isn't one already
+                            const alertDiv = document.createElement("div");
+                            alertDiv.classList.add("alert", "alert-danger");
+                            alertDiv.classList.add("alert", "col");
+                            alertDiv.textContent = errorMessage;
+
+                            const inputRow = document.querySelector("#form-row");
+                            endTime.value = "";
+                            flag = false;
+                            inputRow.appendChild(alertDiv);
+
+                            // Remove the alert after 5 seconds
+                            setTimeout(() => {
+                                alertDiv.remove();
+                            }, 5000);
+                        }
+                    } else {
+                        flag = true;
+                        errorMessage = ""
+                        setTimeout(() => {
+                            $('#starttime').change();
+                        }, 100);
+                    }
+                }
+            }
+        })
 
         $(document).ready(function () {
             // Listen for changes to location select dropdown and the type select dropdown
@@ -177,8 +246,7 @@
                 starttime = $('#starttime').val();
                 endtime = $('#endtime').val();
                 date = $('#datepicker').val();
-
-                if (location && type && starttime && endtime && date) {
+                if (location && type && starttime && endtime && date && flag) {
                     // Send AJAX request to server to retrieve data
                     console.log('the refresh is run');
                     $('#confirmbutton').attr('disabled', true);
@@ -258,7 +326,6 @@
             })
         });
 
-
         // Set up the map
         var map = L.map('map').setView([31.80309338, 35.10942674], 7);
         // Add the tile layer
@@ -277,75 +344,9 @@
             var marker = L.marker([lat, lng]);
             markerLayer.addLayer(marker);
             map.addLayer(markerLayer);
-
             // Center the map on the new coordinates
             map.setView([lat, lng], 17);
         }
-
-
-
-        $(document).ready(function () {
-            $(function () {
-                var today = new Date().toISOString().split('T')[0];
-                $('#datepicker').attr('min', today);
-            });
-
-            const startTime = document.getElementById('starttime');
-            const endTime = document.getElementById('endtime');
-
-            endTime.addEventListener('change', checkTimeDifference);
-            startTime.addEventListener('change', checkTimeDifference);
-
-            function checkTimeDifference() {
-                const start = new Date(`01/01/2022 ${startTime.value}`);
-                const end = new Date(`01/01/2022 ${endTime.value}`);
-
-                const timeDiff = (end.getTime() - start.getTime()) / 1000 / 60; // Difference in minutes
-
-                if (startTime.value !== "" && endTime.value !== "") {
-                    let errorMessage = "";
-
-                    // check for time difference
-                    if (timeDiff < 45 || timeDiff > 90) {
-                        errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
-                    }
-
-                    // check for start and end times
-                    if (startTime.value >= endTime.value) {
-                        errorMessage = "The start time cannot be after or equal to the end time.";
-                    }
-
-                    if (errorMessage !== "") {
-                        // Find existing alert, if any
-                        const alertDiv = document.querySelector(".alert.alert-danger");
-
-                        if (alertDiv) {
-                            // Update existing alert's text, if it exists
-                            alertDiv.textContent = errorMessage;
-                            endTime.value = "";
-                        } else {
-                            // Create new alert if there isn't one already
-                            const alertDiv = document.createElement("div");
-                            alertDiv.classList.add("alert", "alert-danger");
-                            alertDiv.classList.add("alert", "col");
-                            alertDiv.textContent = errorMessage;
-
-                            const inputRow = document.querySelector("#form-row");
-                            endTime.value = "";
-                            inputRow.appendChild(alertDiv);
-
-                            // Remove the alert after 5 seconds
-                            setTimeout(() => {
-                                alertDiv.remove();
-                            }, 5000);
-                        }
-                    }
-                }
-            }
-
-
-        })
-
         $('#confirmbutton').on('click', function () {
             $.ajax({
                 url: 'insert_reservation.php',
@@ -361,7 +362,6 @@
                     $('#confirmbutton').attr('disabled', true);
                 }
             });
-
         });
     </script>
 </body>
