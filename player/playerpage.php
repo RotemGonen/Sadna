@@ -13,6 +13,21 @@
 </head>
 
 <body>
+    <?php
+    session_start();
+    if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
+        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        exit;
+    } else {
+        echo "<script>
+        window.onload = function() {
+            var usernameDiv = document.getElementById('greeting');
+            usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
+            }
+        </script>";
+    }
+
+    ?>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
@@ -27,7 +42,7 @@
                     <a class="nav-link" href="#">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Reserve a sport field</a>
+                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Schedule a training</a>
@@ -50,7 +65,7 @@
     <main role="main">
         <div class="jumbotron">
             <div class="container">
-                <h1 class="display-3">Hello, *user*</h1>
+                <h1 class="display-3" id="greeting">Hello, *user*</h1>
                 <p><span class="font-weight-bold">It's good to see you here!</span>
                     Tired of the hassle of arriving at your local park with your team,
                     only to find it already occupied? Say goodbye to disappointment and hello to convenience with our
@@ -66,16 +81,17 @@
                     <div class="carousel slide" data-bs-ride="carousel" data-interval="800">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="images/basketball.jpg" class="d-block w-100" alt="basketball">
+                                <img src="http://localhost/Sadna/images/basketball.jpg" class="d-block w-100"
+                                    alt="basketball">
                             </div>
                             <div class="carousel-item">
-                                <img src="images/soccer.jpg" class="d-block w-100" alt="soccer">
+                                <img src="http://localhost/Sadna/images/soccer.jpg" class="d-block w-100" alt="soccer">
                             </div>
                             <div class="carousel-item">
-                                <img src="images/tennis.jpg" class="d-block w-100" alt="tennis">
+                                <img src="http://localhost/Sadna/images/tennis.jpg" class="d-block w-100" alt="tennis">
                             </div>
                             <div class="carousel-item">
-                                <img src="images/volleyball.jpg" class="d-block w-100" alt="...">
+                                <img src="http://localhost/Sadna/images/volleyball.jpg" class="d-block w-100" alt="...">
                             </div>
                         </div>
                     </div>

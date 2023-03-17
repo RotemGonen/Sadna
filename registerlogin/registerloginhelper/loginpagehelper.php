@@ -24,14 +24,20 @@ if (mysqli_num_rows($result) == 1) {
     if ($password == $row['password']) {
         //password is correct, create session variable and redirect to desired page
         session_start();
+        $_SESSION['authenticated'] = true;
         $_SESSION['username'] = $username;
-        header("Location: dashboard.php");
-        exit();
+        $_SESSION['account_type'] = $row['account_type'];
+        if ($row['account_type'] == 'player') {
+            header("Location: http://localhost/Sadna/player/playerpage.php");
+            exit();
+        } else {
+            header("Location: trainerpage.php");
+        }
     }
 }
 $error = "Invalid password or username.";
 
-header("Location: loginpage.php?error=" . urlencode($error));
+header("Location: http://localhost/Sadna/registerlogin/loginpage.php?error=" . urlencode($error));
 //close the database connection
 
 mysqli_close($conn);

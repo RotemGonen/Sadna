@@ -18,26 +18,34 @@
             background-color: #cce7e8;
         }
     </style>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS resources -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+
+    <!-- JavaScript resources -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <!-- Bootstrap bundle (JS, Popper, and jquery for Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 </head>
 
 <body>
+    <?php
+    session_start();
+    if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
+        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        exit;
+    }
 
+    ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -48,7 +56,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Reserve a sport field</a>
@@ -118,12 +126,12 @@
                         <div class="form-group col">
                             <!-- select start time bar -->
                             <Label for="starttime">Select start time:</Label>
-                            <input type="time" class="form-control" id="starttime" min="08:00" max="23:00">
+                            <input type="time" class="form-control" id="starttime">
                         </div>
                         <div class="form-group col">
                             <!-- selece end time bar -->
                             <Label for="endtime">Select end time:</Label>
-                            <input type="time" class="form-control" id="endtime" min="08:00" max="23:00" step="900">
+                            <input type="time" class="form-control" id="endtime">
                         </div>
                         <div class="form-group col">
                             <!-- search date bar -->
@@ -151,7 +159,15 @@
                 </div>
                 <div class="col-md-6 offset-md-3 text-center mt-2">
 
-                    <button class="btn btn-success btn-lg mb-2 mt-2" disabled id="confirmbutton">Confirm</button>
+                    <button class="btn btn-success btn-lg mb-2 mt-2" disabled id="confirmbutton">Reserve for your
+                        team</button>
+                </div>
+
+                <div class="col-md-6 offset-md-3 text-center mt-2">
+                    <label for="confirmation-checkbox">
+                        <input type="checkbox" id="confirmation-checkbox">
+                        Schedule with trainer
+                    </label>
                 </div>
             </div>
         </div>
@@ -239,6 +255,18 @@
         })
 
         $(document).ready(function () {
+            // check button logic
+            const confirmationCheckbox = document.querySelector('#confirmation-checkbox');
+            const confirmButton = document.querySelector('#confirmbutton');
+
+            confirmationCheckbox.addEventListener('change', () => {
+                if (confirmationCheckbox.checked) {
+                    confirmButton.textContent = 'Schedule with trainer!';
+                } else {
+                    confirmButton.textContent = 'Reserve for your team';
+                }
+            });
+
             // Listen for changes to location select dropdown and the type select dropdown
             $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function () {
                 var location = $('#location-search').val();
@@ -251,7 +279,7 @@
                     console.log('the refresh is run');
                     $('#confirmbutton').attr('disabled', true);
                     $.ajax({
-                        url: 'retrieve_data.php',
+                        url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data.php',
                         method: 'POST',
                         data: { location: location, type: type, date: date, starttime: starttime, endtime: endtime },
                         dataType: 'json',
@@ -302,7 +330,7 @@
                 theme: "classic",
                 placeholder: "Search city...",
                 ajax: {
-                    url: 'retrieve_locations.php',
+                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -349,7 +377,7 @@
         }
         $('#confirmbutton').on('click', function () {
             $.ajax({
-                url: 'insert_reservation.php',
+                url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
                 method: 'POST',
                 data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime },
                 dataType: 'json',
