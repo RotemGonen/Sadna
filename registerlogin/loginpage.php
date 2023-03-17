@@ -6,12 +6,12 @@
     <title>Sign In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://localhost/Sadna/CSS/style.css">
 </head>
 
 <header>
-    <div class="container"> <img src="images/4Playlogo.png" class=" mt-3 img-fluid mx-auto d-block w-auto"
-            alt="Responsive image">
+    <div class="container"> <img src="http://localhost/Sadna/images/4Playlogo.png"
+            class=" mt-3 img-fluid mx-auto d-block w-auto" alt="Responsive image">
     </div>
 </header>
 
@@ -20,7 +20,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4 my-5">
                 <h2 class="text-center">Sign In</h2>
-                <form action="loginpagehelper.php" class="needs-validation" method="post" novalidate>
+                <form action="http://localhost/Sadna/registerlogin/registerloginhelper/loginpagehelper.php"
+                    class="needs-validation" method="post" novalidate>
                     <?php
                     //check if an error message is present in the URL query parameters
                     if (isset($_GET['error'])) {
