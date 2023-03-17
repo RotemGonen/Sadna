@@ -168,8 +168,13 @@
                         <input type="checkbox" id="confirmation-checkbox">
                         Schedule with trainer
                     </label>
+
+                    <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
+                        <!-- success alert appear here -->
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
 
     </main>
@@ -379,18 +384,29 @@
             $.ajax({
                 url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
                 method: 'POST',
-                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime },
+                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, username: '<?php echo $_SESSION["username"]; ?>' },
                 dataType: 'json',
                 success: function (data) {
                     $('#starttime').change();
                 },
                 error: function (xhr, status, error) {
-                    // Handle error response from server
+                    // the error is Handling the response from server
                     $('#starttime').change();
                     $('#confirmbutton').attr('disabled', true);
+                    $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
+                    $('#successmsg')[0].scrollIntoView({
+                        behavior: 'smooth',
+                        duration: 4000
+                    });
+
+                    setTimeout(function () {
+                        $('.alert').alert('close');
+                    }, 5000);
+
                 }
             });
         });
+
     </script>
 </body>
 
