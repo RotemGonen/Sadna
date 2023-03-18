@@ -2,31 +2,42 @@
 <html>
 
 <head>
-    <title>MapQuest Example - Multiple Locations</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <title>Example</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'test.php', // change this to the url of your server-side script that fetches the data from the database
+                type: 'get',
+                dataType: 'json',
+                success: function (response) {
+                    var data = response.data;
+                    var rows = '';
+                    for (var i = 0; i < data.length; i++) {
+                        rows += '<div class="row">';
+                        rows += '<div class="col-3">' + data[i].date + '</div>'; // change this to the format of your data
+                        rows += '<div class="col-3">' + data[i].starttime + '</div>'; // change this to the format of your data
+                        rows += '<div class="col-3">' + data[i].endtime + '</div>'; // change this to the format of your data
+                        rows += '<button class="btn btn-danger remove-row" data-id="' + data[i].id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
+                        rows += '</div>';
+                    }
+                    $('#data').html(rows);
+                }
+            })
+        });
+    </script>
 </head>
 
 <body>
-    <div id="map" style="width: 500px; height: 500px;"></div>
-    <script>
-        // Set up the map
-        var map = L.map('map').setView([31.80309338, 35.10942674], 17);
-
-        // Add the tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href=" https://www.openstreetmap.org/">OpenStreetMap</a > contributors',
-            zoom: 18,
-        }).addTo(map);
-
-        // Define the coordinate to display
-        var coordinate = [31.80309338, 35.10942674];
-
-        // Add a marker for the coordinate to the map
-        L.marker(coordinate).addTo(map);
-    </script>
+    <div class="container">
+        <h2>Data from Table</h2>
+        <div id="data"></div>
+    </div>
 </body>
 
 </html>

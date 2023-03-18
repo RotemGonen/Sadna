@@ -384,7 +384,7 @@
             $.ajax({
                 url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
                 method: 'POST',
-                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, username: '<?php echo $_SESSION["username"]; ?>' },
+                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>' },
                 dataType: 'json',
                 success: function (data) {
                     $('#starttime').change();
