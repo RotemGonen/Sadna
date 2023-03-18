@@ -9,7 +9,10 @@ if ($mysqli->connect_errno) {
 }
 
 // query the database for the data
-$query = "SELECT * FROM field_reservation";
+$query = "SELECT *
+FROM field_reservation
+JOIN sportfield
+ON field_reservation.id = sportfield.id;";
 $result = $mysqli->query($query);
 
 // check for errors
