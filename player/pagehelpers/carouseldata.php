@@ -7,12 +7,14 @@ if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     exit();
 }
-
+$username = $_GET['username'];
 // query the database for the data
 $query = "SELECT *
 FROM field_reservation
-JOIN sportfield
-ON field_reservation.id = sportfield.id;";
+JOIN sportfield ON field_reservation.field_id = sportfield.id 
+WHERE field_reservation.player_username = '$username' 
+ORDER BY field_reservation.date ASC, field_reservation.starttime ASC
+";
 $result = $mysqli->query($query);
 
 // check for errors

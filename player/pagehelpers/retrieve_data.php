@@ -23,7 +23,7 @@ if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'
     AND NOT EXISTS (
         SELECT 1
         FROM field_reservation r
-        WHERE r.id = s.id
+        WHERE r.field_id = s.id
         AND r.date = '$date'
         AND (
             ('$starttime' BETWEEN r.starttime AND r.endtime

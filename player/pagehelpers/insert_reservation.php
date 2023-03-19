@@ -14,7 +14,7 @@ $starttime = $_POST['starttime'];
 $endtime = $_POST['endtime'];
 $player_username = $_POST['player_username'];
 // insert data into table
-$sql = "INSERT INTO field_reservation (id,date,starttime,endtime,player_username) VALUES ('$id', '$date', '$starttime', '$endtime','$player_username')";
+$sql = "INSERT INTO field_reservation (field_id,date,starttime,endtime,player_username) VALUES ('$id', '$date', '$starttime', '$endtime','$player_username')";
 
 if (mysqli_query($conn, $sql)) {
     // it passes the error in the diffrent page
