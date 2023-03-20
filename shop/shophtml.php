@@ -16,11 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(function(){
-        $("#navbar").load("navbar.html")
-        // $.get('navbar.html', function(data) {
-        // // Find all elements with class 'my-class'
-        // $(data).find('#store').addClass('font-weight-normal');
-        // });    
+        $("#navbar").load("../navbar.html")    
     });
     </script>
     
@@ -46,8 +42,14 @@
             <div>
         </div>
 
-        <?php include 'shop.php'; ?>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <?php include 'shop.php'; ?>
+                </div>
+            </div>
+        </div>
+ 
     </main>
 
 </body>
