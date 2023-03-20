@@ -90,7 +90,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        <div id="reservationcarousel" class="carousel carousel-dark slide">
+
+                        <div>
+                            <h3 class="fs-2">Your Current Reservation</h3>
+                            <p>Below you will find the details of your current reservation, including the date, time,
+                                type of sport, location and a button to view the location on a map. You can also remove
+                                your reservation by clicking the "Remove" button.</p>
+                        </div>
+                        <div id="reservationcarousel" class="carousel carousel-dark slide mb-2 mb-md-0 shadow">
                             <div class="carousel-inner text-center" id="cards"></div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel"
                                 data-bs-slide="prev">
@@ -115,8 +122,8 @@
         </main>
 
         <script>
-            var data; // define data outside of AJAX call
-            $(document).ready(function () {
+
+            function Getreserv() {
                 $.ajax({
                     url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php', // change this to the url of your server-side script that fetches the data from the database
                     type: 'get',
@@ -153,6 +160,11 @@
                         }
                     }
                 })
+
+            }
+            var data; // define data outside of AJAX call
+            $(document).ready(function () {
+                Getreserv()
             });
 
             $(document).ready(function () {
@@ -187,8 +199,29 @@
                     map.setView([lat, lng], 17);
                 }
             })
+            $(document).ready(function () {
+                var carousel = $('#reservationcarousel');
+                // Add a click event listener to the "remove" button
+                carousel.on('click', '.remove-row', function () {
+                    var reservation_Id = $(this).data('id'); // Get the reservation ID from the data-id attribute of the button
+                    $.ajax({
+                        url: 'remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
+                        method: 'POST',
+                        data: { reservation_Id: reservation_Id }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
+                        success: function (response) {
+                            // If the AJAX request was successful, remove the corresponding carousel item from the DOM
+                            console.log('refresh done');
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // If the AJAX request failed, log the error message to the console
+                            console.error(error);
+                        }
+                    });
+                })
+                Getreserv();
 
-
+            });
         </script>
 
     </body>
