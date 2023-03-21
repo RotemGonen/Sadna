@@ -82,7 +82,7 @@
     <main role="main">
         <div class="jumbotron">
             <div class="container">
-                <h1 class="display-3">Creating reservation</h1>
+                <h1 class="display-3">Creating a reservation</h1>
                 <p>By using our platform, you can easily reserve a sports field in your area based on your preferences.
                     Simply select the sport you want to play, the location, and the date and time that works best for
                     you. If you're looking for some extra guidance or training, you can also select the option to meet
