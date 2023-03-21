@@ -51,7 +51,7 @@
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Schedule a training</a>
+                    <a class="nav-link" href="#">Meet the trainers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Store</a>
@@ -116,8 +116,23 @@
                                 type of sport, location and a button to view the location on a map. You can also remove
                                 your reservation by clicking the "Remove" button.</p>
                         </div>
-                        <div id="reservationcarousel" class="carousel carousel-dark slide mb-2 mb-md-0 shadow">
-                            <div class="carousel-inner text-center" id="cards"></div>
+                        <div id="reservationcarousel" class="carousel carousel-dark slide mb-3 mb-md-0 shadow">
+                            <div class="carousel-inner text-center" id="cards">
+                                <?php if ($num_reservations > 0) { ?>
+                                    <!-- Display carousel items here -->
+                                <?php } else { ?>
+                                    <!-- Display default message here -->
+                                    <div class="carousel-item active">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">No reservations found</h5>
+                                                <p class="card-text">Your reservations will appear here once you have made a
+                                                    reservation.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel"
                                 data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -129,6 +144,7 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
+
                     </div>
 
                     <div class="col-lg-4">
@@ -136,8 +152,8 @@
                             <div id="map" class="w-100 h-100"></div>
                         </div>
                     </div>
+
                 </div>
-            </div>
         </main>
 
         <script>
@@ -147,40 +163,53 @@
                     url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php', // change this to the url of your server-side script that fetches the data from the database
                     type: 'get',
                     dataType: 'json',
-                    data: { username: '<?php echo $_SESSION['username'] ?>' },
+                    data: { username: '<?php echo $_SESSION['username']; ?>' },
                     success: function (response) {
                         data = response.data;
                         var cards = '';
-                        for (var i = 0; i < data.length; i++) {
-                            var active = '';
-                            if (i == 0) {
-                                active = 'active';
-                            }
-                            cards += '<div class="carousel-item ' + active + '">';
+                        if (data.length == 0) {
+                            cards += '<div class="carousel-item active">';
                             cards += '<div>';
                             cards += '<div class="card">';
                             cards += '<div class="card-body">';
-                            cards += '<h4 class="card-title">' + data[i].date + '</h5>';
-                            cards += '<p class="font-weight-bold">' + data[i].type + '-' + data[i].location + '</p>';
-                            cards += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
-                            cards += '<div class="row col">';
-                            cards += '<div class="col">';
-                            cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
-                            cards += '</div>';
-                            cards += '<div class="col">';
-                            cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show location</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                            cards += '<h4 class="card-title">No reservations found</h5>';
+                            cards += '<p class="font-weight-bold">Make a reservation to see it here</p>';
                             cards += '</div>';
                             cards += '</div>';
                             cards += '</div>';
                             cards += '</div>';
-                            cards += '</div>';
-                            cards += '</div>';
-                            $('#cards').html(cards); // replace the table body with the generated cards
+                        } else {
+                            for (var i = 0; i < data.length; i++) {
+                                var active = '';
+                                if (i == 0) {
+                                    active = 'active';
+                                }
+                                cards += '<div class="carousel-item ' + active + '">';
+                                cards += '<div>';
+                                cards += '<div class="card">';
+                                cards += '<div class="card-body">';
+                                cards += '<h4 class="card-title">' + data[i].date + '</h5>';
+                                cards += '<p class="font-weight-bold">' + data[i].type + '-' + data[i].location + '</p>';
+                                cards += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
+                                cards += '<div class="row col">';
+                                cards += '<div class="col">';
+                                cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
+                                cards += '</div>';
+                                cards += '<div class="col">';
+                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show location</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                            }
                         }
+                        $('#cards').html(cards); // replace the table body with the generated cards
                     }
-                })
-
+                });
             }
+
             var data; // define data outside of AJAX call
             $(document).ready(function () {
                 Getreserv()
