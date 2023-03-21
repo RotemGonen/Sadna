@@ -69,8 +69,6 @@
     </nav>
 
     <body>
-
-
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
@@ -88,6 +86,27 @@
             </div>
 
             <div class="container">
+
+                <div class="modal" id="cancelReservationModal">
+                    <div class="modal-dialog modal-dialog-centered col-5">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cancel Reservation</h5>
+                                <button type="button" class="btn-close" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to cancel this reservation?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cancelaction">Cancel</button>
+                                <button type="button" class="btn btn-danger" id="confirmCancelReservation">Yes,
+                                    cancel it</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <div class="col-lg-8">
 
@@ -200,10 +219,16 @@
                 }
             })
             $(document).ready(function () {
+                var reservation_Id = null
                 var carousel = $('#reservationcarousel');
                 // Add a click event listener to the "remove" button
                 carousel.on('click', '.remove-row', function () {
-                    var reservation_Id = $(this).data('id'); // Get the reservation ID from the data-id attribute of the button
+                    reservation_Id = $(this).data('id')
+                    $('#cancelReservationModal').show()
+                })
+
+                $('#confirmCancelReservation').on('click', function () {
+
                     $.ajax({
                         url: 'remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
                         method: 'POST',
@@ -218,12 +243,13 @@
                             console.error(error);
                         }
                     });
-                })
-                Getreserv();
+                });
 
+                $('.cancelaction,.btn-close').on('click', function () {
+                    $('#cancelReservationModal').hide();
+                });
             });
         </script>
-
     </body>
     <footer class="container">
         <p>&copy; 20232W89</p>
