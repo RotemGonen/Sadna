@@ -8,8 +8,14 @@
 
     <title>4Play | Main</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
 </head>
 
 <body>
@@ -45,7 +51,7 @@
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Schedule a training</a>
+                    <a class="nav-link" href="#">Meet the trainers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Store</a>
@@ -62,54 +68,218 @@
         </div>
     </nav>
 
-    <main role="main">
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="display-3" id="greeting">Hello, *user*</h1>
-                <p><span class="font-weight-bold">It's good to see you here!</span>
-                    Tired of the hassle of arriving at your local park with your team,
-                    only to find it already occupied? Say goodbye to disappointment and hello to convenience with our
-                    cutting-edge platform! With just a few clicks, you can locate available sports fields in your area
-                    and be on your way to your next epic game. Don't let a crowded park get in the way of your victory!
-                </p>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h2>See you'r current Reservation</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-                        tortor
-                        mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
-                        magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    <body>
+        <main role="main">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-3" id="greeting">Hello, *user*</h1>
+                    <p><span class="font-weight-bold">It's good to see you here!</span>
+                        Tired of the hassle of arriving at your local park with your team,
+                        only to find it already occupied? Say goodbye to disappointment and hello to convenience with
+                        our
+                        cutting-edge platform! With just a few clicks, you can locate available sports fields in your
+                        area
+                        and be on your way to your next epic game. Don't let a crowded park get in the way of your
+                        victory!
+                    </p>
                 </div>
-                <div class="col-md-4">
-                    <div class="carousel slide" data-bs-ride="carousel" data-interval="800">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="http://localhost/Sadna/images/basketball.jpg" class="d-block w-100"
-                                    alt="basketball">
+            </div>
+
+            <div class="container">
+
+                <div class="modal" id="cancelReservationModal">
+                    <div class="modal-dialog modal-dialog-centered col-5">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Cancel Reservation</h5>
+                                <button type="button" class="btn-close" aria-label="Close"></button>
                             </div>
-                            <div class="carousel-item">
-                                <img src="http://localhost/Sadna/images/soccer.jpg" class="d-block w-100" alt="soccer">
+                            <div class="modal-body">
+                                <p>Are you sure you want to cancel this reservation?</p>
                             </div>
-                            <div class="carousel-item">
-                                <img src="http://localhost/Sadna/images/tennis.jpg" class="d-block w-100" alt="tennis">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="http://localhost/Sadna/images/volleyball.jpg" class="d-block w-100" alt="...">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cancelaction">Cancel</button>
+                                <button type="button" class="btn btn-danger" id="confirmCancelReservation">Yes,
+                                    cancel it</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
-            <hr>
-        </div>
-    </main>
 
+                <div class="row">
+                    <div class="col-lg-8">
+
+                        <div>
+                            <h3 class="fs-2">Your Current Reservation</h3>
+                            <p>Below you will find the details of your current reservation, including the date, time,
+                                type of sport, location and a button to view the location on a map. You can also remove
+                                your reservation by clicking the "Remove" button.</p>
+                        </div>
+                        <div id="reservationcarousel" class="carousel carousel-dark slide mb-3 mb-md-0 shadow">
+                            <div class="carousel-inner text-center" id="cards">
+                                <?php if ($num_reservations > 0) { ?>
+                                    <!-- Display carousel items here -->
+                                <?php } else { ?>
+                                    <!-- Display default message here -->
+                                    <div class="carousel-item active">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">No reservations found</h5>
+                                                <p class="card-text">Your reservations will appear here once you have made a
+                                                    reservation.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#reservationcarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div style="height: 300px;">
+                            <div id="map" class="w-100 h-100"></div>
+                        </div>
+                    </div>
+
+                </div>
+        </main>
+
+        <script>
+
+            function Getreserv() {
+                $.ajax({
+                    url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php', // change this to the url of your server-side script that fetches the data from the database
+                    type: 'get',
+                    dataType: 'json',
+                    data: { username: '<?php echo $_SESSION['username']; ?>' },
+                    success: function (response) {
+                        data = response.data;
+                        var cards = '';
+                        if (data.length == 0) {
+                            cards += '<div class="carousel-item active">';
+                            cards += '<div>';
+                            cards += '<div class="card">';
+                            cards += '<div class="card-body">';
+                            cards += '<h4 class="card-title">No reservations found</h5>';
+                            cards += '<p class="font-weight-bold">Make a reservation to see it here</p>';
+                            cards += '</div>';
+                            cards += '</div>';
+                            cards += '</div>';
+                            cards += '</div>';
+                        } else {
+                            for (var i = 0; i < data.length; i++) {
+                                var active = '';
+                                if (i == 0) {
+                                    active = 'active';
+                                }
+                                cards += '<div class="carousel-item ' + active + '">';
+                                cards += '<div>';
+                                cards += '<div class="card">';
+                                cards += '<div class="card-body">';
+                                cards += '<h4 class="card-title">' + data[i].date + '</h5>';
+                                cards += '<p class="font-weight-bold">' + data[i].type + '-' + data[i].location + '</p>';
+                                cards += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
+                                cards += '<div class="row col">';
+                                cards += '<div class="col">';
+                                cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
+                                cards += '</div>';
+                                cards += '<div class="col">';
+                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show location</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                                cards += '</div>';
+                            }
+                        }
+                        $('#cards').html(cards); // replace the table body with the generated cards
+                    }
+                });
+            }
+
+            var data; // define data outside of AJAX call
+            $(document).ready(function () {
+                Getreserv()
+            });
+
+            $(document).ready(function () {
+
+                // Set up the map
+                var map = L.map('map').setView([31.80309338, 35.10942674], 7);
+                // Add the tile layer
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                }).addTo(map);
+                var markerLayer = L.layerGroup().addTo(map);
+
+
+                var carousel = $('#reservationcarousel');
+
+                carousel.on('click', '.send-coords', function () {
+                    var lat = $(this).data('lat');
+                    var lon = $(this).data('lon');
+                    changeCoords(lat, lon);
+                });
+                function changeCoords(lat, lng) {
+                    // Remove existing marker layer from the map
+                    if (markerLayer) {
+                        map.removeLayer(markerLayer);
+                    }
+
+                    // Create a new marker layer and add it to the map
+                    markerLayer = L.layerGroup();
+                    var marker = L.marker([lat, lng]);
+                    markerLayer.addLayer(marker);
+                    map.addLayer(markerLayer);
+                    // Center the map on the new coordinates
+                    map.setView([lat, lng], 17);
+                }
+            })
+            $(document).ready(function () {
+                var reservation_Id = null
+                var carousel = $('#reservationcarousel');
+                // Add a click event listener to the "remove" button
+                carousel.on('click', '.remove-row', function () {
+                    reservation_Id = $(this).data('id')
+                    $('#cancelReservationModal').show()
+                })
+
+                $('#confirmCancelReservation').on('click', function () {
+
+                    $.ajax({
+                        url: 'remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
+                        method: 'POST',
+                        data: { reservation_Id: reservation_Id }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
+                        success: function (response) {
+                            // If the AJAX request was successful, remove the corresponding carousel item from the DOM
+                            console.log('refresh done');
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // If the AJAX request failed, log the error message to the console
+                            console.error(error);
+                        }
+                    });
+                });
+
+                $('.cancelaction,.btn-close').on('click', function () {
+                    $('#cancelReservationModal').hide();
+                });
+            });
+        </script>
+    </body>
     <footer class="container">
         <p>&copy; 20232W89</p>
     </footer>

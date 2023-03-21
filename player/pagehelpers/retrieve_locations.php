@@ -7,7 +7,7 @@ if ($conn->connect_error) {
 
 $q = $_GET['q'];
 
-$sql = "SELECT DISTINCT location FROM sportfield WHERE location LIKE '%" . $q . "%' ORDER BY location ASC";
+$sql = "SELECT DISTINCT location FROM sportfield WHERE location LIKE '" . $q . "%' ORDER BY location ASC";
 $result = $conn->query($sql);
 
 $data = array();

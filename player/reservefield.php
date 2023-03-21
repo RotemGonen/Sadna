@@ -82,13 +82,13 @@
     <main role="main">
         <div class="jumbotron">
             <div class="container">
-                <h1 class="display-3">Hello, *user*</h1>
-                <p><span class="font-weight-bold">It's good to see you here!</span>
-                    Tired of the hassle of arriving at your local park with your team,
-                    only to find it already occupied? Say goodbye to disappointment and hello to convenience with our
-                    cutting-edge platform! With just a few clicks, you can locate available sports fields in your area
-                    and be on your way to your next epic game. Don't let a crowded park get in the way of your victory!
-                </p>
+                <h1 class="display-3">Creating reservation</h1>
+                <p>By using our platform, you can easily reserve a sports field in your area based on your preferences.
+                    Simply select the sport you want to play, the location, and the date and time that works best for
+                    you. If you're looking for some extra guidance or training, you can also select the option to meet
+                    with a trainer. This will prompt you to enter some additional details so that we can match you with
+                    the right trainer for your needs. With just a few clicks, you'll be well on your way to reserving
+                    the perfect field and improving your skills!</p>
             </div>
         </div>
 
@@ -384,7 +384,7 @@
             $.ajax({
                 url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
                 method: 'POST',
-                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, username: '<?php echo $_SESSION["username"]; ?>' },
+                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>' },
                 dataType: 'json',
                 success: function (data) {
                     $('#starttime').change();
