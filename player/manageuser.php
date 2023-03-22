@@ -15,6 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -24,13 +27,6 @@
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
         header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
         exit;
-    } else {
-        echo "<script>
-        window.onload = function() {
-            var usernameDiv = document.getElementById('greeting');
-            usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
-            }
-        </script>";
     }
 
     ?>
@@ -74,39 +70,53 @@
                 <div class="container">
                     <h1 class="display-3" id="greeting">Personal Settings</h1>
                     <p>
-                        You can customize your personal data from this page.
+                        You can customize your personal data from this page. <br>
+                        You can choose to update some or all of your information to ensure that it is accurate and
+                        up-to-date.
                     </p>
                 </div>
             </div>
 
             <div class="container">
                 <div class="row">
+                    <div id="my-alerts"></div>
+
                     <div class="col-md-6">
                         <form>
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username">
+                                <div class="col-8">
+                                    <label for="password" class="form-label">Password (remember it before
+                                        changing!)</label>
+                                    <input type="password" class="form-control" id="password">
+                                </div>
                             </div>
+
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <div class="col-8">
+                                    <label for="location-search">City Address:</label>
+                                    <select class="form-control" id="location-search" name="city" style="width: 100%">
+                                    </select>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mt-3 mt-md-0">
                         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="https://via.placeholder.com/600x400?text=Slide+1" class="d-block w-100"
+                                    <img src="http://localhost/Sadna/images/basketball.jpg" class="d-block w-100"
                                         alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/600x400?text=Slide+2" class="d-block w-100"
-                                        alt="...">
+                                    <img src="http://localhost/Sadna/images/soccer.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/600x400?text=Slide+3" class="d-block w-100"
+                                    <img src="http://localhost/Sadna/images/tennis.jpg" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="http://localhost/Sadna/images/volleyball.jpg" class="d-block w-100"
                                         alt="...">
                                 </div>
                             </div>
@@ -123,6 +133,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
 
@@ -158,6 +169,78 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+
+    <script>        // function to get the city
+        $(document).ready(function () {
+            $('#location-search').select2({
+                theme: "classic",
+                placeholder: "Search city(Hebrew) ...",
+                ajax: {
+                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.location,
+                                    id: item.location
+                                }
+                            })
+                        };
+                    },
+                    placeholder: "Select a state",
+                    allowClear: true
+                },
+            })
+        });
+
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                // Prevent the form from submitting normally
+                event.preventDefault();
+
+                // Get the form data
+                var formData = {
+                    'username': '<?php echo $_SESSION["username"]; ?>',
+                    'password': $('input#password').val(),
+                    'city': $('#location-search').val(),
+                };
+
+                // Send the AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost/Sadna/player/pagehelpers/update_user_details.php',
+                    data: formData,
+                    success: function (data) {
+                        // Create a success alert with a timeout of 5 seconds
+                        var alertSuccess = $('<div class="alert alert-success" role="alert">User details updated successfully!</div>');
+                        $('#my-alerts').append(alertSuccess);
+                        setTimeout(function () {
+                            alertSuccess.remove();
+                        }, 5000);
+                        $('#password').val('');
+                    },
+                    error: function () {
+                        // Create an error alert with a timeout of 5 seconds
+                        var alertError = $('<div class="alert alert-danger" role="alert">An error occurred while updating user details.</div>');
+                        $('#my-alerts').append(alertError);
+                        setTimeout(function () {
+                            alertError.remove();
+                        }, 5000);
+                    }
+
+                });
+            });
+        });
+
+
+    </script>
 </body>
 
 </html>
