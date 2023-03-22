@@ -31,6 +31,7 @@
             usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
             }
         </script>";
+        $num_reservations = null;
     }
 
     ?>

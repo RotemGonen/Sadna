@@ -40,7 +40,7 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item">
@@ -53,8 +53,8 @@
                     <a class="nav-link" href="#">Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">More options</a>
+                    <a class="nav-link dropdown-toggle active" href="http://example.com" id="dropdown01"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="#">About us</a>

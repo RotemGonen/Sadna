@@ -55,11 +55,12 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
+                    <a class="nav-link active" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport
+                        field</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Meet the trainers</a>
