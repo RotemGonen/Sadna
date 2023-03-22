@@ -45,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
@@ -60,7 +60,7 @@
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="#">About us</a>
                     </div>
                 </li>
@@ -259,7 +259,7 @@
                 $('#confirmCancelReservation').on('click', function () {
 
                     $.ajax({
-                        url: 'remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
+                        url: 'http://localhost/Sadna/player/pagehelpers/remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
                         method: 'POST',
                         data: { reservation_Id: reservation_Id }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
                         success: function (response) {

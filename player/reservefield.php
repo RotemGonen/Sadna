@@ -55,11 +55,11 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Reserve a sport field</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Meet the trainers</a>
@@ -71,7 +71,7 @@
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="#">About us</a>
                     </div>
                 </li>
@@ -134,12 +134,15 @@
                             <input type="time" class="form-control" id="endtime">
                         </div>
 
-                        <div class id="errorrow"></div>
+
                         <div class="form-group col">
                             <!-- search date bar -->
                             <Label for="datepicker">Choose date:</Label>
                             <input type="date" id="datepicker" class="form-control" autocomplete="off">
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="errorrow"></div>
                     </div>
                     <!-- the table element -->
                     <div class="table-responsive" style="max-height: 300px;height: 300px;">
