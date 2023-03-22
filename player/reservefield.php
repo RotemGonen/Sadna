@@ -74,6 +74,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
