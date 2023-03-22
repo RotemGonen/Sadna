@@ -63,6 +63,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
@@ -73,7 +74,7 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3" id="greeting">Hello, *user*</h1>
+                    <h1 class="display-3" id="greeting"></h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
                         Tired of the hassle of arriving at your local park with your team,
                         only to find it already occupied? Say goodbye to disappointment and hello to convenience with

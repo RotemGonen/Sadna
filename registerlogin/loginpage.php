@@ -13,6 +13,14 @@
     <div class="container"> <img src="http://localhost/Sadna/images/4Playlogo.png"
             class=" mt-3 img-fluid mx-auto d-block w-auto" alt="Responsive image">
     </div>
+
+    <?php
+    session_start();
+    if (isset($_SESSION['authenticated'])) {
+        unset($_SESSION['authenticated']); // remove the authenticated session variable
+    }
+    ?>
+
 </header>
 
 <body>
@@ -74,9 +82,7 @@
 
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
-        integrity="sha384-0oaoe+2KvlOJuz1tt0XTODM+5CvQFJ5/eg/pzLbdN/0pzxST36JgEJ+D5HSPSwKJ"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
