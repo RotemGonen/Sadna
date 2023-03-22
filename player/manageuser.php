@@ -72,20 +72,59 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3" id="greeting">Hello, *user*</h1>
-                    <p><span class="font-weight-bold">It's good to see you here!</span>
-                        Tired of the hassle of arriving at your local park with your team,
-                        only to find it already occupied? Say goodbye to disappointment and hello to convenience with
-                        our
-                        cutting-edge platform! With just a few clicks, you can locate available sports fields in your
-                        area
-                        and be on your way to your next epic game. Don't let a crowded park get in the way of your
-                        victory!
+                    <h1 class="display-3" id="greeting">Personal Settings</h1>
+                    <p>
+                        You can customize your personal data from this page.
                     </p>
                 </div>
             </div>
 
             <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://via.placeholder.com/600x400?text=Slide+1" class="d-block w-100"
+                                        alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://via.placeholder.com/600x400?text=Slide+2" class="d-block w-100"
+                                        alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://via.placeholder.com/600x400?text=Slide+3" class="d-block w-100"
+                                        alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
 

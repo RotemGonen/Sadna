@@ -88,7 +88,7 @@
             <div class="container">
 
                 <div class="modal" id="cancelReservationModal">
-                    <div class="modal-dialog modal-dialog-centered col-5">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Cancel Reservation</h5>
@@ -196,7 +196,7 @@
                                 cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
                                 cards += '</div>';
                                 cards += '<div class="col">';
-                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show location</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
                                 cards += '</div>';
                                 cards += '</div>';
                                 cards += '</div>';
