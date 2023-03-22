@@ -57,7 +57,7 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
@@ -100,7 +100,11 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary" id="submit-btn">Update</button>
+                            <div id="password-validation-msg" class="alert alert-danger mt-3" style="display: none;">
+                                Password must be at least 5 characters long.
+                            </div>
+
                         </form>
                     </div>
                     <div class="col-md-6 mt-3 mt-md-0">
@@ -199,6 +203,25 @@
                     allowClear: true
                 },
             })
+        });
+
+        // Get the password input field
+        var passwordInput = $("#password");
+        var submitBtn = $("#submit-btn");
+
+        // Add an event listener to the input field
+        passwordInput.on("input", function () {
+            // Check if the password is at least 5 characters long
+            if (passwordInput.val().length < 5 && passwordInput.val() != '') {
+                // Show the validation message
+                $("#password-validation-msg").show();
+                submitBtn.prop("disabled", true);
+            } else {
+                // Hide the validation message
+                $("#password-validation-msg").hide();
+                submitBtn.prop("disabled", false);
+            }
+
         });
 
         $(document).ready(function () {
