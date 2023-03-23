@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="display-3" id='greeting'>Hello, *user*</h1>
+                        <h1 class="display-3" id='greeting'>Hello, </h1>
                         <p><span class="font-weight-bold">It's good to see you here!</span>
                             here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
                             you can use our search bar right down or scroll down and see our products. 
@@ -65,6 +65,7 @@
         </div> 
     </main>
 
+    <!-- search bar - using ajax -->
 <!-- <?php 
     // include '../connection.php';
     // if (isset($_POST["submit"])) {
