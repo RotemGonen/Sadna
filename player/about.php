@@ -69,11 +69,15 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3" id="greeting">Personal Settings</h1>
+                    <h1 class="display-3" id="greeting">Meet the developers</h1>
                     <p>
-                        You can customize your personal data from this page. <br>
-                        You can choose to update some or all of your information to ensure that it is accurate and
-                        up-to-date.
+                        We are proud to introduce our new
+                        platform that aims to make a positive impact on people's daily lives. Our platform is designed
+                        to facilitate easy access to sports activities and connect players with trainers, ultimately
+                        creating a community of fitness enthusiasts.
+
+                        Our mission is to promote a healthy and active lifestyle by providing a user-friendly platform
+                        that offers a variety of fitness activities to suit different preferences and skill levels.
                     </p>
                 </div>
             </div>
@@ -83,44 +87,27 @@
             <div class="container marketing">
 
                 <!-- Three columns of text below the carousel -->
-                <div class="row">
+                <div class="row text-center">
                     <div class="col-lg-4">
-                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777"
-                                dy=".3em">140x140</text>
-                        </svg>
+                        <img class="bd-placeholder-img rounded-circle" width="140" height="140"
+                            src="http://localhost/Sadna/images/Rotem.jpg">
 
-                        <h2 class="fw-normal">Heading</h2>
-                        <p>Some representative placeholder content for the three columns of text below the carousel.
-                            This is the first column.</p>
+                        <h2 class="fw-normal">Rotem Gonen</h2>
+                        <p>"After I graduate, I would love to become a Cloud Architect."</p>
                     </div><!-- /.col-lg-4 -->
                     <div class="col-lg-4">
-                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777"
-                                dy=".3em">140x140</text>
-                        </svg>
+                        <img class="bd-placeholder-img rounded-circle" width="140" height="140"
+                            src="http://localhost/Sadna/images/Diana.jpg">
 
-                        <h2 class="fw-normal">Heading</h2>
-                        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the
-                            second column.</p>
+                        <h2 class="fw-normal">Diana Cohenim</h2>
+                        <p>"I'm really excited to take on my first role in the data industry."</p>
                     </div><!-- /.col-lg-4 -->
                     <div class="col-lg-4">
-                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777"
-                                dy=".3em">140x140</text>
-                        </svg>
+                        <img class="bd-placeholder-img rounded-circle" width="140" height="140"
+                            src="http://localhost/Sadna/images/Omer.jpg">
 
-                        <h2 class="fw-normal">Heading</h2>
-                        <p>And lastly this, the third column of representative placeholder content.</p>
+                        <h2 class="fw-normal">Omer Shik</h2>
+                        <p>"I'm interested in the field of business development."</p>
                     </div>
                 </div>
 
