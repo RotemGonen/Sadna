@@ -8,10 +8,9 @@ if (mysqli_num_rows($result) > 0) {
     // Output container div
         while($row = mysqli_fetch_assoc($result)) {
         // Output product div with data
-        echo "<div class='border border-dark col-lg-4'>";
+        echo "<div class='border border-dark col-md-4'>";
         echo "<div class='text-center mx-auto'>";
-        echo "<img src='data:image/jpeg;base64, " . base64_encode($row["picture"]) . "'>";
-        //add responsive to image
+        echo "<img src='data:image/jpeg;base64, " . base64_encode($row["picture"]) . "' class='img-fluid'>";
         echo "<h2>" . $row["name"] . "</h2>";
         echo "<p>" . $row["content"] . "</p>";
         echo "<p>Price: " . $row["price"] . "</p>";

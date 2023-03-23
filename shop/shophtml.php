@@ -29,7 +29,7 @@
     <div id="navbar"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(function(){
+     $("document").ready(function(){
         $("#navbar").load("../navbar.html")    
     });
     </script>
