@@ -65,43 +65,53 @@
         </div> 
     </main>
 
-<?php 
-    include '../connection.php';
-    if (isset($_POST["submit"])) {
-        $char = $_REQUEST["char"];
-        $sql = "SELECT * FROM `product` WHERE `name` LIKE '%$char%' ";
-        $result =mysqli_query($conn, $sql);
-        if ($result === FALSE) {
-            die(mysqli_error($conn));
-        }
-        else if (mysqli_num_rows($result) > 0) {
-    ?>
-            <br><br>
-            <div class="container m-4">
-                <div class="row">
-                    <?php
-                        while($row = mysqli_fetch_assoc($result)) {
-                            // Output product div with data
-                            echo "<div class='product border border-dark col-md-4'>";
-                            echo "<div class='text-center mx-auto'>";
-                            echo "<img src='data:image/jpeg;base64, " . base64_encode($row["picture"]) . "'>";
-                            echo "<h2>" . $row["name"] . "</h2>";
-                            echo "<p>" . $row["content"] . "</p>";
-                            echo "<p>Price: " . $row["price"] . "</p>";
-                            echo "<label for='quantity'>Quantity:</label>
-                            <input type='number' id='quantity' name='quantity' min='1' max='100' placeholder='0'>"; 
-                            echo "</div>";
-                            echo "</div>";        
-                        }
-                        
-                        // Close container div
-                        echo "</div>";
-    }
-}
-    else
-        include 'shop.php';
-?>
+<!-- <?php 
+    // include '../connection.php';
+    // if (isset($_POST["submit"])) {
+    //     $char = $_POST["char"];
+    //     // $char = trim($_POST['char']);
+    //     $products = array();
+    //     if (!empty($char)) {
+    //         // run the query
+    //         $sql = "SELECT * FROM `product` WHERE `name` LIKE '%$char%' ";
+    //         $result =mysqli_query($conn, $sql);
+    //         if ($result === FALSE) {
+    //             die(mysqli_error($conn));
+    //         }
+    //         else if (mysqli_num_rows($result) > 0) {
+    //             $products[] = $row;
+    //     ?>
+    //             <br><br>
+    //             <div class="container m-4">
+    //                 <div class="row">
+    //                     <?php
+    //                         while($row = mysqli_fetch_assoc($result)) {
+    //                             // Output product div with data
+    //                             echo "<div class='product border border-dark col-lg-4'>";
+    //                             echo "<div class='text-center mx-auto'>";
+    //                             echo "<img src='data:image/jpeg;base64, " . base64_encode($row["picture"]) . "'>";
+    //                             echo "<h2>" . $row["name"] . "</h2>";
+    //                             echo "<p>" . $row["content"] . "</p>";
+    //                             echo "<p>Price: " . $row["price"] . "</p>";
+    //                             echo "<label for='quantity'>Quantity:</label>
+    //                             <input type='number' id='quantity' name='quantity' min='1' max='100' placeholder='0'>"; 
+    //                             echo "<button style='margin-bottom:0' class='dark'> add to cart </button>";
+    //                             echo "</div>";
+    //                             echo "</div>";        
+    //                         }
+                            
+    //                 echo "</div>";
+    //             echo "</div>";
+//         }
+//     }
+// }
+?> -->
 </body>
+
+<footer class="container">
+    <p>&copy; 20232W89</p>
+</footer>
+
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -115,5 +125,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
+
+
 </html>
 </html>
