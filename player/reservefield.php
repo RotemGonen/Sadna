@@ -171,8 +171,8 @@
                 </div>
 
                 <div class="col-md-6 offset-md-3 text-center mt-2">
-                    <label for="confirmation-checkbox">
-                        <input type="checkbox" id="confirmation-checkbox">
+                    <label for="trainer-checkbox">
+                        <input type="checkbox" id="trainer-checkbox">
                         Schedule with trainer
                     </label>
 
@@ -182,6 +182,11 @@
                 </div>
             </div>
         </div>
+
+        <div class=" bg-danger" id="trainerChooserDiv">
+            ss
+        </div>
+
         </div>
 
     </main>
@@ -199,6 +204,7 @@
         var flag = false;
 
         $(document).ready(function () {
+            $('#trainerChooserDiv').hide();
             $(function () {
                 var today = new Date().toISOString().split('T')[0];
                 $('#datepicker').attr('min', today);
@@ -268,11 +274,11 @@
 
         $(document).ready(function () {
             // check button logic
-            const confirmationCheckbox = document.querySelector('#confirmation-checkbox');
+            const trainercheckbox = document.querySelector('#trainer-checkbox');
             const confirmButton = document.querySelector('#confirmbutton');
 
-            confirmationCheckbox.addEventListener('change', () => {
-                if (confirmationCheckbox.checked) {
+            trainercheckbox.addEventListener('change', () => {
+                if (trainercheckbox.checked) {
                     confirmButton.textContent = 'Schedule with trainer!';
                 } else {
                     confirmButton.textContent = 'Reserve for your team';
@@ -388,30 +394,37 @@
             map.setView([lat, lng], 17);
         }
         $('#confirmbutton').on('click', function () {
-            $.ajax({
-                url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
-                method: 'POST',
-                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>' },
-                dataType: 'json',
-                success: function (data) {
-                    $('#starttime').change();
-                },
-                error: function (xhr, status, error) {
-                    // the error is Handling the response from server
-                    $('#starttime').change();
-                    $('#confirmbutton').attr('disabled', true);
-                    $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
-                    $('#successmsg')[0].scrollIntoView({
-                        behavior: 'smooth',
-                        duration: 4000
-                    });
+            // Check if the trainer checkbox is not checked
+            if (!$('#trainer-checkbox').prop('checked')) {
+                // Execute the AJAX request
+                $.ajax({
+                    url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
+                    method: 'POST',
+                    data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>' },
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#starttime').change();
+                    },
+                    error: function (xhr, status, error) {
+                        // the error is Handling the response from server
+                        $('#starttime').change();
+                        $('#confirmbutton').attr('disabled', true);
+                        $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
+                        $('#successmsg')[0].scrollIntoView({
+                            behavior: 'smooth',
+                            duration: 4000
+                        });
 
-                    setTimeout(function () {
-                        $('.alert').alert('close');
-                    }, 5000);
+                        setTimeout(function () {
+                            $('.alert').alert('close');
+                        }, 5000);
 
-                }
-            });
+                    }
+                });
+            } else {
+                // The trainer checkbox is checked, do not execute the AJAX request
+                $('#trainerChooserDiv').show();
+            }
         });
 
     </script>
