@@ -181,26 +181,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="" id="trainerChooserDiv">
+                <!-- the table element -->
+                <div class="table-responsive" style="max-height: 300px;height: 300px;">
+                    <table class=" table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Phone Number</th>
+                                <th>Price</th>
+                                <th>Choose</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trainer-table-body" class="">
+                            <!-- Table rows with data here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
-        <div class="" id="trainerChooserDiv">
-            <!-- the table element -->
-            <div class="table-responsive" style="max-height: 300px;height: 300px;">
-                <table class=" table">
-                    <thead>
-                        <tr>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Phone Number</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody id="trainer-table-body">
-                        <!-- Table rows with data here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
     </main>
 
@@ -453,11 +457,15 @@
                         // Append new rows to table
                         data.forEach(function (row) {
                             var tr = $('<tr>');
-
+                            var photo = row.photo_path ? 'http://localhost/Sadna/images/' + row.photo_path : 'http://localhost/Sadna/images/default-avatar.png';
+                            tr.append($('<td>').append($('<img>').attr('src', photo).addClass('img-fluid')));
                             tr.append($('<td>').text(row.first_name));
                             tr.append($('<td>').text(row.last_name));
                             tr.append($('<td>').text(row.phone));
                             tr.append($('<td>').text(row.trainer_price));
+
+                            // Set the height and width of the column
+                            tr.find('td:first-child').css({ 'height': '100px', 'width': '100px' });
 
                             $('#trainer-table-body').append(tr);
                         });
