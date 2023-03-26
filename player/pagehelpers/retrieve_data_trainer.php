@@ -16,20 +16,25 @@ if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'
     $starttime = $_POST['starttime'];
     $endtime = $_POST['endtime'];
 
-    $sql = "SELECT s.*
-    FROM sportfield s
-    WHERE s.location = '$location'
-    AND s.type = '$type'
+    $sql = "SELECT t.*, r.*
+    FROM trainer_availability t
+    JOIN registrations r ON t.trainer_username = r.username
+    WHERE t.sport_type = '$type'
+    AND t.city = '$location'
+    AND t.startdate <= '$date'
+    AND t.enddate >= '$date'
+    AND t.starttime <= '$starttime'
+    AND t.endtime >= '$endtime'
     AND NOT EXISTS (
         SELECT 1
-        FROM field_reservation r
-        WHERE r.field_id = s.id
-        AND r.date = '$date'
+        FROM field_reservation fr
+        WHERE fr.trainer_username = t.trainer_username
+        AND fr.date = '$date'
         AND (
-            ('$starttime' BETWEEN r.starttime AND r.endtime
-            OR '$endtime' BETWEEN r.starttime AND r.endtime)
-            OR (r.starttime < '$starttime' AND r.endtime > '$endtime')
-            OR ('$starttime' < r.starttime AND '$endtime' > r.endtime)
+            ('$starttime' BETWEEN fr.starttime AND fr.endtime
+            OR '$endtime' BETWEEN fr.starttime AND fr.endtime)
+            OR (fr.starttime < '$starttime' AND fr.endtime > '$endtime')
+            OR ('$starttime' < fr.starttime AND '$endtime' > fr.endtime)
         )
     )
     ";

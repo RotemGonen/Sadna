@@ -183,10 +183,23 @@
             </div>
         </div>
 
-        <div class=" bg-danger" id="trainerChooserDiv">
-            ss
-        </div>
-
+        <div class="" id="trainerChooserDiv">
+            <!-- the table element -->
+            <div class="table-responsive" style="max-height: 300px;height: 300px;">
+                <table class=" table">
+                    <thead>
+                        <tr>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Phone Number</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trainer-table-body">
+                        <!-- Table rows with data here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </main>
@@ -424,6 +437,36 @@
             } else {
                 // The trainer checkbox is checked, do not execute the AJAX request
                 $('#trainerChooserDiv').show();
+                var location = $('#location-search').val();
+                var type = $('#type-select').val();
+                starttime = $('#starttime').val();
+                endtime = $('#endtime').val();
+                date = $('#datepicker').val();
+                $.ajax({
+                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data_trainer.php',
+                    method: 'POST',
+                    data: { location: location, type: type, date: date, starttime: starttime, endtime: endtime },
+                    dataType: 'json',
+                    success: function (data) {
+                        // Clear existing table rows
+                        $('#trainer-table-body').empty();
+                        // Append new rows to table
+                        data.forEach(function (row) {
+                            var tr = $('<tr>');
+
+                            tr.append($('<td>').text(row.first_name));
+                            tr.append($('<td>').text(row.last_name));
+                            tr.append($('<td>').text(row.phone));
+                            tr.append($('<td>').text(row.trainer_price));
+
+                            $('#trainer-table-body').append(tr);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error retrieving data:', error);
+                    }
+                });
+
             }
         });
 
