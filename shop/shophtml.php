@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -27,7 +28,6 @@
     
     <!-- show the navbar -->
     <div id="navbar"></div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
      $("document").ready(function(){
         $("#navbar").load("../navbar.html")    
@@ -45,8 +45,8 @@
                             you can use our search bar right down or scroll down and see our products. 
                         </p>
                         <form class="d-flex ms-auto mt-2" method="POST" action=''>
-                            <input class="form-control me-2" type="search" name="char" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit" name="submit"><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <input class="form-control me-2" type="search" name="char" id="search-input" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" id="search-btn" type="submit" name="submit"><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg></button>
                         </form>
@@ -63,51 +63,41 @@
                 <?php include 'shop.php'; ?>
             </div>
         </div> 
-    </main>
 
-    <!-- search bar - using ajax -->
-<!-- <?php 
-    // include '../connection.php';
-    // if (isset($_POST["submit"])) {
-    //     $char = $_POST["char"];
-    //     // $char = trim($_POST['char']);
-    //     $products = array();
-    //     if (!empty($char)) {
-    //         // run the query
-    //         $sql = "SELECT * FROM `product` WHERE `name` LIKE '%$char%' ";
-    //         $result =mysqli_query($conn, $sql);
-    //         if ($result === FALSE) {
-    //             die(mysqli_error($conn));
-    //         }
-    //         else if (mysqli_num_rows($result) > 0) {
-    //             $products[] = $row;
-    //     ?>
-    //             <br><br>
-    //             <div class="container m-4">
-    //                 <div class="row">
-    //                     <?php
-    //                         while($row = mysqli_fetch_assoc($result)) {
-    //                             // Output product div with data
-    //                             echo "<div class='product border border-dark col-lg-4'>";
-    //                             echo "<div class='text-center mx-auto'>";
-    //                             echo "<img src='data:image/jpeg;base64, " . base64_encode($row["picture"]) . "'>";
-    //                             echo "<h2>" . $row["name"] . "</h2>";
-    //                             echo "<p>" . $row["content"] . "</p>";
-    //                             echo "<p>Price: " . $row["price"] . "</p>";
-    //                             echo "<label for='quantity'>Quantity:</label>
-    //                             <input type='number' id='quantity' name='quantity' min='1' max='100' placeholder='0'>"; 
-    //                             echo "<button style='margin-bottom:0' class='dark'> add to cart </button>";
-    //                             echo "</div>";
-    //                             echo "</div>";        
-    //                         }
-                            
-    //                 echo "</div>";
-    //             echo "</div>";
-//         }
-//     }
-// }
-?> -->
-</body>
+        <div class="container m-4" id="search-results">
+            <div class="row">
+            </div>
+        </div> 
+
+        
+    </main>
+    </body>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#search-btn').click(function(e) {
+                e.preventDefault();
+                searchProducts();
+    });
+    });
+
+        function searchProducts() {
+        var searchTerm = $('#search-input').val();
+        alert(searchTerm);
+
+        $.ajax({
+            url: 'http://localhost/Sadna/shop/search_bar.php',
+            type: 'POST',
+            data: {searchTerm: searchTerm},
+            success: function(response) {
+                $('#search-results').html(response);
+        }
+    });
+    }
+    </script>
+
+
 
 <footer class="container">
     <p>&copy; 20232W89</p>
