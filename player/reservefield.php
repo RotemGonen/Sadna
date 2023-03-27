@@ -97,14 +97,14 @@
         <div class="container">
 
             <div class="row justify-content-around">
-                <div class="col-md-5">
+                <div class="col-md-5 my-auto">
                     <div>
                         <div style="height:500px;">
                             <div id="map" class="w-100 h-100"></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 mt-3 m-md-0">
+                <div class="col-md-6 mt-4 m-md-0 shadow bg-light">
                     <!-- search city bar -->
                     <div class="row">
                         <div class="form-group col-6 col-md-7">
@@ -162,23 +162,23 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-6 offset-md-3 text-center mt-2">
 
-                </div>
-                <div class="col-md-6 offset-md-3 text-center mt-2">
-
-                    <button class="btn btn-success btn-lg mb-2 mt-2" disabled id="confirmbutton">Reserve for your
-                        team</button>
-                </div>
-
-                <div class="col-md-6 offset-md-3 text-center mt-2">
-                    <label for="trainer-checkbox">
-                        <input type="checkbox" id="trainer-checkbox">
-                        Schedule with trainer
-                    </label>
-
-                    <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
-                        <!-- success alert appear here -->
+                        <button class="btn btn-success btn-lg mb-2 mt-2" disabled id="confirmbutton">Reserve for your
+                            team</button>
                     </div>
+
+                    <div class="col-md-6 offset-md-3 text-center mt-2">
+                        <label for="trainer-checkbox">
+                            <input type="checkbox" id="trainer-checkbox">
+                            Schedule with trainer
+                        </label>
+
+                        <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
+                            <!-- success alert appear here -->
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -419,7 +419,17 @@
         });
 
         // Set up the map
-        var map = L.map('map').setView([31.80309338, 35.10942674], 7);
+        var southWest = L.latLng(28.0, 34.0);
+        var northEast = L.latLng(35.0, 37.0);
+        var bounds = L.latLngBounds(southWest, northEast);
+
+        // Set up the map
+        var map = L.map('map', {
+            minZoom: 7 // set the minimum zoom level to 7
+            , maxBounds: bounds,
+            maxBoundsViscosity: 0.5
+        }).setView([31.80309338, 35.10942674], 7);
+
         // Add the tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         }).addTo(map);
