@@ -464,11 +464,6 @@
                         $('#starttime').change();
                         $('#confirmbutton').attr('disabled', true);
                         $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
-                        $('#successmsg')[0].scrollIntoView({
-                            behavior: 'smooth',
-                            duration: 4000
-                        });
-
                         setTimeout(function () {
                             $('.alert').alert('close');
                         }, 5000);
@@ -507,10 +502,36 @@
                             tr.append($('<td>').text(row.last_name));
                             tr.append($('<td>').text(row.phone));
                             tr.append($('<td>').text(row.trainer_price));
+                            var button = $('<button>').addClass('btn btn-primary').text('Send Request');
+                            button.on('click', function () {
+                                // Send a PHP request with the row data
+                                $.ajax({
+                                    url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php ',
+                                    type: 'POST',
+                                    data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>', trainer_username: row.trainer_username },
+                                    success: function (response) {
+                                        console.log('Request sent successfully:', response);
+                                        $('#starttime, #endtime, #datepicker').prop('readonly', false);
+                                        var select2Element = $('#location-search,#type-select');
+                                        select2Element.prop('disabled', false);
 
+                                        $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
+                                        setTimeout(function () {
+                                            $('.alert').alert('close');
+                                        }, 5000);
+
+                                        $('#trainer-checkbox').prop('checked', false);
+                                        $('#trainerChooserDiv').hide();
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.log('Error sending request:', error);
+                                    }
+                                });
+                            });
+
+                            tr.append($('<td>').append(button));
                             // Set the height and width of the column
                             tr.find('td:first-child').css({ 'height': '100px', 'width': '100px' });
-
                             $('#trainer-table-body').append(tr);
                         });
                     },
