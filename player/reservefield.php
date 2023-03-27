@@ -290,6 +290,35 @@
         })
 
         $(document).ready(function () {
+
+            // Get the checkbox and div elements
+            var trainerCheckbox = $('#trainer-checkbox');
+            var divElement = $('#trainerChooserDiv');
+
+            // Hide the div by default
+            divElement.hide();
+
+            // Create an event listener for the checkbox
+            trainerCheckbox.click(function () {
+                if (this.checked) {
+
+                } else {
+                    // Checkbox is not checked, hide the div
+                    divElement.hide();
+                    // Check if the trainer checkbox is not checked
+                    if (!$('#trainer-checkbox').prop('checked')) {
+
+                        // The trainer checkbox is checked, do not execute the prior AJAX request
+                        $('#starttime, #endtime, #datepicker').prop('readonly', false);
+                        // Get the Select2 element
+                        var select2Element = $('#location-search,#type-select');
+
+                        // Disable the Select2 element
+                        select2Element.prop('disabled', false);
+                    }
+                }
+            });
+
             // check button logic
             const trainercheckbox = document.querySelector('#trainer-checkbox');
             const confirmButton = document.querySelector('#confirmbutton');
@@ -413,6 +442,14 @@
         $('#confirmbutton').on('click', function () {
             // Check if the trainer checkbox is not checked
             if (!$('#trainer-checkbox').prop('checked')) {
+
+                // The trainer checkbox is checked, do not execute the prior AJAX request
+                $('#starttime, #endtime, #datepicker').prop('readonly', false);
+                // Get the Select2 element
+                var select2Element = $('#location-search,#type-select');
+
+                // Disable the Select2 element
+                select2Element.prop('disabled', false);
                 // Execute the AJAX request
                 $.ajax({
                     url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
@@ -439,7 +476,14 @@
                     }
                 });
             } else {
-                // The trainer checkbox is checked, do not execute the AJAX request
+                // The trainer checkbox is checked, do not execute the prior AJAX request
+                $('#starttime, #endtime, #datepicker').prop('readonly', true);
+                // Get the Select2 element
+                var select2Element = $('#location-search,#type-select');
+
+                // Disable the Select2 element
+                select2Element.prop('disabled', true);
+
                 $('#trainerChooserDiv').show();
                 var location = $('#location-search').val();
                 var type = $('#type-select').val();
