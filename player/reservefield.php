@@ -58,8 +58,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Reserve a sport field</a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport
+                        field</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Meet the trainers</a>
@@ -71,8 +72,9 @@
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Manage user</a>
-                        <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
@@ -106,13 +108,13 @@
                     <!-- search city bar -->
                     <div class="row">
                         <div class="form-group col-6 col-md-7">
-                            <label for="location-search"> Search city name in Hebrew:</label>
+                            <label for="location-search"> Search city name:</label>
                             <select class="form-control" id="location-search" style="width: 100%">
                             </select>
                         </div>
                         <div class="form-group col-6 col-md-5">
                             <!-- search type bar -->
-                            <Label for="type-select">Select sport field type:</Label>
+                            <Label for="type-select">Select sport type:</Label>
                             <select class="form-control" id="type-select" style="width: 100%">
                                 <option value="אולם ספורט">אולם ספורט</option>
                                 <option value="מגרש ספורט">מגרש ספורט</option>
@@ -133,11 +135,16 @@
                             <Label for="endtime">Select end time:</Label>
                             <input type="time" class="form-control" id="endtime">
                         </div>
+
+
                         <div class="form-group col">
                             <!-- search date bar -->
                             <Label for="datepicker">Choose date:</Label>
                             <input type="date" id="datepicker" class="form-control" autocomplete="off">
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="errorrow"></div>
                     </div>
                     <!-- the table element -->
                     <div class="table-responsive" style="max-height: 300px;height: 300px;">
@@ -238,7 +245,7 @@
                             alertDiv.classList.add("alert", "col");
                             alertDiv.textContent = errorMessage;
 
-                            const inputRow = document.querySelector("#form-row");
+                            const inputRow = document.querySelector("#errorrow");
                             endTime.value = "";
                             flag = false;
                             inputRow.appendChild(alertDiv);
@@ -333,7 +340,7 @@
             })
             $('#location-search').select2({
                 theme: "classic",
-                placeholder: "Search city...",
+                placeholder: "Search city(Hebrew) ...",
                 ajax: {
                     url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',

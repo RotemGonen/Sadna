@@ -31,6 +31,7 @@
             usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
             }
         </script>";
+        $num_reservations = null;
     }
 
     ?>
@@ -45,7 +46,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
@@ -60,8 +61,9 @@
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Manage user</a>
-                        <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
@@ -72,7 +74,7 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3" id="greeting">Hello, *user*</h1>
+                    <h1 class="display-3" id="greeting"></h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
                         Tired of the hassle of arriving at your local park with your team,
                         only to find it already occupied? Say goodbye to disappointment and hello to convenience with
@@ -88,7 +90,7 @@
             <div class="container">
 
                 <div class="modal" id="cancelReservationModal">
-                    <div class="modal-dialog modal-dialog-centered col-5">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Cancel Reservation</h5>
@@ -196,7 +198,7 @@
                                 cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
                                 cards += '</div>';
                                 cards += '<div class="col">';
-                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show location</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
                                 cards += '</div>';
                                 cards += '</div>';
                                 cards += '</div>';
@@ -259,7 +261,7 @@
                 $('#confirmCancelReservation').on('click', function () {
 
                     $.ajax({
-                        url: 'remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
+                        url: 'http://localhost/Sadna/player/pagehelpers/remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
                         method: 'POST',
                         data: { reservation_Id: reservation_Id }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
                         success: function (response) {

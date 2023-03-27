@@ -7,7 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="http://localhost/Sadna/registerlogin/registerloginhelper/style.css" defer>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+
+
 </head>
 
 <header>
@@ -64,22 +69,18 @@
                     </div>
 
                     <div class="row mb-2">
-                        <input type="hidden" name="country" id="countryId" value="IL">
-                        <div class="col"> <select name="state" class="states order-pop form-control" id="stateId"
-                                required>
-                                <option value="">Select State</option>
+                        <div class="form-group col">
+                            <label for="location-search"> Search city name:</label>
+                            <select class="form-control" id="location-search" name="city" style="width: 100%" required>
+                                <option value="">Select a city</option>
                             </select>
                             <div class="invalid-feedback">
-                                The field cannot be empty </div>
+                                Please select a city.
+                            </div>
                         </div>
-                        <div class="col">
-                            <select name="city" class="cities order-alpha form-control" id="cityId" required>
-                                <option value="">Select City</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                The field cannot be empty </div>
-                        </div>
+
                     </div>
+
                     <div class="form-group mb-2">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
@@ -87,6 +88,16 @@
                             Please enter a valid email address.
                         </div>
                     </div>
+
+                    <div class="form-group mb-2">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number"
+                            required>
+                        <div class="invalid-feedback">
+                            Please enter a valid phone number.
+                        </div>
+                    </div>
+
                     <div class="input-group col-6 mt-4">
                         <label class="input-group-text" for="inputGroupSelect">Select your account type:</label>
                         <select class="form-select" id="inputGroupSelect" name="account_type">
@@ -95,17 +106,14 @@
                         </select>
                     </div>
                     <button class="mt-4 mx-auto signlog" type="submit" name="submit">Register</button>
-                </form>
             </div>
+            </form>
         </div>
     </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
-        integrity="sha384-0oaoe+2KvlOJuz1tt0XTODM+5CvQFJ5/eg/pzLbdN/0pzxST36JgEJ+D5HSPSwKJ"
-        crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//geodata.solutions/includes/statecity.js"></script>
     <script>
         (function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -139,6 +147,35 @@
             var maxDate = year + '-' + month + '-' + day;
             $('input[type="date"]').attr('max', maxDate);
         })
+        // function to get the city
+        $(document).ready(function () {
+            $('#location-search').select2({
+                theme: "classic",
+                placeholder: "Search city(Hebrew) ...",
+                ajax: {
+                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.location,
+                                    id: item.location
+                                }
+                            })
+                        };
+                    },
+                    placeholder: "Select a state",
+                    allowClear: true
+                },
+            })
+        });
 
         $(document).ready(function () {
             // make sure the user name is not already taken

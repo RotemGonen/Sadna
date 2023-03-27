@@ -1,38 +1,25 @@
 <?php
-$host = "localhost"; // database host
-$username = "test"; // database username
-$password = "12345"; // database password
-$dbname = "sadna"; // database name
-
-// Create connection
-$conn = new mysqli($host, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../connection.php';
 
 $sql = "SELECT * FROM products";
 $result = $conn->query($sql);
 
 if (mysqli_num_rows($result) > 0) {
     // Output container div
-    echo "<div class='product-container'>";
-    // Output data of each row
-    $count = 0;
-    while($row = mysqli_fetch_assoc($result)) {
+        while($row = mysqli_fetch_assoc($result)) {
         // Output product div with data
-        echo "<div class='product'>";
-        echo "<img src = 'data:image/jpeg;base64,' .'" btoa($row["picture"])"'>"; 
-        // echo "<img src='" . $row["picture"] . "' alt='" . $row["name"] . "'>";
+        echo "<div class='border border-dark col-md-4'>";
+        echo "<div class='text-center mx-auto'>";
+        echo "<img src='data:image/jpeg;base64, " . base64_encode($row["picture"]) . "' class='img-fluid'>";
         echo "<h2>" . $row["name"] . "</h2>";
         echo "<p>" . $row["content"] . "</p>";
         echo "<p>Price: " . $row["price"] . "</p>";
+        echo "<label for='quantity'>Quantity:</label>
+        <input type='number' id='quantity' name='quantity' min='1' max='100' placeholder='0'>"; 
+        echo "<br>";
+        echo "<button style='margin-bottom:0;' class='dark'> add to cart </button>";
         echo "</div>";
-        
+        echo "</div>";        
     }
-    
-    // Close container div
-    echo "</div>";
 }
 ?>
