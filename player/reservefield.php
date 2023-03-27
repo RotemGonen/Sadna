@@ -95,6 +95,21 @@
         </div>
 
         <div class="container">
+            <div class="modal" id="ReservationModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Reservation Confirmation</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your reservation was submitted successfully</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="confirmReservation">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row justify-content-around">
                 <div class="col-md-5 my-auto">
@@ -174,9 +189,6 @@
                             Schedule with trainer
                         </label>
 
-                        <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
-                            <!-- success alert appear here -->
-                        </div>
                     </div>
 
                 </div>
@@ -290,6 +302,10 @@
         })
 
         $(document).ready(function () {
+
+            $('#confirmReservation').on('click', function () {
+                $('#ReservationModal').hide();
+            });
 
             // Get the checkbox and div elements
             var trainerCheckbox = $('#trainer-checkbox');
@@ -473,11 +489,7 @@
                         // the error is Handling the response from server
                         $('#starttime').change();
                         $('#confirmbutton').attr('disabled', true);
-                        $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
-                        setTimeout(function () {
-                            $('.alert').alert('close');
-                        }, 5000);
-
+                        $('#ReservationModal').show();
                     }
                 });
             } else {
@@ -512,7 +524,7 @@
                             tr.append($('<td>').text(row.last_name));
                             tr.append($('<td>').text(row.phone));
                             tr.append($('<td>').text(row.trainer_price));
-                            var button = $('<button>').addClass('btn btn-primary').text('Send Request');
+                            var button = $('<button>').addClass('btn btn-primary confirm').text('Send Request');
                             button.on('click', function () {
                                 // Send a PHP request with the row data
                                 $.ajax({
@@ -525,13 +537,9 @@
                                         var select2Element = $('#location-search,#type-select');
                                         select2Element.prop('disabled', false);
 
-                                        $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
-                                        setTimeout(function () {
-                                            $('.alert').alert('close');
-                                        }, 5000);
-
                                         $('#trainer-checkbox').prop('checked', false);
                                         $('#trainerChooserDiv').hide();
+                                        $('#ReservationModal').show();
                                     },
                                     error: function (xhr, status, error) {
                                         console.log('Error sending request:', error);
