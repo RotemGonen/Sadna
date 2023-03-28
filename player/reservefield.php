@@ -27,14 +27,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
     <!-- Bootstrap bundle (JS, Popper, and jquery for Bootstrap) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.3/jquery.scrollTo.min.js"></script>
+
 </head>
 
 <body>
@@ -48,8 +47,7 @@
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -69,8 +67,7 @@
                     <a class="nav-link" href="#">Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">More options</a>
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
@@ -193,29 +190,28 @@
 
                 </div>
             </div>
-
-            <div class="" id="trainerChooserDiv">
-                <!-- the table element -->
-                <div class="table-responsive" style="max-height: 300px;height: 300px;">
-                    <table class=" table">
-                        <thead>
-                            <tr>
-                                <th>Photo</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Phone Number</th>
-                                <th>Price</th>
-                                <th>Choose</th>
-                            </tr>
-                        </thead>
-                        <tbody id="trainer-table-body" class="">
-                            <!-- Table rows with data here -->
-                        </tbody>
-                    </table>
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-8 col mt-4 m-md-0 shadow bg-light" id="trainerChooserDiv">
+                    <!-- the table element -->
+                    <div class="table-responsive" style="max-height: 300px;height: 300px;">
+                        <table class=" table">
+                            <thead>
+                                <tr>
+                                    <th>Photo</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Phone Number</th>
+                                    <th>Price</th>
+                                    <th>Choose</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trainer-table-body" class="">
+                                <!-- Table rows with data here -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-        </div>
 
 
     </main>
@@ -232,13 +228,12 @@
         var date = null;
         var flag = false;
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#trainerChooserDiv').hide();
-            $(function () {
+            $(function() {
                 var today = new Date().toISOString().split('T')[0];
                 $('#datepicker').attr('min', today);
             });
-
             const startTime = document.getElementById('starttime');
             const endTime = document.getElementById('endtime');
 
@@ -301,9 +296,9 @@
             }
         })
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $('#confirmReservation').on('click', function () {
+            $('#confirmReservation').on('click', function() {
                 $('#ReservationModal').hide();
             });
 
@@ -315,7 +310,7 @@
             divElement.hide();
 
             // Create an event listener for the checkbox
-            trainerCheckbox.click(function () {
+            trainerCheckbox.click(function() {
                 if (this.checked) {
 
                 } else {
@@ -348,7 +343,7 @@
             });
 
             // Listen for changes to location select dropdown and the type select dropdown
-            $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function () {
+            $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function() {
                 var location = $('#location-search').val();
                 var type = $('#type-select').val();
                 starttime = $('#starttime').val();
@@ -361,18 +356,24 @@
                     $.ajax({
                         url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data.php',
                         method: 'POST',
-                        data: { location: location, type: type, date: date, starttime: starttime, endtime: endtime },
+                        data: {
+                            location: location,
+                            type: type,
+                            date: date,
+                            starttime: starttime,
+                            endtime: endtime
+                        },
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             // Clear existing table rows
                             $('#table-body').empty();
                             // Append new rows to table
-                            data.forEach(function (row) {
+                            data.forEach(function(row) {
                                 var tr = $('<tr>');
                                 const latitude = row.latitude;
                                 const longitude = row.longitude;
                                 var selectButton = $('<button>').addClass('btn btn-secondary').text('Select');
-                                selectButton.click(function () {
+                                selectButton.click(function() {
                                     changeCoords(latitude, longitude)
                                     $('tr').removeClass('checked');
                                     $(this).closest('tr').addClass('checked');
@@ -391,7 +392,7 @@
                                 $('#table-body').append(tr);
                             });
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.log('Error retrieving data:', error);
                         }
                     });
@@ -402,7 +403,7 @@
             });
         });
         // function to get the city
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#type-select').select2({
                 theme: "classic"
             })
@@ -413,14 +414,14 @@
                     url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',
                     delay: 250,
-                    data: function (params) {
+                    data: function(params) {
                         return {
                             q: params.term
                         };
                     },
-                    processResults: function (data) {
+                    processResults: function(data) {
                         return {
-                            results: $.map(data, function (item) {
+                            results: $.map(data, function(item) {
                                 return {
                                     text: item.location,
                                     id: item.location
@@ -442,13 +443,13 @@
         // Set up the map
         var map = L.map('map', {
             minZoom: 7 // set the minimum zoom level to 7
-            , maxBounds: bounds,
+                ,
+            maxBounds: bounds,
             maxBoundsViscosity: 0.5
         }).setView([31.80309338, 35.10942674], 7);
 
         // Add the tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
         var markerLayer = L.layerGroup().addTo(map);
 
         function changeCoords(lat, lng) {
@@ -465,7 +466,7 @@
             // Center the map on the new coordinates
             map.setView([lat, lng], 17);
         }
-        $('#confirmbutton').on('click', function () {
+        $('#confirmbutton').on('click', function() {
             // Check if the trainer checkbox is not checked
             if (!$('#trainer-checkbox').prop('checked')) {
 
@@ -480,12 +481,18 @@
                 $.ajax({
                     url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
                     method: 'POST',
-                    data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>' },
+                    data: {
+                        id: selectedFieldId,
+                        date: date,
+                        starttime: starttime,
+                        endtime: endtime,
+                        player_username: '<?php echo $_SESSION["username"]; ?>'
+                    },
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         $('#starttime').change();
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         // the error is Handling the response from server
                         $('#starttime').change();
                         $('#confirmbutton').attr('disabled', true);
@@ -502,6 +509,8 @@
                 select2Element.prop('disabled', true);
 
                 $('#trainerChooserDiv').show();
+                // Scroll to the div with ID "myDiv" using the scrollTo plugin
+                $.scrollTo('#trainerChooserDiv', 1000); // Scroll animation time in milliseconds
                 var location = $('#location-search').val();
                 var type = $('#type-select').val();
                 starttime = $('#starttime').val();
@@ -510,13 +519,19 @@
                 $.ajax({
                     url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data_trainer.php',
                     method: 'POST',
-                    data: { location: location, type: type, date: date, starttime: starttime, endtime: endtime },
+                    data: {
+                        location: location,
+                        type: type,
+                        date: date,
+                        starttime: starttime,
+                        endtime: endtime
+                    },
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
                         // Clear existing table rows
                         $('#trainer-table-body').empty();
                         // Append new rows to table
-                        data.forEach(function (row) {
+                        data.forEach(function(row) {
                             var tr = $('<tr>');
                             var photo = row.photo_path ? 'http://localhost/Sadna/images/' + row.photo_path : 'http://localhost/Sadna/images/default-avatar.png';
                             tr.append($('<td>').append($('<img>').attr('src', photo).addClass('img-fluid')));
@@ -525,13 +540,20 @@
                             tr.append($('<td>').text(row.phone));
                             tr.append($('<td>').text(row.trainer_price));
                             var button = $('<button>').addClass('btn btn-primary confirm').text('Send Request');
-                            button.on('click', function () {
+                            button.on('click', function() {
                                 // Send a PHP request with the row data
                                 $.ajax({
                                     url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php ',
                                     type: 'POST',
-                                    data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>', trainer_username: row.trainer_username },
-                                    success: function (response) {
+                                    data: {
+                                        id: selectedFieldId,
+                                        date: date,
+                                        starttime: starttime,
+                                        endtime: endtime,
+                                        player_username: '<?php echo $_SESSION["username"]; ?>',
+                                        trainer_username: row.trainer_username
+                                    },
+                                    success: function(response) {
                                         console.log('Request sent successfully:', response);
                                         $('#starttime, #endtime, #datepicker').prop('readonly', false);
                                         var select2Element = $('#location-search,#type-select');
@@ -541,7 +563,7 @@
                                         $('#trainerChooserDiv').hide();
                                         $('#ReservationModal').show();
                                     },
-                                    error: function (xhr, status, error) {
+                                    error: function(xhr, status, error) {
                                         console.log('Error sending request:', error);
                                     }
                                 });
@@ -549,18 +571,26 @@
 
                             tr.append($('<td>').append(button));
                             // Set the height and width of the column
-                            tr.find('td:first-child').css({ 'height': '100px', 'width': '100px' });
+                            tr.find('td:first-child').css({
+                                'height': '100px',
+                                'width': '100px'
+                            });
                             $('#trainer-table-body').append(tr);
                         });
+
+                        if ($('#trainer-table-body tr').length === 0) {
+                            // If no rows, add a new row with a message
+                            $('#trainer-table-body').append('<tr><td colspan="6" class="no-rows text-center font-weight-bold">No rows found</td></tr>');
+
+                        }
+
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.log('Error retrieving data:', error);
                     }
                 });
-
             }
         });
-
     </script>
 </body>
 
