@@ -218,9 +218,16 @@
             });
 
             $(document).ready(function () {
+                var southWest = L.latLng(28.0, 34.0);
+                var northEast = L.latLng(35.0, 37.0);
+                var bounds = L.latLngBounds(southWest, northEast);
 
                 // Set up the map
-                var map = L.map('map').setView([31.80309338, 35.10942674], 7);
+                var map = L.map('map', {
+                    minZoom: 7 // set the minimum zoom level to 7
+                    , maxBounds: bounds,
+                    maxBoundsViscosity: 0.5
+                }).setView([31.80309338, 35.10942674], 7);
                 // Add the tile layer
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 }).addTo(map);
