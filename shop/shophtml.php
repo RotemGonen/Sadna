@@ -31,7 +31,7 @@
     <!-- show the navbar -->
     <div id="navbar"></div>
     <script>
-     $("document").ready(function(){
+    $("document").ready(function(){
         $("#navbar").load("../navbar.html")    
     });
     </script>
@@ -78,25 +78,25 @@
 
     <script>
         $(document).ready(function() {
-            $('#search-btn').click(function(e) {
+            $('#search-btn').submit(function(e) {
                 e.preventDefault();
-                searchProducts();
-    });
-    });
-
-        function searchProducts() {
-        var searchTerm = $('#search-input').val();
-        alert(searchTerm);
-
-        $.ajax({
-            url: 'http://localhost/Sadna/shop/search_bar.php',
-            type: 'POST',
-            data: {searchTerm: searchTerm},
-            success: function(response) {
-                $('#search-results').html(response);
-        }
-    });
-    }
+                var searchTerm = $('#search-input').val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost/Sadna/shop/search_bar.php',
+                    data: { search: searchTerm },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#all-products').hide();
+                        $('#search-results').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        $('#search-results').html("no results found");
+                    }
+                });
+            });
+        });
     </script>
 
 
