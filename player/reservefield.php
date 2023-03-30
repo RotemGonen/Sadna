@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- JavaScript resources -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -33,6 +34,9 @@
     <!-- Bootstrap bundle (JS, Popper, and jquery for Bootstrap) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.3/jquery.scrollTo.min.js"></script>
+
+    <!-- Flatpickr JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </head>
 
@@ -128,7 +132,6 @@
                             <!-- search type bar -->
                             <Label for="type-select">Select sport type:</Label>
                             <select class="form-control" id="type-select" style="width: 100%">
-                                <option value="אולם ספורט">אולם ספורט</option>
                                 <option value="מגרש ספורט">מגרש ספורט</option>
                                 <option value="כדורגל">כדורגל</option>
                                 <option value="כדורסל">כדורסל</option>
@@ -136,16 +139,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col" id="errorrow"></div>
+                    </div>
                     <div class="row" id="form-row">
                         <div class="form-group col">
                             <!-- select start time bar -->
                             <Label for="starttime">Select start time:</Label>
-                            <input type="time" class="form-control" id="starttime">
+                            <input type="text" class="form-control" id="starttime">
                         </div>
                         <div class="form-group col">
                             <!-- selece end time bar -->
                             <Label for="endtime">Select end time:</Label>
-                            <input type="time" class="form-control" id="endtime">
+                            <input type="text" class="form-control" id="endtime">
                         </div>
 
 
@@ -155,9 +161,7 @@
                             <input type="date" id="datepicker" class="form-control" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col" id="errorrow"></div>
-                    </div>
+
                     <!-- the table element -->
                     <div class="table-responsive" style="max-height: 300px;height: 300px;">
                         <table class=" table">
@@ -323,9 +327,10 @@
                         $('#starttime, #endtime, #datepicker').prop('readonly', false);
                         // Get the Select2 element
                         var select2Element = $('#location-search,#type-select');
-
+                        var timeselector = $('#starttime,#endtime');
                         // Disable the Select2 element
                         select2Element.prop('disabled', false);
+                        timeselector.prop('disabled', false)
                     }
                 }
             });
@@ -504,10 +509,10 @@
                 $('#starttime, #endtime, #datepicker').prop('readonly', true);
                 // Get the Select2 element
                 var select2Element = $('#location-search,#type-select');
-
+                var timeselector = $('#starttime,#endtime');
                 // Disable the Select2 element
                 select2Element.prop('disabled', true);
-
+                timeselector.prop('disabled', true)
                 $('#trainerChooserDiv').show();
                 // Scroll to the div with ID "myDiv" using the scrollTo plugin
                 $.scrollTo('#trainerChooserDiv', 1000); // Scroll animation time in milliseconds
@@ -590,6 +595,36 @@
                     }
                 });
             }
+        });
+
+        $(document).ready(function() {
+            flatpickr('#starttime', {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true,
+                minuteIncrement: 15,
+                minTime: "07:00",
+                maxTime: "23:00",
+                defaultDate: "now"
+            });
+
+            flatpickr('#endtime', {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true,
+                minuteIncrement: 15,
+                minTime: "07:00",
+                maxTime: "23:00",
+                defaultDate: "now"
+            });
+
+
+            $('#alert-btn').on('click', function() {
+                var selectedTime = $('#starttime').val();
+                alert('Selected Time: ' + selectedTime);
+            });
         });
     </script>
 </body>

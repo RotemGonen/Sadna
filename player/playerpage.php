@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 </head>
 
@@ -38,8 +39,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -58,8 +58,7 @@
                     <a class="nav-link" href="#">Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">More options</a>
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
@@ -135,13 +134,11 @@
                                     </div>
                                 <?php } ?>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel"
-                                data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#reservationcarousel"
-                                data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#reservationcarousel" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -159,14 +156,25 @@
         </main>
 
         <script>
+            function createGoogleCalendarLink(date, starttime, endtime, type, location) {
+                // encode the event details in the URL
+                var details = encodeURIComponent('Type: ' + type + '\nLocation: ' + location);
+                // create the start and end datetime strings in the correct format
+                var startDate = moment(date + ' ' + starttime, 'YYYY-MM-DD HH:mm').utc().format('YYYYMMDDTHHmmss[Z]');
+                var endDate = moment(date + ' ' + endtime, 'YYYY-MM-DD HH:mm').utc().format('YYYYMMDDTHHmmss[Z]');
+                // create the URL for the Google Calendar event
+                return 'https://www.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Training reservation') + '&dates=' + startDate + '/' + endDate + '&details=' + details;
+            }
 
             function Getreserv() {
                 $.ajax({
                     url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php', // change this to the url of your server-side script that fetches the data from the database
                     type: 'get',
                     dataType: 'json',
-                    data: { username: '<?php echo $_SESSION['username']; ?>' },
-                    success: function (response) {
+                    data: {
+                        username: '<?php echo $_SESSION['username']; ?>'
+                    },
+                    success: function(response) {
                         data = response.data;
                         var cards = '';
                         if (data.length == 0) {
@@ -193,6 +201,7 @@
                                 cards += '<h4 class="card-title">' + data[i].date + '</h5>';
                                 cards += '<p class="font-weight-bold">' + data[i].type + '-' + data[i].location + '</p>';
                                 cards += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
+                                cards += '<a href="' + createGoogleCalendarLink(data[i].date, data[i].starttime, data[i].endtime, data[i].type, data[i].location) + '" target="_blank">Add to the calendar <img src="http://localhost/Sadna/images/google_calendar_icon.png" alt="Google Calendar" style="width: 8%;"><a>'
                                 cards += '<div class="row col">';
                                 cards += '<div class="col">';
                                 cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
@@ -213,11 +222,11 @@
             }
 
             var data; // define data outside of AJAX call
-            $(document).ready(function () {
+            $(document).ready(function() {
                 Getreserv()
             });
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 var southWest = L.latLng(28.0, 34.0);
                 var northEast = L.latLng(35.0, 37.0);
                 var bounds = L.latLngBounds(southWest, northEast);
@@ -225,22 +234,23 @@
                 // Set up the map
                 var map = L.map('map', {
                     minZoom: 7 // set the minimum zoom level to 7
-                    , maxBounds: bounds,
+                        ,
+                    maxBounds: bounds,
                     maxBoundsViscosity: 0.5
                 }).setView([31.80309338, 35.10942674], 7);
                 // Add the tile layer
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                }).addTo(map);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
                 var markerLayer = L.layerGroup().addTo(map);
 
 
                 var carousel = $('#reservationcarousel');
 
-                carousel.on('click', '.send-coords', function () {
+                carousel.on('click', '.send-coords', function() {
                     var lat = $(this).data('lat');
                     var lon = $(this).data('lon');
                     changeCoords(lat, lon);
                 });
+
                 function changeCoords(lat, lng) {
                     // Remove existing marker layer from the map
                     if (markerLayer) {
@@ -256,34 +266,36 @@
                     map.setView([lat, lng], 17);
                 }
             })
-            $(document).ready(function () {
+            $(document).ready(function() {
                 var reservation_Id = null
                 var carousel = $('#reservationcarousel');
                 // Add a click event listener to the "remove" button
-                carousel.on('click', '.remove-row', function () {
+                carousel.on('click', '.remove-row', function() {
                     reservation_Id = $(this).data('id')
                     $('#cancelReservationModal').show()
                 })
 
-                $('#confirmCancelReservation').on('click', function () {
+                $('#confirmCancelReservation').on('click', function() {
 
                     $.ajax({
                         url: 'http://localhost/Sadna/player/pagehelpers/remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
                         method: 'POST',
-                        data: { reservation_Id: reservation_Id }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
-                        success: function (response) {
+                        data: {
+                            reservation_Id: reservation_Id
+                        }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
+                        success: function(response) {
                             // If the AJAX request was successful, remove the corresponding carousel item from the DOM
                             console.log('refresh done');
                             location.reload();
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // If the AJAX request failed, log the error message to the console
                             console.error(error);
                         }
                     });
                 });
 
-                $('.cancelaction,.btn-close').on('click', function () {
+                $('.cancelaction,.btn-close').on('click', function() {
                     $('#cancelReservationModal').hide();
                 });
             });
@@ -306,17 +318,13 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"> </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>
