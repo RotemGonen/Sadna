@@ -54,11 +54,12 @@
                         <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
                     </div>
                 </li>
+                
             </ul>
 
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><img src="http://localhost/Sadna/images/cart.png" alt="cart" width='15%' height='100%'></a>
+                    <a class="nav-link" href="#"><img src="http://localhost/Sadna/images/cart.png" alt="cart" width='35' height='25'></a>
                 </li>
             </ul>
         </div>
