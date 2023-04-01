@@ -33,8 +33,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -47,14 +46,10 @@
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meet the trainers</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#">Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="http://example.com" id="dropdown01"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
+                    <a class="nav-link dropdown-toggle active" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
@@ -86,6 +81,13 @@
                         <form>
                             <div class="mb-3">
                                 <div class="col-8">
+                                    <label for="file-upload" class="form-label">Optional- Use a photo to display yourself</label>
+                                    <input type="file" id="file-upload" name="file">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="col-8">
                                     <label for="password" class="form-label">Password (remember it before
                                         changing!)</label>
                                     <input type="password" class="form-control" id="password">
@@ -111,8 +113,7 @@
                         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="http://localhost/Sadna/images/basketball.jpg" class="d-block w-100"
-                                        alt="...">
+                                    <img src="http://localhost/Sadna/images/basketball.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
                                     <img src="http://localhost/Sadna/images/soccer.jpg" class="d-block w-100" alt="...">
@@ -121,17 +122,14 @@
                                     <img src="http://localhost/Sadna/images/tennis.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="http://localhost/Sadna/images/volleyball.jpg" class="d-block w-100"
-                                        alt="...">
+                                    <img src="http://localhost/Sadna/images/volleyball.jpg" class="d-block w-100" alt="...">
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel"
-                                data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel"
-                                data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -163,20 +161,17 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"> </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
-    <script>        // function to get the city
-        $(document).ready(function () {
+    <script>
+        // function to get the city
+        $(document).ready(function() {
             $('#location-search').select2({
                 theme: "classic",
                 placeholder: "Search city(Hebrew) ...",
@@ -184,14 +179,14 @@
                     url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',
                     delay: 250,
-                    data: function (params) {
+                    data: function(params) {
                         return {
                             q: params.term
                         };
                     },
-                    processResults: function (data) {
+                    processResults: function(data) {
                         return {
-                            results: $.map(data, function (item) {
+                            results: $.map(data, function(item) {
                                 return {
                                     text: item.location,
                                     id: item.location
@@ -210,7 +205,7 @@
         var submitBtn = $("#submit-btn");
 
         // Add an event listener to the input field
-        passwordInput.on("input", function () {
+        passwordInput.on("input", function() {
             // Check if the password is at least 5 characters long
             if (passwordInput.val().length < 5 && passwordInput.val() != '') {
                 // Show the validation message
@@ -223,47 +218,57 @@
             }
 
         });
-
-        $(document).ready(function () {
-            $('form').submit(function (event) {
+        $(document).ready(function() {
+            $('form').submit(function(event) {
                 // Prevent the form from submitting normally
                 event.preventDefault();
 
-                // Get the form data
-                var formData = {
-                    'username': '<?php echo $_SESSION["username"]; ?>',
-                    'password': $('input#password').val(),
-                    'city': $('#location-search').val(),
-                };
+                // Create a new FormData object
+                var formData = new FormData();
+
+                // Add the username to the FormData object
+                formData.append('username', '<?php echo $_SESSION["username"]; ?>');
+
+                // Add the password to the FormData object
+                formData.append('password', $('input#password').val());
+
+                // Add the city to the FormData object
+                formData.append('city', $('#location-search').val());
+
+                // Add the file input to the FormData object
+                var fileInput = $('input[type="file"]')[0];
+                var file = fileInput.files[0];
+                formData.append('profile_picture', file);
 
                 // Send the AJAX request
                 $.ajax({
                     type: 'POST',
                     url: 'http://localhost/Sadna/player/pagehelpers/update_user_details.php',
                     data: formData,
-                    success: function (data) {
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
                         // Create a success alert with a timeout of 5 seconds
                         var alertSuccess = $('<div class="alert alert-success" role="alert">User details updated successfully!</div>');
                         $('#my-alerts').append(alertSuccess);
-                        setTimeout(function () {
+                        setTimeout(function() {
                             alertSuccess.remove();
                         }, 5000);
                         $('#password').val('');
+
                     },
-                    error: function () {
+                    error: function() {
                         // Create an error alert with a timeout of 5 seconds
                         var alertError = $('<div class="alert alert-danger" role="alert">An error occurred while updating user details.</div>');
                         $('#my-alerts').append(alertError);
-                        setTimeout(function () {
+                        setTimeout(function() {
                             alertError.remove();
                         }, 5000);
-                    }
 
+                    }
                 });
             });
         });
-
-
     </script>
 </body>
 

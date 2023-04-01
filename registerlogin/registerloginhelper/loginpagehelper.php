@@ -26,6 +26,8 @@ if (mysqli_num_rows($result) == 1) {
         session_start();
         $_SESSION['authenticated'] = true;
         $_SESSION['username'] = $username;
+        $_SESSION['first_name'] = $row['first_name'];
+        $_SESSION['photo_path'] = $row['photo_path'];
         $_SESSION['account_type'] = $row['account_type'];
         if ($row['account_type'] == 'player') {
             header("Location: http://localhost/Sadna/player/playerpage.php");

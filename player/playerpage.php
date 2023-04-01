@@ -29,14 +29,18 @@
         echo "<script>
         window.onload = function() {
             var usernameDiv = document.getElementById('greeting');
-            usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
+            usernameDiv.innerHTML =  'Hello, " . $_SESSION['first_name'] . "';
+            var img = document.getElementById('personal-photo');
+            var src = 'http://localhost/Sadna/images/profile/" . $_SESSION['photo_path'] . "';
+            if (src) {
+                img.src = src;
+            }
+    
             }
         </script>";
         $num_reservations = null;
     }
-
     ?>
-
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,9 +54,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Meet the trainers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Store</a>
@@ -73,6 +74,7 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
+                    <img src="" id="personal-photo" alt="personal photo" class="img-fluid rounded-circle" style="height: 100px; width:100px;">
                     <h1 class="display-3" id="greeting"></h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
                         Tired of the hassle of arriving at your local park with your team,

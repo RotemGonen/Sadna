@@ -65,9 +65,6 @@
                         field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meet the trainers</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#">Store</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -506,7 +503,7 @@
                 });
             } else {
                 // The trainer checkbox is checked, do not execute the prior AJAX request
-                $('#starttime, #endtime, #datepicker').prop('readonly', true);
+                $('#datepicker').prop('readonly', true);
                 // Get the Select2 element
                 var select2Element = $('#location-search,#type-select');
                 var timeselector = $('#starttime,#endtime');
@@ -538,7 +535,7 @@
                         // Append new rows to table
                         data.forEach(function(row) {
                             var tr = $('<tr>');
-                            var photo = row.photo_path ? 'http://localhost/Sadna/images/' + row.photo_path : 'http://localhost/Sadna/images/default-avatar.png';
+                            var photo = row.photo_path ? 'http://localhost/Sadna/images/profile/' + row.photo_path : 'http://localhost/Sadna/images/profile/default-avatar.png';
                             tr.append($('<td>').append($('<img>').attr('src', photo).addClass('img-fluid')));
                             tr.append($('<td>').text(row.first_name));
                             tr.append($('<td>').text(row.last_name));
@@ -567,6 +564,8 @@
                                         $('#trainer-checkbox').prop('checked', false);
                                         $('#trainerChooserDiv').hide();
                                         $('#ReservationModal').show();
+                                        var select2Element = $('#location-search,#type-select');
+                                        var timeselector = $('#starttime,#endtime');
                                     },
                                     error: function(xhr, status, error) {
                                         console.log('Error sending request:', error);
@@ -606,7 +605,7 @@
                 minuteIncrement: 15,
                 minTime: "07:00",
                 maxTime: "23:00",
-                defaultDate: "now"
+                defaultDate: new Date()
             });
 
             flatpickr('#endtime', {
@@ -617,7 +616,7 @@
                 minuteIncrement: 15,
                 minTime: "07:00",
                 maxTime: "23:00",
-                defaultDate: "now"
+                defaultDate: new Date()
             });
 
 
