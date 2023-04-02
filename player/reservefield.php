@@ -136,9 +136,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row fixed-top mt-5 d-block mx-auto">
                         <div class="col" id="errorrow"></div>
                     </div>
+
                     <div class="row" id="form-row">
                         <div class="form-group col">
                             <!-- select start time bar -->
@@ -275,16 +276,16 @@
                             alertDiv.classList.add("alert", "alert-danger");
                             alertDiv.classList.add("alert", "col");
                             alertDiv.textContent = errorMessage;
-
                             const inputRow = document.querySelector("#errorrow");
-                            endTime.value = "";
+
                             flag = false;
                             inputRow.appendChild(alertDiv);
 
                             // Remove the alert after 5 seconds
                             setTimeout(() => {
                                 alertDiv.remove();
-                            }, 5000);
+                                endTime.value = "";
+                            }, 3000);
                         }
                     } else {
                         flag = true;

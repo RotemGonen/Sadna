@@ -16,6 +16,25 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Instascan -->
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        #preview {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 
 </head>
 
@@ -74,7 +93,9 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <img src="" id="personal-photo" alt="personal photo" class="img-fluid rounded-circle" style="height: 100px; width:100px;">
+                    <div class="w-25 rounded-3 p-2 text-center col-md-2" style="background-color: #b5b5bd">
+                        <img src="" id="personal-photo" alt="personal photo" class="img-fluid rounded-circle">
+                    </div>
                     <h1 class="display-3" id="greeting"></h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
                         Tired of the hassle of arriving at your local park with your team,
@@ -89,6 +110,49 @@
             </div>
 
             <div class="container">
+                <div class="jumbotron text-center" style="background-color: #e1e1ea;">
+                    <h2 class="mb-3">Scan QR Code</h2>
+                    <p>Use your device's camera to Scan the QR code located in the field to let us know you have reached it.</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#qrModal">
+                        <i class="fas fa-camera mr-2"></i>Scan QR Code
+                    </button>
+                </div>
+
+                <!-- QR Code Scanner Modal -->
+                <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="qrModalLabel">Scan QR Code</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <video id="preview" class="w-100"></video> <!-- Added 'w-100' class for full-width -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Alert -->
+                <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert" style="display:none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Success!</strong>
+                </div>
+
+                <!-- Error Alert -->
+                <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert" style="display:none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Error!</strong>
+                </div>
 
                 <div class="modal" id="cancelReservationModal">
                     <div class="modal-dialog modal-dialog-centered">
@@ -308,25 +372,54 @@
     </footer>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"> </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- QR Code Scanner Script -->
+    <script>
+        $(document).ready(function() {
+            var scanner = new Instascan.Scanner({
+                video: document.getElementById('preview')
+            });
+            scanner.addListener('scan', function(content) {
+                scanner.stop();
+                $("#qrModal .close").trigger("click");
+                $.ajax({
+                    url: 'http://localhost/Sadna/player/pagehelpers/arrivalverify.php',
+                    type: 'POST',
+                    data: {
+                        username: '<?php echo $_SESSION['username']; ?>',
+                        code: content
+                    },
+                    success: function(response) {
+                        if (response === "good") {
+                            $('#success-alert').html('You have been marked as arrived to the field.').fadeIn().delay(5000).fadeOut(); // show success alert message for 3 seconds
+                        } else {
+                            $('#error-alert').html('It seems you don\'t currently have a reservation.').fadeIn().delay(5000).fadeOut(); // show error alert message for 3 seconds
+                        }
+                    }
+                })
+            });
+            $('#qrModal').on('shown.bs.modal', function(e) {
+                console.log('Modal is shown.'); // Check if event listener is working
+                Instascan.Camera.getCameras().then(function(cameras) {
+                    console.log('Cameras found:', cameras); // Check if cameras are found
+                    if (cameras.length > 0) {
+                        scanner.start(cameras[0]);
+                        console.log('Scanner started.'); // Check if scanner is started
+                    } else {
+                        alert('No cameras found.');
+                    }
+                }).catch(function(e) {
+                    console.error(e);
+                });
+            });
+            $('#qrModal').on('hidden.bs.modal', function(e) {
+                scanner.stop();
+            });
+        });
+    </script>
+
 </body>
 
 </html>
