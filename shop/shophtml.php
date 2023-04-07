@@ -93,7 +93,7 @@
         <div class="jumbotron">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <h1 class="display-3" id='greeting'>Hello, </h1>
                         <p><span class="font-weight-bold">It's good to see you here!</span>
                             here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
@@ -108,29 +108,63 @@
                     </svg></button> 
                         </form>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <img src="gif.gif" width="75%" height="100%" style="margin-left:20%;">
                     </div>
                 </div>
             <div>
         </div>
 
-        <div class="container-fluid m-4">
+        <div class="container-fluid m-4" id="pro">
             <div class="row">
-                    <?php include 'shop.php'; ?>  
             </div>
         </div> 
 
-        <div class="container m-4" id="search-results">
+        <!-- <div class="container m-4" id="search-results">
             <div class="row">
             </div>
-        </div> 
+        </div>  -->
 
         
     </main>
     </body>
-
+<!-- 
     <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'http://localhost/Sadna/shop/shop.php', 
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var productHTML = '';
+                $.each(data, function(index, product) {
+                    productHTML += "<div class='border border-dark col-md-4 d-flex flex-column'>";
+                    productHTML += "<div class='align-items-center ml-4' id='one'>";
+                    productHTML += "<ul style='list-style: none;'> <li>";
+                    productHTML += "<div class='align-items-center'>";
+                    productHTML += "<img src='data:image/jpeg;base64," + btoa(product.picture) + "' class='img-fluid mt-3' width='200' height='200'>";
+                    productHTML += "</div>";
+                    productHTML += "<h3>" + product.name + "</h3>";
+                    productHTML += "<p>" + product.content + "</p>";
+                    productHTML += "<p style='text-decoration:underline;'> Price: " + product.price + "</p>";
+                    productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'></li> </ul>";
+                    productHTML += "</div>";
+                    productHTML += "<div class='mt-auto text-center'>";
+                    productHTML += "<button class='btn btn-dark mb-1' id='add'> add to cart </button>";
+                    productHTML +=  "</div>";
+                    productHTML +=  "</div>";
+                });
+                $('#pro .row').html(productHTML);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    });
+    </script> -->
+
+
+    <!-- <script>
         $(document).ready(function () {
             $('#product-search').select2({
                 theme: "classic",
@@ -158,34 +192,7 @@
                 },
             })
         });
-    </script>
-
-<!-- 
-    <script>
-        //retrieve product
-        $(document).ready(function() {
-            $('#search-btn').submit(function(e) {
-                e.preventDefault();
-                var searchTerm = $('#search-input').val();
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost/Sadna/shop/search_bar.php',
-                    data: { search: searchTerm },
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#all-products').hide();
-                        $('#search-results').html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                        $('#search-results').html("no results found");
-                    }
-                });
-            });
-        });
     </script> -->
-
-
 
 <footer class="container">
     <p>&copy; 20232W89</p>
