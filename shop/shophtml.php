@@ -8,7 +8,6 @@
     <!-- CSS resources -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
-    <link rel="stylesheet" type="text/css" href="sho.css">
 
     <!-- JavaScript resources -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -100,9 +99,9 @@
                             you can use our search bar right down or scroll down and see our products. 
                         </p>
                         <form class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
-                            <select class="form-control" id="product-search" style="width: 100%">
-                            </select>
-                            <!-- <input class="form-control me-2" type="search" name="char" id="search-input" placeholder="Search" aria-label="Search">-->
+                            <!-- <select class="form-control" id="product-search" style="width: 100%"> -->
+                            <!-- </select> -->
+                            <input class="form-control me-2" type="search" name="char" id="search-input" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" id="search-btn" type="submit" name="submit"><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> 
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg></button> 
@@ -120,15 +119,16 @@
             </div>
         </div> 
 
-        <!-- <div class="container m-4" id="search-results">
+
+        <div class="container m-4" id="products-container">
             <div class="row">
             </div>
-        </div>  -->
+        </div> 
 
         
     </main>
     </body>
-<!-- 
+
     <script>
     $(document).ready(function() {
         $.ajax({
@@ -138,30 +138,75 @@
             success: function(data) {
                 var productHTML = '';
                 $.each(data, function(index, product) {
-                    productHTML += "<div class='border border-dark col-md-4 d-flex flex-column'>";
-                    productHTML += "<div class='align-items-center ml-4' id='one'>";
-                    productHTML += "<ul style='list-style: none;'> <li>";
-                    productHTML += "<div class='align-items-center'>";
-                    productHTML += "<img src='data:image/jpeg;base64," + btoa(product.picture) + "' class='img-fluid mt-3' width='200' height='200'>";
+                    productHTML += "<div class='col-md-4 mb-4'>";
+                    productHTML += "<div class='card h-100'>";
+                    productHTML += "<div class='card-body'>";
+                    productHTML += "<div class='text-center'>";
+                    productHTML += "<img src='data:image/jpeg;base64," + product.picture + "' class='card-img-top' alt='" + product.name + "' style='max-height: 200px;'>";
                     productHTML += "</div>";
-                    productHTML += "<h3>" + product.name + "</h3>";
-                    productHTML += "<p>" + product.content + "</p>";
-                    productHTML += "<p style='text-decoration:underline;'> Price: " + product.price + "</p>";
-                    productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'></li> </ul>";
+                    productHTML += "<h3 class='card-title'>" + product.name + "</h3>";
+                    productHTML += "<p class='card-text'>" + product.content + "</p>";
+                    productHTML += "<p class='card-text'><strong>Price:</strong> " + product.price + "</p>";
+                    productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'>";
                     productHTML += "</div>";
-                    productHTML += "<div class='mt-auto text-center'>";
-                    productHTML += "<button class='btn btn-dark mb-1' id='add'> add to cart </button>";
-                    productHTML +=  "</div>";
-                    productHTML +=  "</div>";
+                    productHTML += "<div class='card-footer mt-auto text-center d-flex justify-content-center'>";
+                    productHTML += "<button class='btn btn-dark mb-1' id='add'>Add to cart</button>";
+                    productHTML += "</div>";
+                    productHTML += "</div>";
+                    productHTML += "</div>";
                 });
                 $('#pro .row').html(productHTML);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+
+        // Handle search button click
+        $('#search-btn').click(function() {
+            searchProducts();
+        });
+
+        function searchProducts() {
+        // Get the search term entered by the user
+        var searchTerm = $('#search-input').val();
+
+        // Use Ajax to fetch the products from the server
+        $.ajax({ 
+            url: 'http://localhost/Sadna/shop/get-products.php',
+            type: 'GET',
+            data: { search: searchTerm },
+            dataType: 'json',
+            success: function(products) {
+            var productHTML = '';
+            // Iterate over the products and add them to the container
+            $.each(products, function(index, product) {
+                productHTML += "<div class='col-md-4 mb-4'>";
+                productHTML += "<div class='card h-100'>";
+                productHTML += "<div class='card-body'>";
+                productHTML += "<div class='text-center'>";
+                productHTML += "<img src='data:image/jpeg;base64," + product.picture + "' class='card-img-top' alt='" + product.name + "' style='max-height: 200px;'>";
+                productHTML += "</div>";
+                productHTML += "<h3 class='card-title'>" + product.name + "</h3>";
+                productHTML += "<p class='card-text'>" + product.content + "</p>";
+                productHTML += "<p class='card-text'><strong>Price:</strong> " + product.price + "</p>";
+                productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'>";
+                productHTML += "</div>";
+                productHTML += "<div class='card-footer mt-auto text-center d-flex justify-content-center'>";
+                productHTML += "<button class='btn btn-dark mb-1' id='add'>Add to cart</button>";
+                productHTML += "</div>";
+                productHTML += "</div>";
+                productHTML += "</div>";
+            });
+            $('#product-container').append(productHTML);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+            error: function(xhr, textStatus, errorThrown) {
+            console.log('Error fetching products: ' + errorThrown);
             }
         });
-    });
-    </script> -->
+    };
+        </script>
 
 
     <!-- <script>

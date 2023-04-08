@@ -1,8 +1,11 @@
 <?php
 include '../connection.php';
 
-// Retrieve products from database
-$sql = "SELECT * FROM products";
+if (isset($_GET['search'])) {
+    // Add search condition to SQL query if search term is provided
+    $search_term = $_GET['search'];
+    $sql = "SELECT * FROM products WHERE name LIKE '%$search_term%'";
+}
 $result = $conn->query($sql);
 
 // Create an array to hold the products
