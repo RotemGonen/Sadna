@@ -7,7 +7,7 @@
     <title>shop</title>
     <!-- CSS resources -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"> <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
 
     <!-- JavaScript resources -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -98,14 +98,14 @@
                             here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
                             you can use our search bar right down or scroll down and see our products. 
                         </p>
-                        <form class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
-                            <!-- <select class="form-control" id="product-search" style="width: 100%"> -->
-                            <!-- </select> -->
+                        <div class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
+                            <!-- <select class="form-control" id="product-search" style="width: 100%"> 
+                            </select> -->
                             <input class="form-control me-2" type="search" name="char" id="search-input" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" id="search-btn" type="submit" name="submit"><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> 
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg></button> 
-                        </form>
+                    </div>
                     </div>
                     <div class="col-6">
                         <img src="gif.gif" width="75%" height="100%" style="margin-left:20%;">
@@ -118,12 +118,7 @@
             <div class="row">
             </div>
         </div> 
-
-
-        <div class="container m-4" id="products-container">
-            <div class="row">
-            </div>
-        </div> 
+ 
 
         
     </main>
@@ -155,13 +150,12 @@
                     productHTML += "</div>";
                     productHTML += "</div>";
                 });
-                $('#pro .row').html(productHTML);
+                    $('#pro .row').html(productHTML);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
                 }
             });
-        });
 
         // Handle search button click
         $('#search-btn').click(function() {
@@ -171,7 +165,6 @@
         function searchProducts() {
         // Get the search term entered by the user
         var searchTerm = $('#search-input').val();
-
         // Use Ajax to fetch the products from the server
         $.ajax({ 
             url: 'http://localhost/Sadna/shop/get-products.php',
@@ -199,13 +192,20 @@
                 productHTML += "</div>";
                 productHTML += "</div>";
             });
-            $('#product-container').append(productHTML);
+            if(productHTML === '')
+                {
+                    $('#pro .row').html("not match item for this search");
+                }
+            else
+            $('#pro .row').html(productHTML);
             },
             error: function(xhr, textStatus, errorThrown) {
             console.log('Error fetching products: ' + errorThrown);
             }
         });
     };
+});
+
         </script>
 
 
