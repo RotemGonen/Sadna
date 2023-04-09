@@ -273,7 +273,7 @@
                                 cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
                                 cards += '</div>';
                                 cards += '<div class="col">';
-                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '" data-loc="' + data[i].location + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
                                 cards += '</div>';
                                 cards += '</div>';
                                 cards += '</div>';
@@ -314,10 +314,11 @@
                 carousel.on('click', '.send-coords', function() {
                     var lat = $(this).data('lat');
                     var lon = $(this).data('lon');
-                    changeCoords(lat, lon);
+                    var loc = $(this).data('loc');
+                    changeCoords(lat, lon, loc);
                 });
 
-                function changeCoords(lat, lng) {
+                function changeCoords(lat, lng, location) {
                     // Remove existing marker layer from the map
                     if (markerLayer) {
                         map.removeLayer(markerLayer);
@@ -326,10 +327,58 @@
                     // Create a new marker layer and add it to the map
                     markerLayer = L.layerGroup();
                     var marker = L.marker([lat, lng]);
+                    var popup = L.popup();
+
+                    // Use Nominatim to get the closest address to the marker location
+                    var url = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json';
+                    $.getJSON(url, function(data) {
+                        var address = data.display_name;
+                        // Update the marker popup with the address
+                        popup.setContent(address);
+                        marker.bindPopup(popup);
+                    });
                     markerLayer.addLayer(marker);
                     map.addLayer(markerLayer);
                     // Center the map on the new coordinates
                     map.setView([lat, lng], 17);
+
+                    // Define the custom icon for the defibrillator
+                    var defibIcon = L.icon({
+                        iconUrl: 'http://localhost/Sadna/images/defib-icon.png',
+                        iconSize: [32, 32], // size of the icon
+                        iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
+                        popupAnchor: [0, -16] // point from which the popup should open relative to the iconAnchor
+                    });
+
+                    $.ajax({
+                        url: 'http://localhost/Sadna/player/pagehelpers/getdefilocation.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            location
+                        },
+                        success: function(data) {
+                            // Loop through the response data and add a marker for each set of coordinates
+                            for (var i = 0; i < data.length; i++) {
+                                var lat_defi = data[i].latitude;
+                                var lng_defi = data[i].longitude;
+                                var location_name = data[i].location_name;
+                                var location_description = data[i].location_description;
+                                var street = data[i].location_street;
+                                var street_num = data[i].location_street_num;
+
+                                // Create the marker with the defibIcon and popup content
+                                var marker = L.marker([lat_defi, lng_defi], {
+                                        icon: defibIcon
+                                    })
+                                    .bindPopup("<b>" + location_name + "</b><br>" + location_description + "<br>" + street_num + " " + street);
+                                markerLayer.addLayer(marker);
+                            }
+                            // Add the marker layer to the map
+                            map.addLayer(markerLayer);
+                        },
+                    });
+
                 }
             })
             $(document).ready(function() {
