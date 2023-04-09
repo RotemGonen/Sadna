@@ -78,7 +78,7 @@
             usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
             }
         </script>";}
-        ?>
+?>
     
     <!-- show the navbar -->
     <!-- <div id="navbar"></div>
@@ -88,90 +88,90 @@
     });
     </script> -->
     
-    <main role="main">
-        <div class="jumbotron">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <h1 class="display-3" id='greeting'>Hello, </h1>
-                        <p><span class="font-weight-bold">It's good to see you here!</span>
-                            here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
-                            you can use our search bar right down or scroll down and see our products. 
-                        </p>
-                        <div class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
-                            <!-- <select class="form-control" id="product-search" style="width: 100%"> 
-                            </select> -->
-                            <input class="form-control me-2" type="search" name="char" id="search-input" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" id="search-btn" type="submit" name="submit"><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> 
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                    </svg></button> 
-                    </div>
-                    </div>
-                    <div class="col-6">
-                        <img src="gif.gif" width="75%" height="100%" style="margin-left:20%;">
-                    </div>
-                </div>
-            <div>
-        </div>
-
-        <div class="container-fluid m-4" id="pro">
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
             <div class="row">
+                <div class="col-6">
+                    <h1 class="display-3" id='greeting'>Hello, </h1>
+                    <p><span class="font-weight-bold">It's good to see you here!</span>
+                        here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
+                        you can use our search bar right down or scroll down and see our products. 
+                    </p>
+                    <div class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
+                        <!-- <select class="form-control" id="product-search" style="width: 100%"> 
+                        </select> -->
+                        <input class="form-control me-2" type="search" name="char" id="search-input" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" id="search-btn" type="submit" name="submit"><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> 
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg></button> 
+                    </div><br>
+                    <div class='sen'></div>
+                </div>
+                <div class="col-6">
+                    <img src="gif.gif" width="75%" height="100%" style="margin-left:20%;">
+                </div>
             </div>
-        </div> 
- 
+        <div>
+    </div>
 
-        
-    </main>
-    </body>
+    <div class="container-fluid m-4" id="pro">
+        <div class="row">
+        </div>
+    </div>  
+    
+</main>
+</body>
 
-    <script>
-    $(document).ready(function() {
-        $.ajax({
-            url: 'http://localhost/Sadna/shop/shop.php', 
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                var productHTML = '';
-                $.each(data, function(index, product) {
-                    productHTML += "<div class='col-md-4 mb-4'>";
-                    productHTML += "<div class='card h-100'>";
-                    productHTML += "<div class='card-body'>";
-                    productHTML += "<div class='text-center'>";
-                    productHTML += "<img src='data:image/jpeg;base64," + product.picture + "' class='card-img-top' alt='" + product.name + "' style='max-height: 200px;'>";
-                    productHTML += "</div>";
-                    productHTML += "<h3 class='card-title'>" + product.name + "</h3>";
-                    productHTML += "<p class='card-text'>" + product.content + "</p>";
-                    productHTML += "<p class='card-text'><strong>Price:</strong> " + product.price + "</p>";
-                    productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'>";
-                    productHTML += "</div>";
-                    productHTML += "<div class='card-footer mt-auto text-center d-flex justify-content-center'>";
-                    productHTML += "<button class='btn btn-dark mb-1' id='add'>Add to cart</button>";
-                    productHTML += "</div>";
-                    productHTML += "</div>";
-                    productHTML += "</div>";
-                });
-                    $('#pro .row').html(productHTML);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
-                }
+<script>
+$(document).ready(function show_products() {
+    $.ajax({
+        url: 'http://localhost/Sadna/shop/shop.php', 
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            var productHTML = '';
+            $.each(data, function(index, product) {
+                productHTML += "<div class='col-md-4 mb-4'>";
+                productHTML += "<div class='card h-100'>";
+                productHTML += "<div class='card-body'>";
+                productHTML += "<div class='text-center'>";
+                productHTML += "<img src='data:image/jpeg;base64," + product.picture + "' class='card-img-top' alt='" + product.name + "' style='max-height: 200px;'>";
+                productHTML += "</div>";
+                productHTML += "<h3 class='card-title'>" + product.name + "</h3>";
+                productHTML += "<p class='card-text'>" + product.content + "</p>";
+                productHTML += "<p class='card-text'><strong>Price:</strong> " + product.price + "</p>";
+                productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'>";
+                productHTML += "</div>";
+                productHTML += "<div class='card-footer mt-auto text-center d-flex justify-content-center'>";
+                productHTML += "<button class='btn btn-dark mb-1' id='add' onclick>Add to cart</button>";
+                productHTML += "</div>";
+                productHTML += "</div>";
+                productHTML += "</div>";
             });
-
-        // Handle search button click
-        $('#search-btn').click(function() {
-            searchProducts();
+                $('#pro .row').html(productHTML);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
         });
+        
 
-        function searchProducts() {
-        // Get the search term entered by the user
-        var searchTerm = $('#search-input').val();
-        // Use Ajax to fetch the products from the server
-        $.ajax({ 
-            url: 'http://localhost/Sadna/shop/get-products.php',
-            type: 'GET',
-            data: { search: searchTerm },
-            dataType: 'json',
-            success: function(products) {
+    // Handle search button click
+    $('#search-btn').click(function() {
+        searchProducts();
+    });
+
+    function searchProducts() {
+    // Get the search term entered by the user
+    var searchTerm = $('#search-input').val();
+    // Use Ajax to fetch the products from the server
+    $.ajax({ 
+        url: 'http://localhost/Sadna/shop/get-products.php',
+        type: 'GET',
+        data: { search: searchTerm },
+        dataType: 'json',
+        success: function(products) {
             var productHTML = '';
             // Iterate over the products and add them to the container
             $.each(products, function(index, product) {
@@ -194,50 +194,35 @@
             });
             if(productHTML === '')
                 {
-                    $('#pro .row').html("not match item for this search");
+                    $('.sen').html("not match item for this search, please search again");
+                    show_products();
                 }
             else
             $('#pro .row').html(productHTML);
             },
-            error: function(xhr, textStatus, errorThrown) {
-            console.log('Error fetching products: ' + errorThrown);
-            }
-        });
+        error: function(xhr, textStatus, errorThrown) {
+        console.log('Error fetching products: ' + errorThrown);
+        }
+    });
     };
+
+    $('#add').click(function() {
+        console.log("aaaa");
+        add_to_cart();
+    });
+
+    function add_to_cart() {
+        // get the product name from the card title
+        var productName = $(this).closest('.card').find('.card-title').text();
+        // get the quantity entered by the user
+        var quantity = $(this).closest('.card').find('input[name="quantity"]').val();
+        alert(quantity + ' ' + productName + ' added to cart successfully.');
+    }
+
+
+//end of document ready
 });
-
-        </script>
-
-
-    <!-- <script>
-        $(document).ready(function () {
-            $('#product-search').select2({
-                theme: "classic",
-                placeholder: "Search product",
-                ajax: {
-                    url: 'http://localhost/Sadna/shop/retrieve_product.php',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.name
-                                }
-                            })
-                        };
-                    },
-                    allowClear: true
-                },
-            })
-        });
-    </script> -->
+</script>
 
 <footer class="container">
     <p>&copy; 20232W89</p>
