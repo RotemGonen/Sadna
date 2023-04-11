@@ -124,6 +124,7 @@
 </body>
 
 <script>
+//function that show the products
 $(document).ready(function show_products() {
     $.ajax({
         url: 'http://localhost/Sadna/shop/shop.php', 
@@ -195,10 +196,14 @@ $(document).ready(function show_products() {
             if(productHTML === '')
                 {
                     $('.sen').html("not match item for this search, please search again");
+                    $('.sen').css('background-color', 'yellow');
+                    $('.sen').css('display', 'inline-block');
                     show_products();
                 }
-            else
-            $('#pro .row').html(productHTML);
+            else{
+                    $('#pro .row').html(productHTML);
+                    $('.sen').html('');
+                }
             },
         error: function(xhr, textStatus, errorThrown) {
         console.log('Error fetching products: ' + errorThrown);
@@ -206,9 +211,8 @@ $(document).ready(function show_products() {
     });
     };
 
-    $('#add').click(function() {
-        console.log("aaaa");
-        add_to_cart();
+    $(document).on('click', '#pro .row #add', function() {
+        add_to_cart.call(this);
     });
 
     function add_to_cart() {
@@ -216,8 +220,53 @@ $(document).ready(function show_products() {
         var productName = $(this).closest('.card').find('.card-title').text();
         // get the quantity entered by the user
         var quantity = $(this).closest('.card').find('input[name="quantity"]').val();
-        alert(quantity + ' ' + productName + ' added to cart successfully.');
+        
+         // Remove any existing modals from the DOM
+        $('.modal').remove();
+        // Check if quantity is greater than 0
+        if (quantity > 0) {
+            var modalHTML = '<div class="modal" tabindex="-1">';
+            modalHTML += '<div class="modal-dialog modal-dialog-centered">';
+            modalHTML += '<div class="modal-content">';
+            modalHTML += '<div class="modal-header">';
+            modalHTML += '<h5 class="modal-title">great</h5>';
+            modalHTML += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>'; // Close button ('X')
+            modalHTML += '</div>';
+            modalHTML += '<div class="modal-body">';
+            modalHTML += quantity + ' ' + productName + ' added to cart successfully';
+            modalHTML += '</div>';
+            modalHTML += '</div>';
+            modalHTML += '</div>';
+            modalHTML += '</div>';
+            
+            // Append modal HTML to body
+            $('body').append(modalHTML);
+            
+            // Show modal
+            $('.modal').modal('show');
+        } else {
+            var modalHTML = '<div class="modal" tabindex="-1">';
+            modalHTML += '<div class="modal-dialog modal-dialog-centered">';
+            modalHTML += '<div class="modal-content">';
+            modalHTML += '<div class="modal-header">';
+            modalHTML += '<h5 class="modal-title">Error</h5>';
+            modalHTML += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>'; // Close button ('X')
+            modalHTML += '</div>';
+            modalHTML += '<div class="modal-body">';
+            modalHTML += 'Please enter the amount of ' + productName + ' to add to the cart';
+            modalHTML += '</div>';
+            modalHTML += '</div>';
+            modalHTML += '</div>';
+            modalHTML += '</div>';
+            
+            // Append modal HTML to body
+            $('body').append(modalHTML);
+            
+            // Show modal
+            $('.modal').modal('show');
+        }
     }
+
 
 
 //end of document ready
