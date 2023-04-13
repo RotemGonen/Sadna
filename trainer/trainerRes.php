@@ -56,7 +56,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Reserve a sport field</a>
@@ -82,13 +82,10 @@
     <main role="main">
         <div class="jumbotron">
             <div class="container">
-                <h1 class="display-3">Creating a reservation</h1>
-                <p>By using our platform, you can easily reserve a sports field in your area based on your preferences.
-                    Simply select the sport you want to play, the location, and the date and time that works best for
-                    you. If you're looking for some extra guidance or training, you can also select the option to meet
-                    with a trainer. This will prompt you to enter some additional details so that we can match you with
-                    the right trainer for your needs. With just a few clicks, you'll be well on your way to reserving
-                    the perfect field and improving your skills!</p>
+                <h1 class="display-3">Coach Availability</h1>
+                <p>We aim to maximize the connection between coaches and players, 
+                while ensuring coaches have a fair opportunity to earn a steady income. 
+                Our priority is to emphasize the availability of coaches to ensure an optimal match with players.</p>
             </div>
         </div>
 
@@ -96,34 +93,28 @@
 
             <div class="row justify-content-around">
                 <div class="col-md-5">
-                    <div>
-                        <div style="height:500px;">
-                            <div id="map" class="w-100 h-100"></div>
-                        </div>
-                    </div>
+                <img src="http://localhost/Sadna/images/Coach.jpg" > </img>
                 </div>
                 <div class="col-md-6 mt-3 m-md-0">
                     <!-- search city bar -->
                     <div class="row">
-                        <div class="form-group col-6 col-md-7">
+                        <div class="form-group col-6 col-md-6">
                             <label for="location-search"> Search city name in Hebrew:</label>
                             <select class="form-control" id="location-search" style="width: 100%">
                             </select>
                         </div>
-                        <div class="form-group col-6 col-md-5">
-                            <!-- search type bar -->
-                            <Label for="type-select">Select sport field type:</Label>
-                            <select class="form-control" id="type-select" style="width: 100%">
-                                <option value="אולם ספורט">אולם ספורט</option>
-                                <option value="מגרש ספורט">מגרש ספורט</option>
+                        <div class="form-group col">
+                        <label for="chooseSport"> sport type:</label>
+                            <select class="form-control" id="sport_type" style="width: 100%" >
+                                <option value="תחום ספורט">תחום ספורט</option>
                                 <option value="כדורגל">כדורגל</option>
                                 <option value="כדורסל">כדורסל</option>
                                 <option value="טניס">טניס</option>
-                            </select>
-                        </div>
+                            </select> 					
+					    </div>
                     </div>
                     <div class="row" id="form-row">
-                        <div class="form-group col">
+                        <div class="col-md-6 mt-3 m-md-0">
                             <!-- select start time bar -->
                             <Label for="starttime">Select start time:</Label>
                             <input type="time" class="form-control" id="starttime">
@@ -135,40 +126,33 @@
                         </div>
                         <div class="form-group col">
                             <!-- search date bar -->
-                            <Label for="datepicker">Choose date:</Label>
-                            <input type="date" id="datepicker" class="form-control" autocomplete="off">
+                            <Label for="datepicker">From date:</Label>
+                            <input type="date" id="datepickers" class="form-control" autocomplete="off">
                         </div>
+                        <div class="row" id="form-row" >
+                            <div class="form-group col-2 col-md-7">
+                            <!-- search date bar -->
+                            <Label for="datepicker"> To date:</Label>
+                            <input type="date" id="datepickere" class="form-control" autocomplete="off">
+                        </div>
+                        <div class= "form-group col ">
+						<label for="inputPrice">Price:</label>
+						<input type="number" min="1" max="10000000000"class="form-control" id="price" name="price" placeholder="Price"  autocomplete="off" required>
+					    </div>    
+                        </div>
+
                     </div>
                     <!-- the table element -->
-                    <div class="table-responsive" style="max-height: 300px;height: 300px;">
-                        <table class=" table">
-                            <thead>
-                                <tr>
-                                    <th>Select</th>
-                                    <th>Lighting</th>
-                                    <th>Accessible</th>
-                                    <th>Parking</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-body">
-                                <!-- Table rows with data here -->
-                            </tbody>
-                        </table>
-                    </div>
+            
 
                 </div>
                 <div class="col-md-6 offset-md-3 text-center mt-2">
 
-                    <button class="btn btn-success btn-lg mb-2 mt-2" disabled id="confirmbutton">Reserve for your
-                        team</button>
+                    <button class="btn btn-success btn-lg mb-2 mt-2" >offer your service </button>
                 </div>
 
                 <div class="col-md-6 offset-md-3 text-center mt-2">
-                    <label for="confirmation-checkbox">
-                        <input type="checkbox" id="confirmation-checkbox">
-                        Schedule with trainer
-                    </label>
-
+                
                     <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
                         <!-- success alert appear here -->
                     </div>
@@ -191,81 +175,26 @@
         var date = null;
         var flag = false;
 
-        $(document).ready(function () {
-            $(function () {
+        $(document).ready(function() {
+            $('#trainerChooserDiv').hide();
+            $(function() {
                 var today = new Date().toISOString().split('T')[0];
                 $('#datepicker').attr('min', today);
             });
-
-            const startTime = document.getElementById('starttime');
-            const endTime = document.getElementById('endtime');
-
-            endTime.addEventListener('change', checkTimeDifference);
-            startTime.addEventListener('change', checkTimeDifference);
-
-            function checkTimeDifference() {
-                const start = new Date(`01/01/2022 ${startTime.value}`);
-                const end = new Date(`01/01/2022 ${endTime.value}`);
-
-                const timeDiff = (end.getTime() - start.getTime()) / 1000 / 60; // Difference in minutes
-
-                if (startTime.value !== "" && endTime.value !== "") {
-                    let errorMessage = "";
-
-                    // check for time difference
-                    if (timeDiff < 45 || timeDiff > 90) {
-                        errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
-                    }
-
+            
                     // check for start and end times
                     if (startTime.value >= endTime.value) {
                         errorMessage = "The start time cannot be before or equal to the end time.";
                     }
 
-                    if (errorMessage !== "") {
-                        // Find existing alert, if any
-                        const alertDiv = document.querySelector(".alert.alert-danger");
+           
 
-                        if (alertDiv) {
-                            // Update existing alert's text, if it exists
-                            alertDiv.textContent = errorMessage;
-                            endTime.value = "";
-                            flag = false;
-                        } else {
-                            // Create new alert if there isn't one already
-                            const alertDiv = document.createElement("div");
-                            alertDiv.classList.add("alert", "alert-danger");
-                            alertDiv.classList.add("alert", "col");
-                            alertDiv.textContent = errorMessage;
-
-                            const inputRow = document.querySelector("#form-row");
-                            endTime.value = "";
-                            flag = false;
-                            inputRow.appendChild(alertDiv);
-
-                            // Remove the alert after 5 seconds
-                            setTimeout(() => {
-                                alertDiv.remove();
-                            }, 5000);
-                        }
-                    } else {
-                        flag = true;
-                        errorMessage = ""
-                        setTimeout(() => {
-                            $('#starttime').change();
-                        }, 100);
-                    }
-                }
-            }
-        })
-
-        $(document).ready(function () {
             // check button logic
-            const confirmationCheckbox = document.querySelector('#confirmation-checkbox');
+            const trainercheckbox = document.querySelector('#trainer-checkbox');
             const confirmButton = document.querySelector('#confirmbutton');
 
-            confirmationCheckbox.addEventListener('change', () => {
-                if (confirmationCheckbox.checked) {
+            trainercheckbox.addEventListener('change', () => {
+                if (trainercheckbox.checked) {
                     confirmButton.textContent = 'Schedule with trainer!';
                 } else {
                     confirmButton.textContent = 'Reserve for your team';
@@ -273,9 +202,9 @@
             });
 
             // Listen for changes to location select dropdown and the type select dropdown
-            $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function () {
+            $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function() {
                 var location = $('#location-search').val();
-                var type = $('#type-select').val();
+                var type = $('#sport-type').val();
                 starttime = $('#starttime').val();
                 endtime = $('#endtime').val();
                 date = $('#datepicker').val();
@@ -286,18 +215,24 @@
                     $.ajax({
                         url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data.php',
                         method: 'POST',
-                        data: { location: location, type: type, date: date, starttime: starttime, endtime: endtime },
+                        data: {
+                            location: location,
+                            type: type,
+                            date: date,
+                            starttime: starttime,
+                            endtime: endtime
+                        },
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             // Clear existing table rows
                             $('#table-body').empty();
                             // Append new rows to table
-                            data.forEach(function (row) {
+                            data.forEach(function(row) {
                                 var tr = $('<tr>');
                                 const latitude = row.latitude;
                                 const longitude = row.longitude;
                                 var selectButton = $('<button>').addClass('btn btn-secondary').text('Select');
-                                selectButton.click(function () {
+                                selectButton.click(function() {
                                     changeCoords(latitude, longitude)
                                     $('tr').removeClass('checked');
                                     $(this).closest('tr').addClass('checked');
@@ -316,7 +251,7 @@
                                 $('#table-body').append(tr);
                             });
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             console.log('Error retrieving data:', error);
                         }
                     });
@@ -327,25 +262,25 @@
             });
         });
         // function to get the city
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#type-select').select2({
                 theme: "classic"
             })
             $('#location-search').select2({
                 theme: "classic",
-                placeholder: "Search city...",
+                placeholder: "Search city(Hebrew) ...",
                 ajax: {
                     url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',
                     delay: 250,
-                    data: function (params) {
+                    data: function(params) {
                         return {
                             q: params.term
                         };
                     },
-                    processResults: function (data) {
+                    processResults: function(data) {
                         return {
-                            results: $.map(data, function (item) {
+                            results: $.map(data, function(item) {
                                 return {
                                     text: item.location,
                                     id: item.location
@@ -359,11 +294,9 @@
             })
         });
 
-        // Set up the map
-        var map = L.map('map').setView([31.80309338, 35.10942674], 7);
+
         // Add the tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
         var markerLayer = L.layerGroup().addTo(map);
 
         function changeCoords(lat, lng) {
@@ -380,33 +313,163 @@
             // Center the map on the new coordinates
             map.setView([lat, lng], 17);
         }
-        $('#confirmbutton').on('click', function () {
-            $.ajax({
-                url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
-                method: 'POST',
-                data: { id: selectedFieldId, date: date, starttime: starttime, endtime: endtime, player_username: '<?php echo $_SESSION["username"]; ?>' },
-                dataType: 'json',
-                success: function (data) {
-                    $('#starttime').change();
-                },
-                error: function (xhr, status, error) {
-                    // the error is Handling the response from server
-                    $('#starttime').change();
-                    $('#confirmbutton').attr('disabled', true);
-                    $('#successmsg').after('<div class="alert alert-success" role="alert">Your reservation has been confirmed.</div>');
-                    $('#successmsg')[0].scrollIntoView({
-                        behavior: 'smooth',
-                        duration: 4000
-                    });
+        $('#confirmbutton').on('click', function() {
+            // Check if the trainer checkbox is not checked
+            if (!$('#trainer-checkbox').prop('checked')) {
 
-                    setTimeout(function () {
-                        $('.alert').alert('close');
-                    }, 5000);
+                // The trainer checkbox is checked, do not execute the prior AJAX request
+                $('#starttime, #endtime, #datepicker').prop('readonly', false);
+                // Get the Select2 element
+                var select2Element = $('#location-search,#type-select');
 
-                }
-            });
+                // Disable the Select2 element
+                select2Element.prop('disabled', false);
+                // Execute the AJAX request
+                $.ajax({
+                    url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
+                    method: 'POST',
+                    data: {
+                        id: selectedFieldId,
+                        date: date,
+                        starttime: starttime,
+                        endtime: endtime,
+                        player_username: '<?php echo $_SESSION["username"]; ?>'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#starttime').change();
+                    },
+                    error: function(xhr, status, error) {
+                        // the error is Handling the response from server
+                        $('#starttime').change();
+                        $('#confirmbutton').attr('disabled', true);
+                        $('#ReservationModal').show();
+                    }
+                });
+            } else {
+                // The trainer checkbox is checked, do not execute the prior AJAX request
+                $('#datepicker').prop('readonly', true);
+                // Get the Select2 element
+                var select2Element = $('#location-search,#type-select');
+                var timeselector = $('#starttime,#endtime');
+                // Disable the Select2 element
+                select2Element.prop('disabled', true);
+                timeselector.prop('disabled', true)
+                $('#trainerChooserDiv').show();
+                // Scroll to the div with ID "myDiv" using the scrollTo plugin
+                $.scrollTo('#trainerChooserDiv', 1000); // Scroll animation time in milliseconds
+                var location = $('#location-search').val();
+                var type = $('#type-select').val();
+                starttime = $('#starttime').val();
+                endtime = $('#endtime').val();
+                date = $('#datepicker').val();
+                $.ajax({
+                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data_trainer.php',
+                    method: 'POST',
+                    data: {
+                        location: location,
+                        type: type,
+                        date: date,
+                        starttime: starttime,
+                        endtime: endtime
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        // Clear existing table rows
+                        $('#trainer-table-body').empty();
+                        // Append new rows to table
+                        data.forEach(function(row) {
+                            var tr = $('<tr>');
+                            var photo = row.photo_path ? 'http://localhost/Sadna/images/profile/' + row.photo_path : 'http://localhost/Sadna/images/profile/default-avatar.png';
+                            tr.append($('<td>').append($('<img>').attr('src', photo).addClass('img-fluid')));
+                            tr.append($('<td>').text(row.first_name));
+                            tr.append($('<td>').text(row.last_name));
+                            tr.append($('<td>').text(row.phone));
+                            tr.append($('<td>').text(row.trainer_price));
+                            var button = $('<button>').addClass('btn btn-primary confirm').text('Send Request');
+                            button.on('click', function() {
+                                // Send a PHP request with the row data
+                                $.ajax({
+                                    url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php ',
+                                    type: 'POST',
+                                    data: {
+                                        id: selectedFieldId,
+                                        date: date,
+                                        starttime: starttime,
+                                        endtime: endtime,
+                                        player_username: '<?php echo $_SESSION["username"]; ?>',
+                                        trainer_username: row.trainer_username
+                                    },
+                                    success: function(response) {
+                                        console.log('Request sent successfully:', response);
+                                        $('#starttime, #endtime, #datepicker').prop('readonly', false);
+                                        var select2Element = $('#location-search,#type-select');
+                                        select2Element.prop('disabled', false);
+
+                                        $('#trainer-checkbox').prop('checked', false);
+                                        $('#trainerChooserDiv').hide();
+                                        $('#ReservationModal').show();
+                                        var select2Element = $('#location-search,#type-select');
+                                        var timeselector = $('#starttime,#endtime');
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.log('Error sending request:', error);
+                                    }
+                                });
+                            });
+
+                            tr.append($('<td>').append(button));
+                            // Set the height and width of the column
+                            tr.find('td:first-child').css({
+                                'height': '100px',
+                                'width': '100px'
+                            });
+                            $('#trainer-table-body').append(tr);
+                        });
+
+                        if ($('#trainer-table-body tr').length === 0) {
+                            // If no rows, add a new row with a message
+                            $('#trainer-table-body').append('<tr><td colspan="6" class="no-rows text-center font-weight-bold">No rows found</td></tr>');
+
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error retrieving data:', error);
+                    }
+                });
+            }
         });
 
+        $(document).ready(function() {
+            flatpickr('#starttime', {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true,
+                minuteIncrement: 15,
+                minTime: "07:00",
+                maxTime: "23:00",
+                defaultDate: new Date()
+            });
+
+            flatpickr('#endtime', {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                time_24hr: true,
+                minuteIncrement: 15,
+                minTime: "07:00",
+                maxTime: "23:00",
+                defaultDate: new Date()
+            });
+
+
+            $('#alert-btn').on('click', function() {
+                var selectedTime = $('#starttime').val();
+                alert('Selected Time: ' + selectedTime);
+            });
+        });
     </script>
 </body>
 
