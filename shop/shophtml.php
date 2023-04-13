@@ -24,7 +24,7 @@
 </head>
 
 <header>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,9 +40,6 @@
                     <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer.php">Schedule a training</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/shop/shophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -51,6 +48,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
                 
@@ -62,7 +60,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 </header>
 <body>
 
@@ -81,12 +79,12 @@
 ?>
     
     <!-- show the navbar -->
-    <!-- <div id="navbar"></div>
+    <div id="navbar"></div>
     <script>
     $("document").ready(function(){
         $("#navbar").load("../navbar.html")    
     });
-    </script> -->
+    </script>
     
 <main role="main">
     <div class="jumbotron">

@@ -65,7 +65,7 @@
                         field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Store</a>
+                    <a class="nav-link" href="http://localhost/Sadna/shop/shophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
@@ -74,6 +74,12 @@
                         <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><img src="http://localhost/Sadna/images/cart.png" alt="cart" width='35' height='25'></a>
                 </li>
             </ul>
         </div>
