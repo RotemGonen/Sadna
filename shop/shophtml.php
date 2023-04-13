@@ -24,7 +24,7 @@
 </head>
 
 <header>
-<!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="navbar-brand">4Play</div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,11 +56,11 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><img src="http://localhost/Sadna/images/cart.png" alt="cart" width='35' height='25'></a>
+                    <a class="nav-link" href="http://localhost/Sadna/shop/cart.php"><img src="http://localhost/Sadna/images/cart.png" alt="cart" width='35' height='25'></a>
                 </li>
             </ul>
         </div>
-    </nav> -->
+    </nav>
 </header>
 <body>
 
@@ -79,12 +79,12 @@
 ?>
     
     <!-- show the navbar -->
-    <div id="navbar"></div>
+    <!-- <div id="navbar"></div>
     <script>
     $("document").ready(function(){
         $("#navbar").load("../navbar.html")    
     });
-    </script>
+    </script> -->
     
 <main role="main">
     <div class="jumbotron">
