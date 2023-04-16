@@ -21,7 +21,8 @@ if ($result->num_rows > 0) {
             'picture' => $picture_data,
             'name' => $row['name'],
             'content' => $row['content'],
-            'price' => $row['price']
+            'price' => $row['price'],
+            'id' => $row['product_id']
         );
     }
 }

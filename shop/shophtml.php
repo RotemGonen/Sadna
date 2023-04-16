@@ -93,8 +93,9 @@
                 <div class="col-6">
                     <h1 class="display-3" id='greeting'>Hello, </h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
-                        here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
-                        you can use our search bar right down or scroll down and see our products. 
+                        Here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
+                        All prices on the site are displayed according to the dollar currency<br><br>
+                        You can use our search bar right down or scroll down and see our products. 
                     </p>
                     <div class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
                         <!-- <select class="form-control" id="product-search" style="width: 100%"> 
@@ -121,6 +122,10 @@
 </main>
 </body>
 
+<footer class="container">
+    <p>&copy; 20232W89</p>
+</footer>
+
 <script>
 //function that show the products
 $(document).ready(function show_products() {
@@ -143,7 +148,7 @@ $(document).ready(function show_products() {
                 productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'>";
                 productHTML += "</div>";
                 productHTML += "<div class='card-footer mt-auto text-center d-flex justify-content-center'>";
-                productHTML += "<button class='btn btn-dark mb-1' id='add' onclick>Add to cart</button>";
+                productHTML += "<button class='btn btn-dark mb-1' id='add' data-id='" + product.id + "'>Add to cart</button>";
                 productHTML += "</div>";
                 productHTML += "</div>";
                 productHTML += "</div>";
@@ -186,7 +191,7 @@ $(document).ready(function show_products() {
                 productHTML += "<label for='quantity'>Quantity:</label> <input type='number' id='quantity' name='quantity' min='1' style='width:40%' placeholder='0'>";
                 productHTML += "</div>";
                 productHTML += "<div class='card-footer mt-auto text-center d-flex justify-content-center'>";
-                productHTML += "<button class='btn btn-dark mb-1' id='add'>Add to cart</button>";
+                productHTML += "<button class='btn btn-dark mb-1' id='add' data-id='" + product.id + "'>Add to cart</button>";
                 productHTML += "</div>";
                 productHTML += "</div>";
                 productHTML += "</div>";
@@ -218,7 +223,9 @@ $(document).ready(function show_products() {
         var productName = $(this).closest('.card').find('.card-title').text();
         // get the quantity entered by the user
         var quantity = $(this).closest('.card').find('input[name="quantity"]').val();
-        
+        // get the product ID from the data attribute of the parent card element
+        var productId = $(this).data('id');        
+
          // Remove any existing modals from the DOM
         $('.modal').remove();
         // Check if quantity is greater than 0
@@ -263,9 +270,26 @@ $(document).ready(function show_products() {
             // Show modal
             $('.modal').modal('show');
         }
+
+        $.ajax({ 
+        url: 'http://localhost/Sadna/shop/insert_order.php',
+        type: 'GET',
+        data: { 
+            productName: productName, 
+            quantity:quantity, 
+            productId:productId, 
+            username: '<?php echo $_SESSION["username"]; ?>' 
+            },
+        dataType: 'json',
+        success: function(products) {
+            console.log("Product added to cart successfully.");
+            },
+        error: function(xhr, textStatus, errorThrown) {
+            console.error("Failed to add product to cart. Error: " + error);
+        }
+    });
+
     }
-
-
 
 //end of document ready
 });
