@@ -22,6 +22,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+
+        <style>
+    .table-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+</style>
 </head>
 <body>
     
@@ -93,7 +100,7 @@
                         <h1 class="display-3" id='greeting'>Hello, </h1>
                         <p><span class="font-weight-bold">we are happy to see you here.</span>
                         Here you can pay for your items using your Google Pay account. <br> 
-                        Payment is made in a secure way under the strict SSL standards, so you can feel comfortable making purchases on this site
+                        Payment is made in a secure way under the strict SSL standards, so you can feel comfortable making purchases on this site<br><br>
                         </p>
                     </div>
                 </div>
@@ -102,40 +109,112 @@
         
         <div class="container">
             <div class="row">
+                <div class="col-12 text-center justify-content-center">
+                    <h2>Your Cart Items:</h2> <br>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-12 text-center">
-                    <h2>there are your items:</h2>
-                    <table>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                    </tr>
-                    <?php
-                    // Loop through the products in the session cart
-                    $total = 0;
-                    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                        foreach ($_SESSION['cart'] as $product) {
-                            echo "<tr>";
-                            echo "<td>" . $product['name'] . "</td>";
-                            echo "<td>$" . $product['price'] . "</td>";
-                            echo "</tr>";
-                            $total += $product['price'];
-                        }
-                    } else {
-                        echo "<tr><td colspan='2'>No products in cart</td></tr>";
-                    }
-                    ?>
-                    <tr>
-                        <td>Total</td>
-                        <td>$<?php echo $total; ?></td>
-                    </tr>
-                </table>
-                <a href="checkout.php">Checkout</a>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-scroll">
+                            <thead>
+                                <tr>
+                                    <th>Product Image</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>total price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                include '../connection.php'; 
 
-        
+                                // Retrieve cart items for the logged-in user
+                                $username = $_SESSION['username']; 
+                                $sql = "SELECT * FROM shop_reservations WHERE username = '$username'";
+                                $result = $conn->query($sql);
+
+                                // Check if any products are in the cart
+                                $total = 0;
+                                if ($result->num_rows > 0) {
+                                    // Loop through each cart item and display its details
+                                    while ($row = $result->fetch_assoc()) {
+                                        $orderId = $row['order_id'];
+                                        $productName = $row['product'];
+                                        $productPicture = ($row['picture']);
+                                        $productId = $row['product_id']; 
+                                        $productPrice = $row['price'];
+                                        $quantity = $row['quantity'];
+                                        $total += $productPrice * $quantity;
+                                        echo "<tr>";
+                                        echo "<td class='px-3 d-none d-md-table-cell'><img src='data:image/jpeg;base64," . $productPicture . "' width='200' height='120'></td>";
+                                        echo "<td class='px-3'>" . $productName . "</td>";
+                                        echo "<td class='px-3 d-none d-md-table-cell'>$" . $productPrice . "</td>";
+                                        echo "<td class='px-3 d-none d-md-table-cell'>" . $quantity . "</td>";
+                                        echo "<td class='px-3 d-none d-md-table-cell'>$" . $productPrice * $quantity . "</td>";
+                                        echo "<td class='px-3'><button class='delete_product' data-id='" . $productId . "' data-order='" . $orderId . "'>Delete Product</td>"; 
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    // Display a message if no products are in the cart
+                                    echo "<tr><td colspan='5'>No products in cart</td></tr>";
+                                }
+
+                                $conn->close();
+                                ?>
+                                <tr>
+                                    <td class="px-3 d-none d-md-table-cell"></td>
+                                    <td class="px-3 text-primary font-weight-bold">Total amount</td>
+                                    <td class="px-3 d-none d-md-table-cell"></td>
+                                    <td class="px-3 d-none d-md-table-cell"></td>
+                                    <td class="px-3 d-none d-md-table-cell text-primary font-weight-bold">$<?php echo $total; ?></td>
+                                    <td class="px-3"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <button class="d-flex judtify-content-center"> <a href="checkout.php">Checkout</a></button>
+        </div>
     </main>
 
 </body>
+
+<footer class="container">
+    <p>&copy; 20232W89</p>
+</footer>
+
+<script>
+
+    $(document).ready(function(){
+        $(document).on('click', '.delete_product', function() {
+            var productId = $(this).data('id');
+            var orderId = $(this).data('order');
+            $.ajax({ 
+                url: 'http://localhost/Sadna/shop/delete_product_from_cart.php',
+                type: 'GET',
+                data: { 
+                    productId:productId,
+                    orderId:orderId,
+                    username: '<?php echo $_SESSION["username"]; ?>' 
+                    },
+                dataType: 'json',
+                success: function(products) {
+                    console.log("Product deleted from cart successfully.");
+                    location.reload();
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error("Failed to delete product from cart. Error: " + errorThrown);
+                }
+            });
+        });
+    });
+
+
+</script>
+
 </html>

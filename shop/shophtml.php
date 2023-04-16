@@ -93,8 +93,9 @@
                 <div class="col-6">
                     <h1 class="display-3" id='greeting'>Hello, </h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
-                        here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
-                        you can use our search bar right down or scroll down and see our products. 
+                        Here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
+                        All prices on the site are displayed according to the dollar currency<br><br>
+                        You can use our search bar right down or scroll down and see our products. 
                     </p>
                     <div class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
                         <!-- <select class="form-control" id="product-search" style="width: 100%"> 
@@ -120,6 +121,10 @@
     
 </main>
 </body>
+
+<footer class="container">
+    <p>&copy; 20232W89</p>
+</footer>
 
 <script>
 //function that show the products
