@@ -109,12 +109,12 @@
         
         <div class="container">
             <div class="row">
-                <div class="col-12 text-center justify-content-center">
+                <div class="col text-center justify-content-center">
                     <h2>Your Cart Items:</h2> <br>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col text-center">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-scroll">
                             <thead>
@@ -159,7 +159,7 @@
                                     }
                                 } else {
                                     // Display a message if no products are in the cart
-                                    echo "<tr><td colspan='5'>No products in cart</td></tr>";
+                                    echo "<tr><td colspan='6'>No products in cart</td></tr>";
                                 }
 
                                 $conn->close();
