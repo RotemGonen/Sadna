@@ -28,8 +28,16 @@
         overflow-x: auto;
         white-space: nowrap;
     }
+
+    @media (max-width: 767px) {
+    .table td, .table th {
+        font-size: 0.8rem;
+        padding: 0.25rem;
+    }
+}
 </style>
 </head>
+
 <body>
     
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -119,12 +127,12 @@
                         <table class="table table-bordered table-hover table-scroll">
                             <thead>
                                 <tr>
-                                    <th>Product Image</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>total price</th>
-                                    <th>Action</th>
+                                    <th class="text-nowrap">Product Image</th>
+                                    <th class="text-nowrap">Product Name</th>
+                                    <th class="text-nowrap">Price</th>
+                                    <th class="text-nowrap">Quantity</th>
+                                    <th class="text-nowrap">total price</th>
+                                    <th class="text-nowrap">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -149,39 +157,77 @@
                                         $quantity = $row['quantity'];
                                         $total += $productPrice * $quantity;
                                         echo "<tr>";
-                                        echo "<td class='px-3 d-none d-md-table-cell'><img src='data:image/jpeg;base64," . $productPicture . "' width='200' height='120'></td>";
-                                        echo "<td class='px-3'>" . $productName . "</td>";
-                                        echo "<td class='px-3 d-none d-md-table-cell'>$" . $productPrice . "</td>";
-                                        echo "<td class='px-3 d-none d-md-table-cell'>" . $quantity . "</td>";
-                                        echo "<td class='px-3 d-none d-md-table-cell'>$" . $productPrice * $quantity . "</td>";
-                                        echo "<td class='px-3'><button class='delete_product' data-id='" . $productId . "' data-order='" . $orderId . "'>Delete Product</td>"; 
+                                        echo "<td class='px-3 text-nowrap'><img src='data:image/jpeg;base64," . $productPicture . "' width='200' height='120'></td>";
+                                        echo "<td class='px-3 text-nowrap'>" . $productName . "</td>";
+                                        echo "<td class='px-3 text-nowrap'>$" . $productPrice . "</td>";
+                                        echo "<td class='px-3 text-nowrap'>" . $quantity . "</td>";
+                                        echo "<td class='px-3 text-nowrap'>$" . $productPrice * $quantity . "</td>";
+                                        echo "<td class='px-3 text-nowrap'><button class='delete_product' data-id='" . $productId . "' data-order='" . $orderId . "'>Delete Product</td>"; 
                                         echo "</tr>";
                                     }
                                 } else {
                                     // Display a message if no products are in the cart
                                     echo "<tr><td colspan='6'>No products in cart</td></tr>";
                                 }
-
                                 $conn->close();
                                 ?>
+                                
                                 <tr>
-                                    <td class="px-3 d-none d-md-table-cell"></td>
-                                    <td class="px-3 text-primary font-weight-bold">Total amount</td>
-                                    <td class="px-3 d-none d-md-table-cell"></td>
-                                    <td class="px-3 d-none d-md-table-cell"></td>
-                                    <td class="px-3 d-none d-md-table-cell text-primary font-weight-bold">$<?php echo $total; ?></td>
-                                    <td class="px-3"></td>
+                                    <td class="px-3 text-nowrap"></td>
+                                    <td class="px-3 text-primary font-weight-bold text-nowrap">Total amount</td>
+                                    <td class="px-3 text-nowrap"></td>
+                                    <td class="px-3 text-nowrap"></td>
+                                    <td class="px-3 text-primary font-weight-bold text-nowrap">$<?php echo $total; ?></td>
+                                    <td class="px-3 text-nowrap"></td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <button class="d-flex judtify-content-center"> <a href="checkout.php">Checkout</a></button>
+
+            <br><br>
+            <div class="align-items-center text-center">
+                <button class="btn btn-primary" onclick="window.location.href='checkout.php?total=<?php echo $total; ?>'">Proceed to checkout</button>
+            </div>
+
+            <!-- <div class="row">
+                <form>
+                    <h2>Enter your payment Details</h2>
+                    <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                        <label for="card-number">Card Number:</label>
+                        <input type="text" class="form-control" id="card-number">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <label for="expiration-date">Expiration Date:</label>
+                        <input type="date" class="form-control" id="expiration-date">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <label for="cvv">CVV:</label>
+                        <input type="text" class="form-control" id="cvv">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                        <label for="owner-name">Owner Name:</label>
+                        <input type="text" class="form-control" id="owner-name">
+                        </div>
+                    </div>
+                    </div>
+                    <h4>your total amount is: $<?php echo $total; ?> </h4>
+                        <button type="submit" class="btn btn-primary">Submit Payment</button>
+                </form>
+            </div> -->
         </div>
     </main>
-
 </body>
 
 <footer class="container">
