@@ -188,7 +188,8 @@
 
             <br><br>
             <div class="align-items-center text-center">
-                <button class="btn btn-primary" onclick="window.location.href='checkout.php?total=<?php echo $total; ?>'">Proceed to checkout</button>
+                <button class="btn btn-dark" onclick="window.location.href='checkout.php?total=<?php echo $total; ?>'">
+                checkout with <img src="http://localhost/Sadna/images/google_pay_icon.png" width="50" class="mb-1"></button>
             </div>
 
             <!-- <div class="row">
