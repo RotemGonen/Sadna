@@ -23,6 +23,10 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
+    <!-- API to Paypal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AY6bFReVUVISpKrLF1_LaVgud8umuLQr7lvOLjus3soqaTf_fZgZwTQE5hyUZ4Xw7I-u_9CcTL1QPZpJ&currency=USD"></script>
+
+
         <style>
     .table-scroll {
         overflow-x: auto;
@@ -107,7 +111,7 @@
                     <div class="col-10">
                         <h1 class="display-3" id='greeting'>Hello, </h1>
                         <p><span class="font-weight-bold">we are happy to see you here.</span>
-                        Here you can pay for your items using your Google Pay account. <br> 
+                        Here you can pay for your items using your Paypal account. <br> 
                         Payment is made in a secure way under the strict SSL standards, so you can feel comfortable making purchases on this site<br><br>
                         </p>
                     </div>
@@ -188,45 +192,10 @@
 
             <br><br>
             <div class="align-items-center text-center">
-                <button class="btn btn-dark" onclick="window.location.href='checkout.php?total=<?php echo $total; ?>'">
-                checkout with <img src="http://localhost/Sadna/images/google_pay_icon.png" width="50" class="mb-1"></button>
+                <div> checkout with <img src="http://localhost/Sadna/images/paypal_icon.png" width="60" class="mb-1"></div><br>
+                <div id="paypal-button-container">
+                </div>
             </div>
-
-            <!-- <div class="row">
-                <form>
-                    <h2>Enter your payment Details</h2>
-                    <div class="row">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                        <label for="card-number">Card Number:</label>
-                        <input type="text" class="form-control" id="card-number">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                        <label for="expiration-date">Expiration Date:</label>
-                        <input type="date" class="form-control" id="expiration-date">
-                        </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                        <label for="cvv">CVV:</label>
-                        <input type="text" class="form-control" id="cvv">
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                        <label for="owner-name">Owner Name:</label>
-                        <input type="text" class="form-control" id="owner-name">
-                        </div>
-                    </div>
-                    </div>
-                    <h4>your total amount is: $<?php echo $total; ?> </h4>
-                        <button type="submit" class="btn btn-primary">Submit Payment</button>
-                </form>
-            </div> -->
         </div>
     </main>
 </body>
@@ -259,6 +228,42 @@
                 }
             });
         });
+
+        //API to Paypal
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                    value: '<?php echo $total; ?>'
+                    }
+                }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                var message = 'Transaction completed by ' + details.payer.name.given_name + '!';
+                var result = window.confirm(message);
+                if (result) {  //if payment was completely succesfully, the user's cart is cleared
+                    $.ajax({ 
+                        url: 'http://localhost/Sadna/shop/clear_cart.php',
+                        type: 'GET',
+                        data: { 
+                            username: '<?php echo $_SESSION["username"]; ?>' 
+                            },
+                        dataType: 'json',
+                        success: function(products) {
+                            console.log("All products are deleted from cart successfully.");
+                            location.reload();
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.error("Failed to delete products from cart. Error: " + errorThrown);
+                        }
+                    });
+                }
+                });
+            }
+            }).render('#paypal-button-container');
     });
 
 
