@@ -7,7 +7,7 @@ $username = $_GET['username'];
 // Update the SQL query to use prepared statements with parameter binding
 $sql = "DELETE FROM shop_reservations WHERE  username = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("iss", $productId, $username, $orderId); // "iss" for integer and string parameters
+$stmt->bind_param("s",  $username); // "s" for string parameters
 $response = array();
 
 if ($stmt->execute()) {
@@ -26,3 +26,4 @@ mysqli_close($conn);
 // Return JSON response
 echo json_encode($response);
 ?>
+
