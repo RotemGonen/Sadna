@@ -175,21 +175,14 @@
                                 }
                                 $conn->close();
                                 ?>
-                                
-                                <tr>
-                                    <td class="px-3 text-nowrap"></td>
-                                    <td class="px-3 text-primary font-weight-bold text-nowrap">Total amount</td>
-                                    <td class="px-3 text-nowrap"></td>
-                                    <td class="px-3 text-nowrap"></td>
-                                    <td class="px-3 text-primary font-weight-bold text-nowrap">$<?php echo $total; ?></td>
-                                    <td class="px-3 text-nowrap"></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <br>
+            <h3 class='justify-content-center text-center'>Total amount $<?php echo $total; ?></h3>
             <br><br>
             <div class="align-items-center text-center">
                 <div> checkout with <img src="http://localhost/Sadna/images/paypal_icon.png" width="60" class="mb-1"></div><br>
@@ -242,9 +235,6 @@
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                var message = 'Transaction completed by ' + details.payer.name.given_name + '!';
-                var result = window.confirm(message);
-                if (result) {  //if payment was completely succesfully, the user's cart is cleared
                     $.ajax({ 
                         url: 'http://localhost/Sadna/shop/clear_cart.php',
                         type: 'GET',
@@ -254,13 +244,28 @@
                         dataType: 'json',
                         success: function(products) {
                             console.log("All products are deleted from cart successfully.");
-                            location.reload();
+                            var message = '<div class="modal" tabindex="-1">';
+                            message += '<div class="modal-dialog modal-dialog-centered">';
+                            message += '<div class="modal-content">';
+                            message += '<div class="modal-header">';
+                            message += '<button type="button" id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>'; // Close button ('X')
+                            message += '</div>';
+                            message += '<div class="modal-body">';
+                            message += 'The payment completed by ' + details.payer.name.given_name + '!';
+                            message += '</div>';
+                            message += '</div>';
+                            message += '</div>';
+                            message += '</div>';
+                            $('body').append(message);
+                            $('.modal').modal('show');
+                            $('#close').on('click', function() {
+                                location.reload();
+                            });
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             console.error("Failed to delete products from cart. Error: " + errorThrown);
                         }
                     });
-                }
                 });
             }
             }).render('#paypal-button-container');
