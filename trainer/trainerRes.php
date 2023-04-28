@@ -470,6 +470,41 @@
                 alert('Selected Time: ' + selectedTime);
             });
         });
+
+        <!-- jQuery script to retrieve data and update table -->
+    <script>
+      
+     function sendtrainerres() {
+       var starttime = $('#starttime').val();
+       var endtime = $('#endtime').val();
+       var datepickers = $('#datepickers').val();
+       var datepickere = $('#datepickere').val();
+       var price = $('#price').val();
+       
+       $.ajax({
+                    url: 'http://localhost/Sadna/trainer/insert_trainer.php',
+                    method: 'POST',
+                    data: {
+                        date: date,
+                        starttime: starttime,
+                        endtime: endtime, datepickers:datepickers,
+                        datepickere:datepickere, price:price, sport_type:sport_type
+                        trainer_username:'<?php echo $_SESSION["username"]; ?>',
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        
+                        echo "Done successfully"
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error retrieving data:', error);
+                        echo "Error, try again to successfully"
+
+                    }
+                });
+        }
+
     </script>
 </body>
 
