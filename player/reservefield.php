@@ -50,7 +50,7 @@
 
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand">4Play</div>
+        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -60,9 +60,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport
-                        field</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/Sadna/shop/shophtml.php">Store</a>
@@ -78,14 +77,14 @@
             </ul>
 
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#"><img src="http://localhost/Sadna/images/cart.png" alt="cart" width='35' height='25'></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/Sadna/shop/cart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <main role="main">
+    <main role="main" class="mt-4">
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-3">Creating a reservation</h1>
