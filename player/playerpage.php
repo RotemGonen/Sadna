@@ -218,7 +218,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <div style="height: 300px;">
+                    <div style="height: 100%">
                         <div id="map" class="w-100 h-100"></div>
                     </div>
                 </div>
