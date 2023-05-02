@@ -74,13 +74,10 @@
                 <div class="container">
                     <h1 class="display-3" id="greeting">Hello, *user*</h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
-                        Tired of the hassle of arriving at your local park with your team,
-                        only to find it already occupied? Say goodbye to disappointment and hello to convenience with
-                        our
-                        cutting-edge platform! With just a few clicks, you can locate available sports fields in your
-                        area
-                        and be on your way to your next epic game. Don't let a crowded park get in the way of your
-                        victory!
+                    Want to increase your income? Want to reach as many trainees as possible?
+                    You came to the right place.
+                    In this advanced platform and in just a few clicks,
+                    you can find trainers at all levels in the field you teach near to your home"
                     </p>
                 </div>
             </div>
@@ -108,13 +105,14 @@
 
 
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
 
                         <div>
                             <h3 class="fs-2">Your Current Reservation</h3>
-                            <p>Below you will find the details of your current reservation, including the date, time,
-                                type of sport, location and a button to view the location on a map. You can also remove
-                                your reservation by clicking the "Remove" button.</p>
+                            <p>Below you will find all the orders and what players helped you in your service.
+                            You can reserve the date of the reservation by clicking on the "Remove" button or confirm the reservation and reserve in the schedule, 
+                            the reservation includes, start time, end time, type of sport, location and price.
+</p>
                         </div>
                         <div id="reservationcarousel" class="carousel carousel-dark slide mb-3 mb-md-0 shadow">
                             <div class="carousel-inner text-center" id="cards">
@@ -147,11 +145,7 @@
 
                     </div>
 
-                    <div class="col-lg-4">
-                        <div style="height: 300px;">
-                            <div id="map" class="w-100 h-100"></div>
-                        </div>
-                    </div>
+                    
 
                 </div>
         </main>
@@ -196,7 +190,7 @@
                                 cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
                                 cards += '</div>';
                                 cards += '<div class="col">';
-                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">Show location</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '">put in the calender</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
                                 cards += '</div>';
                                 cards += '</div>';
                                 cards += '</div>';

@@ -90,76 +90,66 @@
         </div>
 
         <div class="container">
-
-            <div class="row justify-content-around">
-                <div class="col-md-5">
-                <img src="http://localhost/Sadna/images/Coach.jpg" > </img>
-                </div>
-                <div class="col-md-6 mt-3 m-md-0">
-                    <!-- search city bar -->
-                    <div class="row">
-                        <div class="form-group col-6 col-md-6">
-                            <label for="location-search"> Search city name in Hebrew:</label>
-                            <select class="form-control" id="location-search" style="width: 100%">
-                            </select>
-                        </div>
-                        <div class="form-group col">
-                        <label for="chooseSport"> sport type:</label>
-                            <select class="form-control" id="sport_type" style="width: 100%" >
-                                <option value="תחום ספורט">תחום ספורט</option>
-                                <option value="כדורגל">כדורגל</option>
-                                <option value="כדורסל">כדורסל</option>
-                                <option value="טניס">טניס</option>
-                            </select> 					
-					    </div>
-                    </div>
-                    <div class="row" id="form-row">
-                        <div class="col-md-6 mt-3 m-md-0">
-                            <!-- select start time bar -->
-                            <Label for="starttime">Select start time:</Label>
-                            <input type="time" class="form-control" id="starttime">
-                        </div>
-                        <div class="form-group col">
-                            <!-- selece end time bar -->
-                            <Label for="endtime">Select end time:</Label>
-                            <input type="time" class="form-control" id="endtime">
-                        </div>
-                        <div class="form-group col">
-                            <!-- search date bar -->
-                            <Label for="datepicker">From date:</Label>
-                            <input type="date" id="datepickers" class="form-control" autocomplete="off">
-                        </div>
-                        <div class="row" id="form-row" >
-                            <div class="form-group col-2 col-md-7">
-                            <!-- search date bar -->
-                            <Label for="datepicker"> To date:</Label>
-                            <input type="date" id="datepickere" class="form-control" autocomplete="off">
-                        </div>
-                        <div class= "form-group col ">
-						<label for="inputPrice">Price:</label>
-						<input type="number" min="1" max="10000000000"class="form-control" id="price" name="price" placeholder="Price"  autocomplete="off" required>
-					    </div>    
-                        </div>
-
-                    </div>
-                    <!-- the table element -->
-            
-
-                </div>
-                <div class="col-md-6 offset-md-3 text-center mt-2">
-
-                    <button class="btn btn-success btn-lg mb-2 mt-2" >offer your service </button>
-                </div>
-
-                <div class="col-md-6 offset-md-3 text-center mt-2">
-                
-                    <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
-                        <!-- success alert appear here -->
-                    </div>
-                </div>
-            </div>
+  <div class="row justify-content-around">
+    <div class="col-md-5">
+      <img src="http://localhost/Sadna/images/Coach.jpg" class="img-fluid">
+    </div>
+    <div class="col-md-6 mt-3 m-md-0">
+      <!-- search city bar -->
+      <div class="row">
+        <div class="form-group col-6 col-md-6">
+          <label for="location-search" class="form-label">Search city name in Hebrew:</label>
+          <select class="form-select" id="location-search" style="width: 100%"></select>
         </div>
+        <div class="form-group col">
+          <label for="chooseSport" class="form-label">Sport type:</label>
+          <select class="form-select" id="sport_type" style="width: 100%">
+            <option value="תחום ספורט">תחום ספורט</option>
+            <option value="כדורגל">כדורגל</option>
+            <option value="כדורסל">כדורסל</option>
+            <option value="טניס">טניס</option>
+          </select>                  
         </div>
+      </div>
+      <div class="row" id="form-row">
+        <div class="col-md-6 mt-3 m-md-0">
+          <!-- select start time bar -->
+          <label for="starttime" class="form-label">Select start time:</label>
+          <input type="time" class="form-control" id="starttime">
+        </div>
+        <div class="form-group col">
+          <!-- select end time bar -->
+          <label for="endtime" class="form-label">Select end time:</label>
+          <input type="time" class="form-control" id="endtime">
+        </div>
+        <div class="form-group col">
+          <!-- search date bar -->
+          <label for="datepicker" class="form-label">From date:</label>
+          <input type="date" id="datepickers" class="form-control" autocomplete="off">
+        </div>
+        <div class="form-group col">
+          <!-- search date bar -->
+          <label for="datepicker" class="form-label">To date:</label>
+          <input type="date" id="datepickere" class="form-control" autocomplete="off">
+        </div>
+        <div class="form-group col">
+          <label for="inputPrice" class="form-label">Price:</label>
+          <input type="number" min="1" max="10000000000" class="form-control" id="price" name="price" placeholder="Price" autocomplete="off" required>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+      <div class="col-md-4 text-center mt-2">
+         <button class="btn btn-success btn-lg mb-2 mt-2" id="service" onclick="offerfunc()" style="width: 200px;">Offer Your Service</button>
+      </div>
+      </div>
+       
+        <div class="col-md-6 text-center mt-2">
+        <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
+        <!-- success alert appear here -->
+        </div>
+    </div>
+  </div>
+</div>
 
     </main>
 
@@ -167,8 +157,8 @@
         <p>&copy; 20232W89</p>
     </footer>
 
-    <!-- jQuery script to retrieve data and update table -->
-    <script>
+   <!-- jQuery script to retrieve data and update table -->
+   <script>
         var selectedFieldId = null;
         var starttime = null;
         var endtime = null;
@@ -181,30 +171,105 @@
                 var today = new Date().toISOString().split('T')[0];
                 $('#datepicker').attr('min', today);
             });
-            
+            const startTime = document.getElementById('starttime');
+            const endTime = document.getElementById('endtime');
+
+
+                if (startTime.value !== "" && endTime.value !== "") {
+                    let errorMessage = "";
+
+                    // check for time difference
+                    if (timeDiff < 45 || timeDiff > 90) {
+                        errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
+                    }
+
                     // check for start and end times
                     if (startTime.value >= endTime.value) {
                         errorMessage = "The start time cannot be before or equal to the end time.";
                     }
 
-           
+                    if (errorMessage !== "") {
+                        // Find existing alert, if any
+                        const alertDiv = document.querySelector(".alert.alert-danger");
+
+                        if (alertDiv) {
+                            // Update existing alert's text, if it exists
+                            alertDiv.textContent = errorMessage;
+                            endTime.value = "";
+                            flag = false;
+                        } else {
+                            // Create new alert if there isn't one already
+                            const alertDiv = document.createElement("div");
+                            alertDiv.classList.add("alert", "alert-danger");
+                            alertDiv.classList.add("alert", "col");
+                            alertDiv.textContent = errorMessage;
+                            const inputRow = document.querySelector("#errorrow");
+
+                            flag = false;
+                            inputRow.appendChild(alertDiv);
+
+                            // Remove the alert after 5 seconds
+                            setTimeout(() => {
+                                alertDiv.remove();
+                                endTime.value = "";
+                            }, 3000);
+                        }
+                    } else {
+                        flag = true;
+                        errorMessage = ""
+                        setTimeout(() => {
+                            $('#starttime').change();
+                        }, 100);
+                    }
+                }
+            }
+        )
+
+        $(document).ready(function() {
+
+            $('#confirmReservation').on('click', function() {
+                $('#ReservationModal').hide();
+            });
+
+            // Get the checkbox and div elements
+            var trainerCheckbox = $('#trainer-checkbox');
+            var divElement = $('#trainerChooserDiv');
+
+            // Hide the div by default
+            divElement.hide();
+
+            // Create an event listener for the checkbox
+            trainerCheckbox.click(function() {
+                if (this.checked) {
+
+                } else {
+                    // Checkbox is not checked, hide the div
+                    divElement.hide();
+                    // Check if the trainer checkbox is not checked
+                    if (!$('#trainer-checkbox').prop('checked')) {
+
+                        // The trainer checkbox is checked, do not execute the prior AJAX request
+                        $('#starttime, #endtime, #datepicker').prop('readonly', false);
+                        // Get the Select2 element
+                        var select2Element = $('#location-search,#type-select');
+                        var timeselector = $('#starttime,#endtime');
+                        // Disable the Select2 element
+                        select2Element.prop('disabled', false);
+                        timeselector.prop('disabled', false)
+                    }
+                }
+            });
 
             // check button logic
             const trainercheckbox = document.querySelector('#trainer-checkbox');
             const confirmButton = document.querySelector('#confirmbutton');
 
-            trainercheckbox.addEventListener('change', () => {
-                if (trainercheckbox.checked) {
-                    confirmButton.textContent = 'Schedule with trainer!';
-                } else {
-                    confirmButton.textContent = 'Reserve for your team';
-                }
-            });
+            
 
             // Listen for changes to location select dropdown and the type select dropdown
             $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function() {
                 var location = $('#location-search').val();
-                var type = $('#sport-type').val();
+                var type = $('#type-select').val();
                 starttime = $('#starttime').val();
                 endtime = $('#endtime').val();
                 date = $('#datepicker').val();
@@ -220,7 +285,7 @@
                             type: type,
                             date: date,
                             starttime: starttime,
-                            endtime: endtime
+                            endtime: endtime,
                         },
                         dataType: 'json',
                         success: function(data) {
@@ -294,25 +359,12 @@
             })
         });
 
-
+      
         // Add the tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
         var markerLayer = L.layerGroup().addTo(map);
 
-        function changeCoords(lat, lng) {
-            // Remove existing marker layer from the map
-            if (markerLayer) {
-                map.removeLayer(markerLayer);
-            }
-
-            // Create a new marker layer and add it to the map
-            markerLayer = L.layerGroup();
-            var marker = L.marker([lat, lng]);
-            markerLayer.addLayer(marker);
-            map.addLayer(markerLayer);
-            // Center the map on the new coordinates
-            map.setView([lat, lng], 17);
-        }
+  
         $('#confirmbutton').on('click', function() {
             // Check if the trainer checkbox is not checked
             if (!$('#trainer-checkbox').prop('checked')) {
@@ -469,42 +521,43 @@
                 var selectedTime = $('#starttime').val();
                 alert('Selected Time: ' + selectedTime);
             });
-        });
 
-        <!-- jQuery script to retrieve data and update table -->
-    <script>
-      
-     function sendtrainerres() {
-       var starttime = $('#starttime').val();
-       var endtime = $('#endtime').val();
-       var datepickers = $('#datepickers').val();
-       var datepickere = $('#datepickere').val();
-       var price = $('#price').val();
-       
-       $.ajax({
-                    url: 'http://localhost/Sadna/trainer/insert_trainer.php',
-                    method: 'POST',
-                    data: {
-                        date: date,
-                        starttime: starttime,
-                        endtime: endtime, datepickers:datepickers,
-                        datepickere:datepickere, price:price, sport_type:sport_type
-                        trainer_username:'<?php echo $_SESSION["username"]; ?>',
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                        
-                        echo "Done successfully"
+        
+     });
 
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error retrieving data:', error);
-                        echo "Error, try again to successfully"
 
-                    }
-                });
-        }
 
+function offerfunc() {
+  var sport_type = $('#sport_type').val();
+  var starttime = $('#starttime').val();
+  var endtime = $('#endtime').val();
+  var datepickers = $('#datepickers').val();
+  var datepickere = $('#datepickere').val();
+  var price = $('#price').val();
+  var city = $('#location-search').val();
+  alert("done")
+  $.ajax({
+    url: 'http://localhost/Sadna/trainer/insert_trainer.php',
+    type: 'GET',
+    data: { 
+      sport_type: sport_type, 
+      starttime: starttime, 
+      endtime: endtime, 
+      datepickers: datepickers, 
+      datepickere: datepickere, 
+      price: price, 
+      city: city,
+      username: '<?php echo $_SESSION["username"]; ?>' 
+    },
+    dataType: 'json',
+    success: function() {
+      $('#successmsg').html('<div class="alert alert-success">Offer submitted successfully.</div>');
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      $('#successmsg').html('<div class="alert alert-danger">Offer submission failed. Error: ' + errorThrown + '</div>');
+    }
+  });
+}
     </script>
 </body>
 

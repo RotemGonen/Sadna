@@ -1,25 +1,19 @@
 <?php
-// connect to database
-$conn = mysqli_connect("localhost", "test", "12345", "sadna");
+include '../connection.php';
 
-// check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
 
 // get data
-$id = $_POST['id'];
-$date = $_POST['date'];
-$starttime = $_POST['starttime'];
-$endtime = $_POST['endtime'];
-$datepickers = $_POST['datepickers'];
-$datepickere=  $_POST['datepickere']; 
-$price= $_POST['price']; 
-$trainer_username = $_POST['trainer_username'];
-if (isset($_POST['trainer_username']))
-    $trainer_username = $_POST['trainer_username'];
+$price = $_GET['price'];
+$endtime = $_GET['endtime'];
+$starttime = $_GET['starttime'];
+$enddate = $_GET['datepickere'];
+$startdate = $_GET['datepickers'];
+$sport_type = $_GET['sport_type'];
+$city = $_GET['city'];
+$username = $_GET['username'];
 // insert data into table
-$sql = "INSERT INTO trainer_availability (city, sport_type, startdate, enddate, starttime, endtime,  trainer_username	) VALUES ('$id', '$date', '$starttime', '$endtime','$player_username','$trainer_username')";
+$sql = "INSERT INTO trainer_availability (trainer_price,endtime,starttime,enddate,startdate,sport_type,city,trainer_username) VALUES 
+('$price', '$endtime', '$starttime','$enddate','$startdate','$sport_type','$city','$username')";
 
 if (mysqli_query($conn, $sql)) {
     // it passes the error in the diffrent page
