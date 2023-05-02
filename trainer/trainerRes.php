@@ -77,7 +77,7 @@
         </div>
     </nav>
     <main role="main">
-        <div class="jumbotron">
+        <div class="jumbotron mt-4">
             <div class="container">
                 <h1 class="display-3">Coach Availability</h1>
                 <p>We aim to maximize the connection between coaches and players,

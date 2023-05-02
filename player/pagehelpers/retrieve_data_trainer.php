@@ -23,8 +23,6 @@ if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'
     AND t.city = '$location'
     AND t.startdate <= '$date'
     AND t.enddate >= '$date'
-    AND t.starttime <= '$starttime'
-    AND t.endtime >= '$endtime'
     AND NOT EXISTS (
         SELECT 1
         FROM field_reservation fr
@@ -53,4 +51,3 @@ if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'
 
 // Close database connection
 mysqli_close($conn);
-?>

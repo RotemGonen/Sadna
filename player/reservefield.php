@@ -307,7 +307,9 @@
         $(document).ready(function() {
 
             $('#confirmReservation').on('click', function() {
-                $('#ReservationModal').hide();
+                $('#ReservationModal').hide(function() {
+                    location.reload();
+                });
             });
 
             // Get the checkbox and div elements
@@ -586,7 +588,7 @@
                         type: type,
                         date: date,
                         starttime: starttime,
-                        endtime: endtime
+                        endtime: endtime,
                     },
                     dataType: 'json',
                     success: function(data) {
@@ -613,7 +615,8 @@
                                         starttime: starttime,
                                         endtime: endtime,
                                         player_username: '<?php echo $_SESSION["username"]; ?>',
-                                        trainer_username: row.trainer_username
+                                        trainer_username: row.trainer_username,
+                                        trainerid: row.training_id
                                     },
                                     success: function(response) {
                                         console.log('Request sent successfully:', response);
