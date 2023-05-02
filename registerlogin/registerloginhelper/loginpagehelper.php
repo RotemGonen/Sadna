@@ -17,7 +17,6 @@ $password = $_POST['password'];
 //query the database to retrieve user information
 $query = "SELECT * FROM registrations WHERE username='$username'";
 $result = mysqli_query($conn, $query);
-
 if (mysqli_num_rows($result) == 1) {
     //if the username is found in the database, verify the password
     $row = mysqli_fetch_assoc($result);
@@ -32,8 +31,9 @@ if (mysqli_num_rows($result) == 1) {
         if ($row['account_type'] == 'player') {
             header("Location: http://localhost/Sadna/player/playerpage.php");
             exit();
-        } else {
-            header("Location: trainerpage.php");
+        } else if ($row['account_type'] == 'trainer') {
+            header("Location: http://localhost/Sadna/trainer/trianerpage.php");
+            exit();
         }
     }
 }
