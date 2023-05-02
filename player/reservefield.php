@@ -512,6 +512,17 @@
             // Create a new marker layer and add it to the map
             markerLayer = L.layerGroup();
             var marker = L.marker([lat, lng]);
+            var popup = L.popup();
+
+            // Use Nominatim to get the closest address to the marker location
+            var url = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json';
+            $.getJSON(url, function(data) {
+                var address = data.display_name;
+                // Update the marker popup with the address
+                popup.setContent(address);
+                marker.bindPopup(popup);
+            });
+
             markerLayer.addLayer(marker);
             map.addLayer(markerLayer);
             // Center the map on the new coordinates

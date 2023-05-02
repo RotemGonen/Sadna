@@ -27,14 +27,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
     <!-- Bootstrap bundle (JS, Popper, and jquery for Bootstrap) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -47,109 +44,109 @@
 
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand">4Play</div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/playerpage.php">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Reserve a sport field</a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meet the trainers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Store</a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">More options</a>
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Manage user</a>
-                        <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
     </nav>
-
     <main role="main">
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-3">Coach Availability</h1>
-                <p>We aim to maximize the connection between coaches and players, 
-                while ensuring coaches have a fair opportunity to earn a steady income. 
-                Our priority is to emphasize the availability of coaches to ensure an optimal match with players.</p>
+                <p>We aim to maximize the connection between coaches and players,
+                    while ensuring coaches have a fair opportunity to earn a steady income.
+                    Our priority is to emphasize the availability of coaches to ensure an optimal match with players.</p>
             </div>
         </div>
 
         <div class="container">
-  <div class="row justify-content-around">
-    <div class="col-md-5">
-      <img src="http://localhost/Sadna/images/Coach.jpg" class="img-fluid">
-    </div>
-    <div class="col-md-6 mt-3 m-md-0">
-      <!-- search city bar -->
-      <div class="row">
-        <div class="form-group col-6 col-md-6">
-          <label for="location-search" class="form-label">Search city name in Hebrew:</label>
-          <select class="form-select" id="location-search" style="width: 100%"></select>
-        </div>
-        <div class="form-group col">
-          <label for="chooseSport" class="form-label">Sport type:</label>
-          <select class="form-select" id="sport_type" style="width: 100%">
-            <option value="תחום ספורט">תחום ספורט</option>
-            <option value="כדורגל">כדורגל</option>
-            <option value="כדורסל">כדורסל</option>
-            <option value="טניס">טניס</option>
-          </select>                  
-        </div>
-      </div>
-      <div class="row" id="form-row">
-        <div class="col-md-6 mt-3 m-md-0">
-          <!-- select start time bar -->
-          <label for="starttime" class="form-label">Select start time:</label>
-          <input type="time" class="form-control" id="starttime">
-        </div>
-        <div class="form-group col">
-          <!-- select end time bar -->
-          <label for="endtime" class="form-label">Select end time:</label>
-          <input type="time" class="form-control" id="endtime">
-        </div>
-        <div class="form-group col">
-          <!-- search date bar -->
-          <label for="datepicker" class="form-label">From date:</label>
-          <input type="date" id="datepickers" class="form-control" autocomplete="off">
-        </div>
-        <div class="form-group col">
-          <!-- search date bar -->
-          <label for="datepicker" class="form-label">To date:</label>
-          <input type="date" id="datepickere" class="form-control" autocomplete="off">
-        </div>
-        <div class="form-group col">
-          <label for="inputPrice" class="form-label">Price:</label>
-          <input type="number" min="1" max="10000000000" class="form-control" id="price" name="price" placeholder="Price" autocomplete="off" required>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-      <div class="col-md-4 text-center mt-2">
-         <button class="btn btn-success btn-lg mb-2 mt-2" id="service" onclick="offerfunc()" style="width: 200px;">Offer Your Service</button>
-      </div>
-      </div>
-       
-        <div class="col-md-6 text-center mt-2">
-        <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
-        <!-- success alert appear here -->
-        </div>
-    </div>
-  </div>
-</div>
+            <div class="row justify-content-around">
+                <div class="col-md-5">
+                    <img src="http://localhost/Sadna/images/Coach.jpg" class="img-fluid">
+                </div>
+                <div class="col-md-6 mt-3 m-md-0">
+                    <!-- search city bar -->
+                    <div class="row">
+                        <div class="form-group col-6 col-md-6">
+                            <label for="location-search" class="form-label">Search city name in Hebrew:</label>
+                            <select class="form-select" id="location-search" style="width: 100%"></select>
+                        </div>
+                        <div class="form-group col">
+                            <label for="chooseSport" class="form-label">Sport type:</label>
+                            <select class="form-select" id="sport_type" style="width: 100%">
+                                <option value="תחום ספורט">תחום ספורט</option>
+                                <option value="כדורגל">כדורגל</option>
+                                <option value="כדורסל">כדורסל</option>
+                                <option value="טניס">טניס</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" id="form-row">
+                        <div class="col-md-6 mt-3 m-md-0">
+                            <!-- select start time bar -->
+                            <label for="starttime" class="form-label">Select start time:</label>
+                            <input type="time" class="form-control" id="starttime">
+                        </div>
+                        <div class="form-group col">
+                            <!-- select end time bar -->
+                            <label for="endtime" class="form-label">Select end time:</label>
+                            <input type="time" class="form-control" id="endtime">
+                        </div>
+                        <div class="form-group col">
+                            <!-- search date bar -->
+                            <label for="datepicker" class="form-label">From date:</label>
+                            <input type="date" id="datepickers" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="form-group col">
+                            <!-- search date bar -->
+                            <label for="datepicker" class="form-label">To date:</label>
+                            <input type="date" id="datepickere" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="form-group col">
+                            <label for="inputPrice" class="form-label">Price:</label>
+                            <input type="number" min="1" max="10000000000" class="form-control" id="price" name="price" placeholder="Price" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 text-center mt-2">
+                            <button class="btn btn-success btn-lg mb-2 mt-2" id="service" onclick="offerfunc()" style="width: 200px;">Offer Your Service</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 text-center mt-2">
+                        <div class="col-md-6 offset-md-3 text-center mt-2" id="successmsg">
+                            <!-- success alert appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     </main>
 
@@ -157,8 +154,8 @@
         <p>&copy; 20232W89</p>
     </footer>
 
-   <!-- jQuery script to retrieve data and update table -->
-   <script>
+    <!-- jQuery script to retrieve data and update table -->
+    <script>
         var selectedFieldId = null;
         var starttime = null;
         var endtime = null;
@@ -175,55 +172,54 @@
             const endTime = document.getElementById('endtime');
 
 
-                if (startTime.value !== "" && endTime.value !== "") {
-                    let errorMessage = "";
+            if (startTime.value !== "" && endTime.value !== "") {
+                let errorMessage = "";
 
-                    // check for time difference
-                    if (timeDiff < 45 || timeDiff > 90) {
-                        errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
-                    }
+                // check for time difference
+                if (timeDiff < 45 || timeDiff > 90) {
+                    errorMessage = "Please reserve at least 45 minutes, but no more than 90 minutes.";
+                }
 
-                    // check for start and end times
-                    if (startTime.value >= endTime.value) {
-                        errorMessage = "The start time cannot be before or equal to the end time.";
-                    }
+                // check for start and end times
+                if (startTime.value >= endTime.value) {
+                    errorMessage = "The start time cannot be before or equal to the end time.";
+                }
 
-                    if (errorMessage !== "") {
-                        // Find existing alert, if any
-                        const alertDiv = document.querySelector(".alert.alert-danger");
+                if (errorMessage !== "") {
+                    // Find existing alert, if any
+                    const alertDiv = document.querySelector(".alert.alert-danger");
 
-                        if (alertDiv) {
-                            // Update existing alert's text, if it exists
-                            alertDiv.textContent = errorMessage;
-                            endTime.value = "";
-                            flag = false;
-                        } else {
-                            // Create new alert if there isn't one already
-                            const alertDiv = document.createElement("div");
-                            alertDiv.classList.add("alert", "alert-danger");
-                            alertDiv.classList.add("alert", "col");
-                            alertDiv.textContent = errorMessage;
-                            const inputRow = document.querySelector("#errorrow");
-
-                            flag = false;
-                            inputRow.appendChild(alertDiv);
-
-                            // Remove the alert after 5 seconds
-                            setTimeout(() => {
-                                alertDiv.remove();
-                                endTime.value = "";
-                            }, 3000);
-                        }
+                    if (alertDiv) {
+                        // Update existing alert's text, if it exists
+                        alertDiv.textContent = errorMessage;
+                        endTime.value = "";
+                        flag = false;
                     } else {
-                        flag = true;
-                        errorMessage = ""
+                        // Create new alert if there isn't one already
+                        const alertDiv = document.createElement("div");
+                        alertDiv.classList.add("alert", "alert-danger");
+                        alertDiv.classList.add("alert", "col");
+                        alertDiv.textContent = errorMessage;
+                        const inputRow = document.querySelector("#errorrow");
+
+                        flag = false;
+                        inputRow.appendChild(alertDiv);
+
+                        // Remove the alert after 5 seconds
                         setTimeout(() => {
-                            $('#starttime').change();
-                        }, 100);
+                            alertDiv.remove();
+                            endTime.value = "";
+                        }, 3000);
                     }
+                } else {
+                    flag = true;
+                    errorMessage = ""
+                    setTimeout(() => {
+                        $('#starttime').change();
+                    }, 100);
                 }
             }
-        )
+        })
 
         $(document).ready(function() {
 
@@ -264,7 +260,7 @@
             const trainercheckbox = document.querySelector('#trainer-checkbox');
             const confirmButton = document.querySelector('#confirmbutton');
 
-            
+
 
             // Listen for changes to location select dropdown and the type select dropdown
             $('#type-select,#location-search,#starttime,#datepicker,#endtime').on('change', function() {
@@ -359,12 +355,12 @@
             })
         });
 
-      
+
         // Add the tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
         var markerLayer = L.layerGroup().addTo(map);
 
-  
+
         $('#confirmbutton').on('click', function() {
             // Check if the trainer checkbox is not checked
             if (!$('#trainer-checkbox').prop('checked')) {
@@ -522,42 +518,42 @@
                 alert('Selected Time: ' + selectedTime);
             });
 
-        
-     });
+
+        });
 
 
 
-function offerfunc() {
-  var sport_type = $('#sport_type').val();
-  var starttime = $('#starttime').val();
-  var endtime = $('#endtime').val();
-  var datepickers = $('#datepickers').val();
-  var datepickere = $('#datepickere').val();
-  var price = $('#price').val();
-  var city = $('#location-search').val();
-  alert("done")
-  $.ajax({
-    url: 'http://localhost/Sadna/trainer/insert_trainer.php',
-    type: 'GET',
-    data: { 
-      sport_type: sport_type, 
-      starttime: starttime, 
-      endtime: endtime, 
-      datepickers: datepickers, 
-      datepickere: datepickere, 
-      price: price, 
-      city: city,
-      username: '<?php echo $_SESSION["username"]; ?>' 
-    },
-    dataType: 'json',
-    success: function() {
-      $('#successmsg').html('<div class="alert alert-success">Offer submitted successfully.</div>');
-    },
-    error: function(xhr, textStatus, errorThrown) {
-      $('#successmsg').html('<div class="alert alert-danger">Offer submission failed. Error: ' + errorThrown + '</div>');
-    }
-  });
-}
+        function offerfunc() {
+            var sport_type = $('#sport_type').val();
+            var starttime = $('#starttime').val();
+            var endtime = $('#endtime').val();
+            var datepickers = $('#datepickers').val();
+            var datepickere = $('#datepickere').val();
+            var price = $('#price').val();
+            var city = $('#location-search').val();
+            alert("done")
+            $.ajax({
+                url: 'http://localhost/Sadna/trainer/insert_trainer.php',
+                type: 'GET',
+                data: {
+                    sport_type: sport_type,
+                    starttime: starttime,
+                    endtime: endtime,
+                    datepickers: datepickers,
+                    datepickere: datepickere,
+                    price: price,
+                    city: city,
+                    username: '<?php echo $_SESSION["username"]; ?>'
+                },
+                dataType: 'json',
+                success: function() {
+                    $('#successmsg').html('<div class="alert alert-success">Offer submitted successfully.</div>');
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    $('#successmsg').html('<div class="alert alert-danger">Offer submission failed. Error: ' + errorThrown + '</div>');
+                }
+            });
+        }
     </script>
 </body>
 

@@ -34,35 +34,35 @@
     }
 
     ?>
-
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand">4Play</div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meet the trainers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Store</a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">More options</a>
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Manage user</a>
-                        <a class="dropdown-item" href="#">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
@@ -74,10 +74,10 @@
                 <div class="container">
                     <h1 class="display-3" id="greeting">Hello, *user*</h1>
                     <p><span class="font-weight-bold">It's good to see you here!</span>
-                    Want to increase your income? Want to reach as many trainees as possible?
-                    You came to the right place.
-                    In this advanced platform and in just a few clicks,
-                    you can find trainers at all levels in the field you teach near to your home"
+                        Want to increase your income? Want to reach as many trainees as possible?
+                        You came to the right place.
+                        In this advanced platform and in just a few clicks,
+                        you can find trainers at all levels in the field you teach near to your home"
                     </p>
                 </div>
             </div>
@@ -110,9 +110,9 @@
                         <div>
                             <h3 class="fs-2">Your Current Reservation</h3>
                             <p>Below you will find all the orders and what players helped you in your service.
-                            You can reserve the date of the reservation by clicking on the "Remove" button or confirm the reservation and reserve in the schedule, 
-                            the reservation includes, start time, end time, type of sport, location and price.
-</p>
+                                You can reserve the date of the reservation by clicking on the "Remove" button or confirm the reservation and reserve in the schedule,
+                                the reservation includes, start time, end time, type of sport, location and price.
+                            </p>
                         </div>
                         <div id="reservationcarousel" class="carousel carousel-dark slide mb-3 mb-md-0 shadow">
                             <div class="carousel-inner text-center" id="cards">
@@ -131,13 +131,11 @@
                                     </div>
                                 <?php } ?>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel"
-                                data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#reservationcarousel" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#reservationcarousel"
-                                data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#reservationcarousel" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -145,20 +143,21 @@
 
                     </div>
 
-                    
+
 
                 </div>
         </main>
 
         <script>
-
             function Getreserv() {
                 $.ajax({
                     url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php', // change this to the url of your server-side script that fetches the data from the database
                     type: 'get',
                     dataType: 'json',
-                    data: { username: '<?php echo $_SESSION['username']; ?>' },
-                    success: function (response) {
+                    data: {
+                        username: '<?php echo $_SESSION['username']; ?>'
+                    },
+                    success: function(response) {
                         data = response.data;
                         var cards = '';
                         if (data.length == 0) {
@@ -205,27 +204,27 @@
             }
 
             var data; // define data outside of AJAX call
-            $(document).ready(function () {
+            $(document).ready(function() {
                 Getreserv()
             });
 
-            $(document).ready(function () {
+            $(document).ready(function() {
 
                 // Set up the map
                 var map = L.map('map').setView([31.80309338, 35.10942674], 7);
                 // Add the tile layer
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                }).addTo(map);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
                 var markerLayer = L.layerGroup().addTo(map);
 
 
                 var carousel = $('#reservationcarousel');
 
-                carousel.on('click', '.send-coords', function () {
+                carousel.on('click', '.send-coords', function() {
                     var lat = $(this).data('lat');
                     var lon = $(this).data('lon');
                     changeCoords(lat, lon);
                 });
+
                 function changeCoords(lat, lng) {
                     // Remove existing marker layer from the map
                     if (markerLayer) {
@@ -241,34 +240,36 @@
                     map.setView([lat, lng], 17);
                 }
             })
-            $(document).ready(function () {
+            $(document).ready(function() {
                 var reservation_Id = null
                 var carousel = $('#reservationcarousel');
                 // Add a click event listener to the "remove" button
-                carousel.on('click', '.remove-row', function () {
+                carousel.on('click', '.remove-row', function() {
                     reservation_Id = $(this).data('id')
                     $('#cancelReservationModal').show()
                 })
 
-                $('#confirmCancelReservation').on('click', function () {
+                $('#confirmCancelReservation').on('click', function() {
 
                     $.ajax({
                         url: 'remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
                         method: 'POST',
-                        data: { reservation_Id: reservation_Id }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
-                        success: function (response) {
+                        data: {
+                            reservation_Id: reservation_Id
+                        }, // The data to be sent with the AJAX request (in this case, just the reservation ID)
+                        success: function(response) {
                             // If the AJAX request was successful, remove the corresponding carousel item from the DOM
                             console.log('refresh done');
                             location.reload();
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // If the AJAX request failed, log the error message to the console
                             console.error(error);
                         }
                     });
                 });
 
-                $('.cancelaction,.btn-close').on('click', function () {
+                $('.cancelaction,.btn-close').on('click', function() {
                     $('#cancelReservationModal').hide();
                 });
             });
@@ -291,17 +292,13 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"> </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>
