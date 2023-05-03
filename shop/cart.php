@@ -86,14 +86,7 @@
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
         header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
         exit;
-    } else {
-        echo "<script>
-            window.onload = function() {
-                var usernameDiv = document.getElementById('greeting');
-                usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
-                }
-            </script>";
-    }
+    } 
     ?>
 
     <!-- show the navbar -->
@@ -108,11 +101,11 @@
         <div class="jumbotron">
             <div class="container">
                 <div class="row">
-                    <div class="col-10">
-                        <h1 class="display-3" id='greeting'>Hello, </h1>
-                        <p><span class="font-weight-bold">we are happy to see you here.</span>
+                    <div class="col-11">
+                        <h1>Welcome to your cart</h1><br>
+                        <p>
                             Here you can pay for your items using your Paypal account. <br>
-                            Payment is made in a secure way under the strict SSL standards, so you can feel comfortable making purchases on this site<br><br>
+                            Payment is made in a secure way under the strict SSL standards of Paypal, so you can feel comfortable making purchases on this site<br><br>
                         </p>
                     </div>
                 </div>
