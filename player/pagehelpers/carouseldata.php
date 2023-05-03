@@ -12,8 +12,10 @@ $username = $_GET['username'];
 $query = "SELECT *
 FROM field_reservation
 JOIN sportfield ON field_reservation.field_id = sportfield.id 
+LEFT JOIN registrations ON registrations.username = field_reservation.trainer_username
 WHERE field_reservation.player_username = '$username' 
-ORDER BY field_reservation.date ASC, field_reservation.starttime ASC
+ORDER BY field_reservation.date ASC, field_reservation.starttime ASC;
+
 ";
 $result = $mysqli->query($query);
 
@@ -36,4 +38,3 @@ echo json_encode(array("data" => $data));
 
 // close the database connection
 $mysqli->close();
-?>
