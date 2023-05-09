@@ -273,7 +273,7 @@
                                 }
                                 var waiting = '';
                                 if (data[i].trainer_username && data[i].approval == 0) {
-                                    waiting = '<span class="badge badge-warning ml-2 fs-5 h-100 d-flex align-items-center">Waiting for trainer approval</span>';
+                                    waiting = '<span class="badge badge-warning ml-2 fs-5 h-100 d-flex align-items-center">Waiting for approval</span>';
                                 } else if (data[i].trainer_username && data[i].approval == 1) {
                                     waiting = '<span class="badge badge-success ml-2 fs-5 h-100 d-flex align-items-center">Trainer confirmed</span>';
                                 }

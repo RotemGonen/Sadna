@@ -121,6 +121,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Your service has been published!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary confirm-button">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script>
         // check if all input are with values
@@ -209,6 +229,22 @@
             })
             $('#type-select,#location-search,#datepicker,#price').on('input', function() {
                 checkInputs();
+            });
+        });
+
+        $(document).ready(function() {
+            $('.confirm-button').click(function() {
+                $('#exampleModal').modal('hide');
+                // Show success message here
+            });
+            $('.close').click(function() {
+                $('#exampleModal').modal('hide');
+            });
+        });
+
+        $(document).ready(function() {
+            $('#confirmbutton').click(function() {
+                $('#exampleModal').modal('show');
             });
         });
     </script>
