@@ -48,4 +48,3 @@ if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'
 
 // Close database connection
 mysqli_close($conn);
-?>

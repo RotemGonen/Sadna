@@ -54,31 +54,31 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/shop/shophtml.php">Store</a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
                         <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
-
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/shop/cart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
+                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
     </nav>
+
 
 
     <?php
@@ -86,7 +86,14 @@
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
         header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
         exit;
-    } 
+    } else {
+        echo "<script>
+            window.onload = function() {
+                var usernameDiv = document.getElementById('greeting');
+                usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
+                }
+            </script>";
+    }
     ?>
 
     <!-- show the navbar -->
@@ -101,11 +108,11 @@
         <div class="jumbotron">
             <div class="container">
                 <div class="row">
-                    <div class="col-11">
-                        <h1>Welcome to your cart</h1><br>
-                        <p>
+                    <div class="col-10">
+                        <h1 class="display-3" id='greeting'>Hello, </h1>
+                        <p><span class="font-weight-bold">we are happy to see you here.</span>
                             Here you can pay for your items using your Paypal account. <br>
-                            Payment is made in a secure way under the strict SSL standards of Paypal, so you can feel comfortable making purchases on this site<br><br>
+                            Payment is made in a secure way under the strict SSL standards, so you can feel comfortable making purchases on this site<br><br>
                         </p>
                     </div>
                 </div>

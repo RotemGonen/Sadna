@@ -12,10 +12,9 @@ $username = $_GET['username'];
 $query = "SELECT *
 FROM field_reservation
 JOIN sportfield ON field_reservation.field_id = sportfield.id 
-JOIN registrations ON registrations.username = field_reservation.trainer_username
-WHERE field_reservation.player_username = '$username' 
-ORDER BY field_reservation.date ASC, field_reservation.starttime ASC;
-";
+LEFT JOIN registrations ON registrations.username = field_reservation.player_username
+WHERE field_reservation.trainer_username = '$username'AND field_reservation.approval = '1'
+ORDER BY field_reservation.date ASC, field_reservation.starttime ASC;";
 $result = $mysqli->query($query);
 
 // check for errors

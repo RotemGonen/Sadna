@@ -265,27 +265,57 @@
                             if (i == 0) {
                                 active = 'active';
                             }
-                            cards += '<div class="carousel-item ' + active + '">';
-                            cards += '<div>';
-                            cards += '<div class="card">';
-                            cards += '<div class="card-body">';
-                            cards += '<h4 class="card-title">' + data[i].date + '</h5>';
-                            cards += '<p class="font-weight-bold">' + data[i].type + '-' + data[i].location + '</p>';
-                            cards += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
-                            cards += '<a href="' + createGoogleCalendarLink(data[i].date, data[i].starttime, data[i].endtime, data[i].type, data[i].location) + '" target="_blank">Add to the calendar <img src="http://localhost/Sadna/images/google_calendar_icon.png" alt="Google Calendar" style="width: 8%;"><a>'
-                            cards += '<div class="row col">';
-                            cards += '<div class="col">';
-                            cards += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
-                            cards += '</div>';
-                            cards += '<div class="col">';
-                            cards += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '" data-loc="' + data[i].location + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
-                            cards += '</div>';
-                            cards += '</div>';
-                            cards += '</div>';
-                            cards += '</div>';
-                            cards += '</div>';
-                            cards += '</div>';
+                            var cards = '';
+                            for (var i = 0; i < data.length; i++) {
+                                var active = '';
+                                if (i == 0) {
+                                    active = 'active';
+                                }
+                                var waiting = '';
+                                if (data[i].trainer_username && data[i].approval == 0) {
+                                    waiting = '<span class="badge badge-warning ml-2 fs-5 h-100 d-flex align-items-center">Waiting for approval</span>';
+                                } else if (data[i].trainer_username && data[i].approval == 1) {
+                                    waiting = '<span class="badge badge-success ml-2 fs-5 h-100 d-flex align-items-center">Trainer confirmed</span>';
+                                }
+                                var trainer = '';
+                                if (data[i].trainer_username) {
+                                    trainer = '<div class="font-weight-bold">' + data[i].first_name + ' ' + data[i].last_name + ' ' + data[i].phone + '</div>';
+                                }
+                                var card = '<div class="carousel-item ' + active + '">';
+                                card += '<div>';
+                                card += '<div class="card">';
+                                card += '<div class="card-body">';
+                                card += '<h4 class="card-title">' + data[i].date + '</h4>';
+                                card += '<div class="font-weight-bold">' + data[i].type + '-' + data[i].location + '</div>';
+                                card += trainer;
+                                if (!trainer) {
+                                    card += '<br>';
+                                }
+                                card += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
+                                card += '<a href="' + createGoogleCalendarLink(data[i].date, data[i].starttime, data[i].endtime, data[i].type, data[i].location) + '" target="_blank">Add to the calendar <img src="http://localhost/Sadna/images/google_calendar_icon.png" alt="Google Calendar" style="width: 8%;"><a>'
+                                card += '<div class="row col">';
+                                card += '<div class="col">';
+                                card += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
+                                card += '</div>';
+                                card += '<div class="col">';
+                                card += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '" data-loc="' + data[i].location + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                card += '</div>';
+                                if (waiting != '') {
+                                    card += '<div class="col">';
+                                    card += waiting;
+                                    card += '</div>';
+                                }
+                                card += '</div>';
+                                card += '</div>';
+                                card += '</div>';
+                                card += '</div>';
+                                card += '</div>';
+                                cards += card;
+                            }
+
                         }
+
+
                     }
                     $('#cards').html(cards); // replace the table body with the generated cards
                 }

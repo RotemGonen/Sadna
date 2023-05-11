@@ -307,7 +307,9 @@
         $(document).ready(function() {
 
             $('#confirmReservation').on('click', function() {
-                $('#ReservationModal').hide();
+                $('#ReservationModal').hide(function() {
+                    location.reload();
+                });
             });
 
             // Get the checkbox and div elements
@@ -512,6 +514,17 @@
             // Create a new marker layer and add it to the map
             markerLayer = L.layerGroup();
             var marker = L.marker([lat, lng]);
+            var popup = L.popup();
+
+            // Use Nominatim to get the closest address to the marker location
+            var url = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json';
+            $.getJSON(url, function(data) {
+                var address = data.display_name;
+                // Update the marker popup with the address
+                popup.setContent(address);
+                marker.bindPopup(popup);
+            });
+
             markerLayer.addLayer(marker);
             map.addLayer(markerLayer);
             // Center the map on the new coordinates
@@ -575,7 +588,7 @@
                         type: type,
                         date: date,
                         starttime: starttime,
-                        endtime: endtime
+                        endtime: endtime,
                     },
                     dataType: 'json',
                     success: function(data) {
@@ -602,7 +615,8 @@
                                         starttime: starttime,
                                         endtime: endtime,
                                         player_username: '<?php echo $_SESSION["username"]; ?>',
-                                        trainer_username: row.trainer_username
+                                        trainer_username: row.trainer_username,
+                                        trainerid: row.training_id
                                     },
                                     success: function(response) {
                                         console.log('Request sent successfully:', response);

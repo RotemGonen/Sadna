@@ -24,7 +24,7 @@ if (mysqli_num_rows($result) == 1) {
         //password is correct, create session variable and redirect to desired page
         session_start();
         $_SESSION['authenticated'] = true;
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = $row['username'];
         $_SESSION['first_name'] = $row['first_name'];
         $_SESSION['photo_path'] = $row['photo_path'];
         $_SESSION['account_type'] = $row['account_type'];
