@@ -115,15 +115,16 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <table class="table table-striped">
+                <div class="col-md-8">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Player Name</th>
                                 <th>Date</th>
                                 <th>Sport Type</th>
                                 <th>Phone Number</th>
-                                <th>Confirm/Remove</th>
+                                <th>Confirm</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody id="reservation-table">
@@ -131,7 +132,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="jumbotron text-center" style="background-color: #e1e1ea;">
                         <h2 class="mb-3">Scan QR Code</h2>
                         <p>Use your device's camera to Scan the QR code located in the field to let us know you have reached it.</p>
@@ -242,8 +243,26 @@
                         <div id="map" class="w-100 h-100"></div>
                     </div>
                 </div>
-
             </div>
+            <div class="modal" id="myModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Message content will be inserted here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cm">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     </main>
 
     <script>
@@ -508,6 +527,102 @@
             $('#qrModal').on('hidden.bs.modal', function(e) {
                 scanner.stop();
             });
+        });
+        $(document).ready(function() {
+            // Retrieve initial data on page load
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost/Sadna/trainer/standbylist.php',
+                success: function(data) {
+                    var reservations = JSON.parse(data);
+                    $.each(reservations, function(index, reservation) {
+                        var row = $('<tr>').attr('id', 'reservation-' + reservation.reservation_Id); // Add unique ID to the row
+                        row.append($('<td>').text(reservation.player_first_name.charAt(0).toUpperCase() + reservation.player_first_name.slice(1) + " " + reservation.player_last_name.charAt(0).toUpperCase() + reservation.player_last_name.slice(1)));
+                        row.append($('<td>').text(reservation.date));
+                        row.append($('<td>').text(reservation.type));
+                        row.append($('<td>').text(reservation.player_phone));
+                        // Create a cell for the Confirm button
+                        var confirmCell = $('<td>');
+                        var confirmButton = $('<button>').addClass('btn btn-primary confirm-btn').attr('data-id', reservation.reservation_Id).text('Confirm');
+                        confirmCell.append(confirmButton);
+
+                        // Create a cell for the Remove button
+                        var removeCell = $('<td>');
+                        var removeButton = $('<button>').addClass('btn btn-danger remove-btn').attr('data-id', reservation.reservation_Id).text('Remove');
+                        removeCell.append(removeButton);
+
+                        row.append(confirmCell);
+                        row.append(removeCell);
+
+                        $('#reservation-table').append(row);
+                    });
+                }
+            });
+
+            // Handle confirm/remove buttons
+            $('#reservation-table').on('click', '.confirm-btn, .remove-btn', function() {
+                var rowId = $(this).closest('tr').attr('id');
+                var action = $(this).hasClass('confirm-btn') ? 'confirm' : 'remove';
+                // Send AJAX request to handle action
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost/Sadna/trainer/handle_trainer.php',
+                    data: {
+                        reservation_id: rowId.split('-')[1], // Extract the reservation ID from the row ID
+                        action: action
+                    },
+                    success: function(response) {
+                        // Show Bootstrap modal popup with success or error message
+                        var message = '';
+                        message = 'Operation completed successfully.';
+
+                        // Set the message content and show the modal
+                        $('#myModal .modal-body').text(message);
+                        $('#myModal').modal('show');
+                        $('#reservation-table').empty(); // Clear the table contents
+                        $.ajax({
+                            type: 'GET',
+                            url: 'http://localhost/Sadna/trainer/standbylist.php',
+                            success: function(data) {
+                                var reservations = JSON.parse(data);
+                                $.each(reservations, function(index, reservation) {
+                                    var row = $('<tr>').attr('id', 'reservation-' + reservation.reservation_Id); // Add unique ID to the row
+                                    row.append($('<td>').text(reservation.player_first_name.charAt(0).toUpperCase() + reservation.player_first_name.slice(1) + " " + reservation.player_last_name.charAt(0).toUpperCase() + reservation.player_last_name.slice(1)));
+                                    row.append($('<td>').text(reservation.date));
+                                    row.append($('<td>').text(reservation.type));
+                                    row.append($('<td>').text(reservation.player_phone));
+                                    // Create a cell for the Confirm button
+                                    var confirmCell = $('<td>');
+                                    var confirmButton = $('<button>').addClass('btn btn-primary confirm-btn').attr('data-id', reservation.reservation_Id).text('Confirm');
+                                    confirmCell.append(confirmButton);
+
+                                    // Create a cell for the Remove button
+                                    var removeCell = $('<td>');
+                                    var removeButton = $('<button>').addClass('btn btn-danger remove-btn').attr('data-id', reservation.reservation_Id).text('Remove');
+                                    removeCell.append(removeButton);
+
+                                    row.append(confirmCell);
+                                    row.append(removeCell);
+
+                                    $('#reservation-table').append(row);
+                                });
+                            }
+                        });
+
+                    }
+                });
+            });
+        });
+
+        // Trigger to handle modal dismissal
+        $('.close, #cm').click(function() {
+            $('#myModal').modal('hide');
+            Getreserv()
+        });
+
+        // Trigger to handle modal content click without dismissal
+        $('.modal-content').click(function(event) {
+            event.stopPropagation();
         });
     </script>
 
