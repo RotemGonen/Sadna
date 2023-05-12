@@ -42,7 +42,7 @@
     <?php
     session_start();
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
-        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        header('Location: http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php');
         exit;
     } else {
         echo "<script>
@@ -50,7 +50,7 @@
             var usernameDiv = document.getElementById('greeting');
             usernameDiv.innerHTML =  'Hello, " . $_SESSION['first_name'] . "';
             var img = document.getElementById('personal-photo');
-            var src = 'http://localhost/Sadna/images/profile/" . $_SESSION['photo_path'] . "';
+            var src = 'http://irrotemamr.mtacloud.co.il/images/profile/" . $_SESSION['photo_path'] . "';
             if (src) {
                 img.src = src;
             }
@@ -61,7 +61,7 @@
     }
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <div class="navbar-brand"><img src="http://irrotemamr.mtacloud.co.il/images/4Play.PNG" width="70"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,26 +69,26 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
+                    <a class="nav-link active" href="http://irrotemamr.mtacloud.co.il/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainerabout.php">About us</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainercart.php"><img src="http://irrotemamr.mtacloud.co.il/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
@@ -278,7 +278,7 @@
 
         function Getreserv() {
             $.ajax({
-                url: 'http://localhost/Sadna/trainer/trainercarouseldata.php', // change this to the url of your server-side script that fetches the data from the database
+                url: 'http://irrotemamr.mtacloud.co.il/trainer/trainercarouseldata.php', // change this to the url of your server-side script that fetches the data from the database
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -325,7 +325,7 @@
                                     card += '<br>';
                                 }
                                 card += '<h6 class="card-subtitle mb-2 text-muted">' + data[i].starttime + ' - ' + data[i].endtime + '</h6>'; // change this to the format of your data
-                                card += '<a href="' + createGoogleCalendarLink(data[i].date, data[i].starttime, data[i].endtime, data[i].type, data[i].location) + '" target="_blank">Add to the calendar <img src="http://localhost/Sadna/images/google_calendar_icon.png" alt="Google Calendar" style="width: 8%;"><a>'
+                                card += '<a href="' + createGoogleCalendarLink(data[i].date, data[i].starttime, data[i].endtime, data[i].type, data[i].location) + '" target="_blank">Add to the calendar <img src="http://irrotemamr.mtacloud.co.il/images/google_calendar_icon.png" alt="Google Calendar" style="width: 8%;"><a>'
                                 card += '<div class="row col">';
                                 card += '<div class="col">';
                                 card += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
@@ -405,14 +405,14 @@
 
                 // Define the custom icon for the defibrillator
                 var defibIcon = L.icon({
-                    iconUrl: 'http://localhost/Sadna/images/defib-icon.png',
+                    iconUrl: 'http://irrotemamr.mtacloud.co.il/images/defib-icon.png',
                     iconSize: [32, 32], // size of the icon
                     iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
                     popupAnchor: [0, -16] // point from which the popup should open relative to the iconAnchor
                 });
 
                 $.ajax({
-                    url: 'http://localhost/Sadna/player/pagehelpers/getdefilocation.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/getdefilocation.php',
                     type: 'POST',
                     dataType: 'json',
                     data: {
@@ -454,7 +454,7 @@
             $('#confirmCancelReservation').on('click', function() {
 
                 $.ajax({
-                    url: 'http://localhost/Sadna/player/pagehelpers/remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/remove_reservation.php', // The URL of the server-side script that will handle the AJAX request
                     method: 'POST',
                     data: {
                         reservation_Id: reservation_Id
@@ -495,7 +495,7 @@
                 scanner.stop();
                 $("#qrModal .close").trigger("click");
                 $.ajax({
-                    url: 'http://localhost/Sadna/player/pagehelpers/arrivalverify.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/arrivalverify.php',
                     type: 'POST',
                     data: {
                         username: '<?php echo $_SESSION['username']; ?>',
@@ -532,7 +532,7 @@
             // Retrieve initial data on page load
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost/Sadna/trainer/standbylist.php',
+                url: 'http://irrotemamr.mtacloud.co.il/trainer/standbylist.php',
                 success: function(data) {
                     var reservations = JSON.parse(data);
                     $.each(reservations, function(index, reservation) {
@@ -566,7 +566,7 @@
                 // Send AJAX request to handle action
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost/Sadna/trainer/handle_trainer.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/trainer/handle_trainer.php',
                     data: {
                         reservation_id: rowId.split('-')[1], // Extract the reservation ID from the row ID
                         action: action
@@ -582,7 +582,7 @@
                         $('#reservation-table').empty(); // Clear the table contents
                         $.ajax({
                             type: 'GET',
-                            url: 'http://localhost/Sadna/trainer/standbylist.php',
+                            url: 'http://irrotemamr.mtacloud.co.il/trainer/standbylist.php',
                             success: function(data) {
                                 var reservations = JSON.parse(data);
                                 $.each(reservations, function(index, reservation) {

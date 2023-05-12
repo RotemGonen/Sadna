@@ -37,7 +37,7 @@
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <div class="navbar-brand"><img src="http://irrotemamr.mtacloud.co.il/images/4Play.PNG" width="70"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,26 +45,26 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainerabout.php">About us</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainercart.php"><img src="http://irrotemamr.mtacloud.co.il/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
@@ -76,7 +76,7 @@
     <?php
     session_start();
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
-        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        header('Location: http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php');
         exit;
     }
     ?>
@@ -111,7 +111,7 @@
                         <div class='sen'></div>
                     </div>
                     <div class="col-6">
-                        <img src="http://localhost/Sadna/images\messi_with_ball.jpg" width="75%" height="90%" style="max-width: 100%; margin-left:20%;">
+                        <img src="http://irrotemamr.mtacloud.co.il/images\messi_with_ball.jpg" width="75%" height="90%" style="max-width: 100%; margin-left:20%;">
                     </div>
                 </div>
                 <div>
@@ -133,7 +133,7 @@
     //function that show the products
     $(document).ready(function show_products() {
         $.ajax({
-            url: 'http://localhost/Sadna/shop/shop.php',
+            url: 'http://irrotemamr.mtacloud.co.il/shop/shop.php',
             type: 'GET',
             dataType: 'json',
             success: function(data) {
@@ -174,7 +174,7 @@
             var searchTerm = $('#search-input').val();
             // Use Ajax to fetch the products from the server
             $.ajax({
-                url: 'http://localhost/Sadna/shop/get-products.php',
+                url: 'http://irrotemamr.mtacloud.co.il/shop/get-products.php',
                 type: 'GET',
                 data: {
                     search: searchTerm
@@ -275,7 +275,7 @@
             }
 
             $.ajax({
-                url: 'http://localhost/Sadna/shop/insert_order.php',
+                url: 'http://irrotemamr.mtacloud.co.il/shop/insert_order.php',
                 type: 'GET',
                 data: {
                     productName: productName,

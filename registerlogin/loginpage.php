@@ -6,11 +6,11 @@
     <title>Sign In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://localhost/Sadna/registerlogin/registerloginhelper/style.css">
+    <link rel="stylesheet" href="http://irrotemamr.mtacloud.co.il/registerlogin/registerloginhelper/style.css">
 </head>
 
 <header>
-    <div class="container"> <img src="http://localhost/Sadna/images/4Playlogo.PNG" class=" mt-3 img-fluid mx-auto d-block w-auto" alt="Responsive image">
+    <div class="container"> <img src="http://irrotemamr.mtacloud.co.il/images/4Playlogo.PNG" class=" mt-3 img-fluid mx-auto d-block w-auto" alt="Responsive image">
     </div>
 
     <?php
@@ -27,7 +27,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4 my-5">
                 <h2 class="text-center">Sign In</h2>
-                <form action="http://localhost/Sadna/registerlogin/registerloginhelper/loginpagehelper.php" class="needs-validation" method="post" novalidate>
+                <form action="http://irrotemamr.mtacloud.co.il/registerlogin/registerloginhelper/loginpagehelper.php" class="needs-validation" method="post" novalidate>
                     <?php
                     //check if an error message is present in the URL query parameters
                     if (isset($_GET['error'])) {
@@ -57,8 +57,8 @@
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                             <div class="input-group-append">
                                 <span class="input-group-text">
-                                    <img src="http://localhost/Sadna/images/show_password.png" alt="Show password" id="showPasswordIcon" style="width: 22px; height: 16px;">
-                                    <img src="http://localhost/Sadna/images/hide_password.png" alt="Hide password" id="hidePasswordIcon" style="display: none; width: 22px; height: 16px;">
+                                    <img src="http://irrotemamr.mtacloud.co.il/images/show_password.png" alt="Show password" id="showPasswordIcon" style="width: 22px; height: 16px;">
+                                    <img src="http://irrotemamr.mtacloud.co.il/images/hide_password.png" alt="Hide password" id="hidePasswordIcon" style="display: none; width: 22px; height: 16px;">
                                 </span>
                             </div>
                         </div>

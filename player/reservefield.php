@@ -44,13 +44,13 @@
     <?php
     session_start();
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
-        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        header('Location: http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php');
         exit;
     }
 
     ?>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <div class="navbar-brand"><img src="http://irrotemamr.mtacloud.co.il/images/4Play.PNG" width="70"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,27 +58,27 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/player/playerpage.php">Home </a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/player/playerpage.php">Home </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost/Sadna/player/reservefield.php">Reserve a sport field</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/player/reservefield.php">Reserve a sport field</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/shop/shophtml.php">Store</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/shop/shophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="http://localhost/Sadna/player/manageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/player/about.php">About us</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/player/manageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/player/about.php">About us</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/shop/cart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/shop/cart.php"><img src="http://irrotemamr.mtacloud.co.il/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
@@ -365,7 +365,7 @@
                     console.log('the refresh is run');
                     $('#confirmbutton').attr('disabled', true);
                     $.ajax({
-                        url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data.php',
+                        url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/retrieve_data.php',
                         method: 'POST',
                         data: {
                             location: location,
@@ -464,7 +464,7 @@
                 theme: "classic",
                 placeholder: "Search city(Hebrew) ...",
                 ajax: {
-                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {
@@ -543,7 +543,7 @@
                 select2Element.prop('disabled', false);
                 // Execute the AJAX request
                 $.ajax({
-                    url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/insert_reservation.php',
                     method: 'POST',
                     data: {
                         id: selectedFieldId,
@@ -581,7 +581,7 @@
                 endtime = $('#endtime').val();
                 date = $('#datepicker').val();
                 $.ajax({
-                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_data_trainer.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/retrieve_data_trainer.php',
                     method: 'POST',
                     data: {
                         location: location,
@@ -597,7 +597,7 @@
                         // Append new rows to table
                         data.forEach(function(row) {
                             var tr = $('<tr>');
-                            var photo = row.photo_path ? 'http://localhost/Sadna/images/profile/' + row.photo_path : 'http://localhost/Sadna/images/profile/default-avatar.png';
+                            var photo = row.photo_path ? 'http://irrotemamr.mtacloud.co.il/images/profile/' + row.photo_path : 'http://irrotemamr.mtacloud.co.il/images/profile/default-avatar.png';
                             tr.append($('<td>').append($('<img>').attr('src', photo).addClass('img-fluid')));
                             tr.append($('<td>').text(row.first_name));
                             tr.append($('<td>').text(row.last_name));
@@ -607,7 +607,7 @@
                             button.on('click', function() {
                                 // Send a PHP request with the row data
                                 $.ajax({
-                                    url: 'http://localhost/Sadna/player/pagehelpers/insert_reservation.php ',
+                                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/insert_reservation.php ',
                                     type: 'POST',
                                     data: {
                                         id: selectedFieldId,

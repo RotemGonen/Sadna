@@ -46,7 +46,7 @@
 <body>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <div class="navbar-brand"><img src="http://irrotemamr.mtacloud.co.il/images/4Play.PNG" width="70"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -54,26 +54,26 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainerabout.php">About us</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainercart.php"><img src="http://irrotemamr.mtacloud.co.il/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
@@ -84,7 +84,7 @@
     <?php
     session_start();
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
-        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        header('Location: http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php');
         exit;
     } else {
         echo "<script>
@@ -185,7 +185,7 @@
                     <h3 class='justify-content-center text-center'>Total amount $<?php echo $total; ?></h3>
                     <br><br>
                     <div class="align-items-center text-center">
-                        <div> checkout with <img src="http://localhost/Sadna/images/paypal_icon.png" width="60" class="mb-1"></div><br>
+                        <div> checkout with <img src="http://irrotemamr.mtacloud.co.il/images/paypal_icon.png" width="60" class="mb-1"></div><br>
                         <div id="paypal-button-container">
                         </div>
                     </div>
@@ -203,7 +203,7 @@
             var productId = $(this).data('id');
             var orderId = $(this).data('order');
             $.ajax({
-                url: 'http://localhost/Sadna/shop/delete_product_from_cart.php',
+                url: 'http://irrotemamr.mtacloud.co.il/shop/delete_product_from_cart.php',
                 type: 'GET',
                 data: {
                     productId: productId,
@@ -235,7 +235,7 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     $.ajax({
-                        url: 'http://localhost/Sadna/shop/clear_cart.php',
+                        url: 'http://irrotemamr.mtacloud.co.il/shop/clear_cart.php',
                         type: 'GET',
                         data: {
                             username: '<?php echo $_SESSION["username"]; ?>'

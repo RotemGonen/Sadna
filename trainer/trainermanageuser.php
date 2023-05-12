@@ -25,14 +25,14 @@
     <?php
     session_start();
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
-        header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
+        header('Location: http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php');
         exit;
     }
 
     ?>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="navbar-brand"><img src="http://localhost/Sadna/images/4Play.PNG" width="70"></div>
+        <div class="navbar-brand"><img src="http://irrotemamr.mtacloud.co.il/images/4Play.PNG" width="70"></div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,26 +40,26 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trianerpage.php">Home</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trianerpage.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainerRes.php">Look for a trainee</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainerRes.php">Look for a trainee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainershophtml.php">Store</a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainershophtml.php">Store</a>
                 </li>
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More options</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainermanageuser.php">Manage user</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/trainer/trainerabout.php">About us</a>
-                        <a class="dropdown-item" href="http://localhost/Sadna/registerlogin/loginpage.php">Sign out</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainermanageuser.php">Manage user</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/trainer/trainerabout.php">About us</a>
+                        <a class="dropdown-item" href="http://irrotemamr.mtacloud.co.il/registerlogin/loginpage.php">Sign out</a>
                     </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/Sadna/trainer/trainercart.php"><img src="http://localhost/Sadna/images/carticon.png" alt="cart" width='40' height='40'></a>
+                    <a class="nav-link" href="http://irrotemamr.mtacloud.co.il/trainer/trainercart.php"><img src="http://irrotemamr.mtacloud.co.il/images/carticon.png" alt="cart" width='40' height='40'></a>
                 </li>
             </ul>
         </div>
@@ -119,16 +119,16 @@
                         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="http://localhost/Sadna/images/basketball.jpg" class="d-block w-100" alt="...">
+                                    <img src="http://irrotemamr.mtacloud.co.il/images/basketball.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="http://localhost/Sadna/images/soccer.jpg" class="d-block w-100" alt="...">
+                                    <img src="http://irrotemamr.mtacloud.co.il/images/soccer.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="http://localhost/Sadna/images/tennis.jpg" class="d-block w-100" alt="...">
+                                    <img src="http://irrotemamr.mtacloud.co.il/images/tennis.jpg" class="d-block w-100" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="http://localhost/Sadna/images/volleyball.jpg" class="d-block w-100" alt="...">
+                                    <img src="http://irrotemamr.mtacloud.co.il/images/volleyball.jpg" class="d-block w-100" alt="...">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -182,7 +182,7 @@
                 theme: "classic",
                 placeholder: "Search city(Hebrew) ...",
                 ajax: {
-                    url: 'http://localhost/Sadna/player/pagehelpers/retrieve_locations.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/retrieve_locations.php',
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {
@@ -249,7 +249,7 @@
                 // Send the AJAX request
                 $.ajax({
                     type: 'POST',
-                    url: 'http://localhost/Sadna/player/pagehelpers/update_user_details.php',
+                    url: 'http://irrotemamr.mtacloud.co.il/player/pagehelpers/update_user_details.php',
                     data: formData,
                     processData: false,
                     contentType: false,

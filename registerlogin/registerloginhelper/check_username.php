@@ -1,8 +1,8 @@
 <?php
 $host = "localhost"; // database host
-$username = "test"; // database username
+$username = "irrotema_test"; // database username
 $password = "12345"; // database password
-$dbname = "sadna"; // database name
+$dbname = "irrotema_sadna"; // database name
 
 // Create connection
 $connection = new mysqli($host, $username, $password, $dbname);
@@ -17,4 +17,3 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo 'available';
 }
-?>
