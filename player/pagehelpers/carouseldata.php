@@ -1,6 +1,9 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
+
 // connect to the database (replace "hostname", "username", "password", and "dbname" with your actual database credentials)
 $mysqli = new mysqli("localhost", "irrotema_test", "12345", "irrotema_sadna");
+$mysqli->set_charset("utf8");
 
 // check for errors
 if ($mysqli->connect_errno) {

@@ -1,5 +1,6 @@
 <?php
-// the reserve field use this php file
+header('Content-Type: text/html; charset=utf-8');
+
 // Connect to database
 $conn = mysqli_connect("localhost", "irrotema_test", "12345", "irrotema_sadna");
 
@@ -8,6 +9,8 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+// Set character set for the connection
+mysqli_set_charset($conn, "utf8");
 // Check if data is being received correctly
 if (isset($_POST['location'], $_POST['type'], $_POST['date'], $_POST['starttime'], $_POST['endtime'])) {
     $location = $_POST['location'];

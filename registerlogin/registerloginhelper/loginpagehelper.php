@@ -29,10 +29,10 @@ if (mysqli_num_rows($result) == 1) {
         $_SESSION['photo_path'] = $row['photo_path'];
         $_SESSION['account_type'] = $row['account_type'];
         if ($row['account_type'] == 'player') {
-            header("Location: http://localhost/Sadna/player/playerpage.php");
+            header("Location: http://irrotemamr.mtacloud.co.il/player/playerpage.php");
             exit();
         } else if ($row['account_type'] == 'trainer') {
-            header("Location: http://localhost/Sadna/trainer/trianerpage.php");
+            header("Location: http://irrotemamr.mtacloud.co.il/trainer/trianerpage.php");
             exit();
         }
     }
