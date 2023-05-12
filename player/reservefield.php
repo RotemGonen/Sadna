@@ -171,7 +171,6 @@
                             <thead>
                                 <tr>
                                     <th>Select</th>
-                                    <th>Distance</th>
                                     <th>Lighting</th>
                                     <th>Accessible</th>
                                     <th>Parking</th>
@@ -376,73 +375,29 @@
                         },
                         dataType: 'json',
                         success: function(data) {
-                            if ("geolocation" in navigator) {
-                                // The geolocation API is supported in this browser
-                                navigator.geolocation.getCurrentPosition(function(position) {
-                                    // The user's current location is available in the position object
-                                    var latitude = position.coords.latitude;
-                                    var longitude = position.coords.longitude;
-                                    console.log("MY location: Latitude: " + latitude + ", Longitude: " + longitude);
-
-                                    // Sort the data array by distance from the user's location
-                                    data.sort(function(a, b) {
-                                        var distA = getDistance(latitude, longitude, a.latitude, a.longitude);
-                                        var distB = getDistance(latitude, longitude, b.latitude, b.longitude);
-                                        return distA - distB;
-                                    });
-
-                                    // Clear existing table rows
-                                    $('#table-body').empty();
-                                    // Append new rows to table
-                                    data.forEach(function(row) {
-                                        var tr = $('<tr>');
-                                        console.log('latitude:', latitude, 'longitude:', longitude); // debugging statement
-                                        var selectButton = $('<button>').addClass('btn btn-secondary').text('Select');
-                                        selectButton.click(function() {
-                                            changeCoords(row.latitude, row.longitude)
-                                            $('tr').removeClass('checked');
-                                            $(this).closest('tr').addClass('checked');
-                                            selectedFieldId = row.id;
-                                            $('#confirmbutton').attr('disabled', false);
-                                        });
-                                        const lighting = row.lighting;
-                                        const suitable_for_the_disabled = row.suitable_for_the_disabled;
-                                        const parking = row.parking;
-
-                                        var dist = getDistance(latitude, longitude, row.latitude, row.longitude) * 1000; // convert to meters
-                                        var distKm = (dist / 1000).toFixed(2); // convert to kilometers and round to 2 decimal places
-                                        var distanceColumn = $('<td>').text(distKm + ' km');
-
-                                        tr.append($('<td>').append(selectButton));
-                                        tr.append(distanceColumn);
-                                        tr.append($('<td>').text(lighting));
-                                        tr.append($('<td>').text(suitable_for_the_disabled));
-                                        tr.append($('<td>').text(parking));
-                                        $('#table-body').append(tr);
-                                    });
+                            // Clear existing table rows
+                            $('#table-body').empty();
+                            // Append new rows to table
+                            data.forEach(function(row) {
+                                var tr = $('<tr>');
+                                var selectButton = $('<button>').addClass('btn btn-secondary').text('Select');
+                                selectButton.click(function() {
+                                    changeCoords(row.latitude, row.longitude)
+                                    $('tr').removeClass('checked');
+                                    $(this).closest('tr').addClass('checked');
+                                    selectedFieldId = row.id;
+                                    $('#confirmbutton').attr('disabled', false);
                                 });
-                            } else {
-                                // The geolocation API is not supported in this browser
-                                console.log("Geolocation is not supported in this browser.");
-                            }
+                                const lighting = row.lighting;
+                                const suitable_for_the_disabled = row.suitable_for_the_disabled;
+                                const parking = row.parking;
 
-                            // Helper function to calculate the distance between two sets of coordinates
-                            function getDistance(lat1, lon1, lat2, lon2) {
-                                var R = 6371; // Radius of the earth in km
-                                var dLat = deg2rad(lat2 - lat1);
-                                var dLon = deg2rad(lon2 - lon1);
-                                var a =
-                                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                                var d = R * c; // Distance in km
-                                return d;
-                            }
-
-                            function deg2rad(deg) {
-                                return deg * (Math.PI / 180)
-                            }
+                                tr.append($('<td>').append(selectButton));
+                                tr.append($('<td>').text(lighting));
+                                tr.append($('<td>').text(suitable_for_the_disabled));
+                                tr.append($('<td>').text(parking));
+                                $('#table-body').append(tr);
+                            });
 
                         },
                         error: function(xhr, status, error) {
