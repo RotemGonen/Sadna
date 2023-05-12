@@ -12,7 +12,7 @@ $username = $_GET['username'];
 $query = "SELECT *
 FROM field_reservation
 JOIN sportfield ON field_reservation.field_id = sportfield.id 
-JOIN registrations ON registrations.username = field_reservation.trainer_username
+LEFT JOIN registrations ON registrations.username = field_reservation.trainer_username
 WHERE field_reservation.player_username = '$username' 
 ORDER BY field_reservation.date ASC, field_reservation.starttime ASC;
 ";
