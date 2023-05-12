@@ -273,9 +273,9 @@
                                 }
                                 var waiting = '';
                                 if (data[i].trainer_username && data[i].approval == 0) {
-                                    waiting = '<span class="badge badge-warning ml-2 fs-5 h-100 d-flex align-items-center">Waiting for approval</span>';
+                                    waiting = '<span class="badge badge-warning fs-5 h-100 d-flex align-items-center">Waiting for approval</span>';
                                 } else if (data[i].trainer_username && data[i].approval == 1) {
-                                    waiting = '<span class="badge badge-success ml-2 fs-5 h-100 d-flex align-items-center">Trainer confirmed</span>';
+                                    waiting = '<span class="badge badge-success fs-5 h-100 d-flex align-items-center">Trainer confirmed</span>';
                                 }
                                 var trainer = '';
                                 if (data[i].trainer_username) {
@@ -298,7 +298,7 @@
                                 card += '<button class="btn btn-danger remove-row" data-id="' + data[i].reservation_Id + '">Remove</button>'; // add a button with a data-id attribute that contains the row id
                                 card += '</div>';
                                 card += '<div class="col">';
-                                card += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '" data-loc="' + data[i].location + '">Show on map</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
+                                card += '<button class="btn btn-primary send-coords" data-lat="' + data[i].latitude + '" data-lon="' + data[i].longitude + '" data-loc="' + data[i].location + '">Show</button>'; // add a button with data-lat and data-lon attributes that contain the latitude and longitude data
                                 card += '</div>';
                                 if (waiting != '') {
                                     card += '<div class="col">';

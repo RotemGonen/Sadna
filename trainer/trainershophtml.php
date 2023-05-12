@@ -26,7 +26,13 @@
     <!-- Flatpickr JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-
+    <style>
+        @media (max-width: 400px) {
+            .col-6 img {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <header>
@@ -72,13 +78,6 @@
     if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
         header('Location: http://localhost/Sadna/registerlogin/loginpage.php');
         exit;
-    } else {
-        echo "<script>
-        window.onload = function() {
-            var usernameDiv = document.getElementById('greeting');
-            usernameDiv.innerHTML =  'Hello, " . $_SESSION['username'] . "';
-            }
-        </script>";
     }
     ?>
 
@@ -95,10 +94,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-6">
-                        <h1 class="display-3" id='greeting'>Hello, </h1>
-                        <p><span class="font-weight-bold">It's good to see you here!</span>
-                            Here you can purchase our products in cheap prices that can be use in any game that you like to play.<br>
-                            All prices on the site are displayed according to the dollar currency<br><br>
+                        <h1>Welcome to our shop</h1> <br>
+                        <p>
+                            Our goal is to provide you with the best shopping experience possible, offering high-quality products and exceptional customer service.<br>
+                            <span class="font-weight-bold">All prices on the site are displayed according to the dollar currency.</span><br><br>
                             You can use our search bar right down or scroll down and see our products.
                         </p>
                         <div class="d-flex ms-auto mt-2 mb-2" method="POST" action=''>
@@ -112,7 +111,7 @@
                         <div class='sen'></div>
                     </div>
                     <div class="col-6">
-                        <img src="gif.gif" width="75%" height="100%" style="margin-left:20%;">
+                        <img src="http://localhost/Sadna/images\messi_with_ball.jpg" width="75%" height="90%" style="max-width: 100%; margin-left:20%;">
                     </div>
                 </div>
                 <div>
