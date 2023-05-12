@@ -5,7 +5,7 @@ if (isset($_POST['code'])) {
     $qrData = $_POST['code'];
 }
 // connect to the database
-$conn = new mysqli("localhost", "test", "12345", "sadna");
+$conn = new mysqli("localhost", "irrotemamr_test", "12345", "irrotema_sadna");
 
 // check connection
 if (!$conn) {

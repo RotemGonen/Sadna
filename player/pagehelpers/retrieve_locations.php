@@ -1,9 +1,11 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 // this file is getting the locations in the table and using it in the location search bar
-$conn = mysqli_connect("localhost", "test", "12345", "sadna");
+$conn = mysqli_connect("localhost", "irrotema_test", "12345", "irrotema_sadna");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+mysqli_set_charset($conn, "utf8");
 
 $q = $_GET['q'];
 
@@ -21,4 +23,3 @@ while ($row = $result->fetch_assoc()) {
 echo json_encode($data);
 
 $conn->close();
-?>

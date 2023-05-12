@@ -1,6 +1,6 @@
 <?php
 // connect to the database (replace "hostname", "username", "password", and "dbname" with your actual database credentials)
-$mysqli = new mysqli("localhost", "test", "12345", "sadna");
+$mysqli = new mysqli("localhost", "irrotema_test", "12345", "irrotema_sadna");
 
 // check for errors
 if ($mysqli->connect_errno) {

@@ -3,7 +3,7 @@
 $reservation_Id = $_POST['reservation_Id'];
 
 // make a database connection
-$conn = mysqli_connect("localhost", "test", "12345", "sadna");
+$conn = mysqli_connect("localhost", "irrotema_test", "12345", "irrotema_sadna");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -18,4 +18,3 @@ if ($conn->query($sql) === TRUE) {
 
 // close the database connection
 $conn->close();
-?>

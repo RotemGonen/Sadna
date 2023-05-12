@@ -2,7 +2,7 @@
 session_start();
 
 // Connect to database
-$conn = mysqli_connect("localhost", "test", "12345", "sadna");
+$conn = mysqli_connect("localhost", "irrotema_test", "12345", "irrotema_sadna");
 
 // Check connection
 if (!$conn) {

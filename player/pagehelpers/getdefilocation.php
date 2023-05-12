@@ -1,6 +1,6 @@
 <?php
 // Set up database connection
-$mysqli = new mysqli("localhost", "test", "12345", "sadna");
+$mysqli = new mysqli("localhost", "irrotema_test", "12345", "irrotema_sadna");
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     exit();
