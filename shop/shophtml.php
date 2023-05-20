@@ -82,14 +82,6 @@
     } 
     ?>
 
-    <!-- show the navbar -->
-    <!-- <div id="navbar"></div>
-    <script>
-    $("document").ready(function(){
-        $("#navbar").load("../navbar.html")    
-    });
-    </script> -->
-
     <main role="main" class="mt-4">
         <div class="jumbotron">
             <div class="container">
