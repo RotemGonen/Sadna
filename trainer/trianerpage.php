@@ -123,6 +123,7 @@
                                 <th>Date</th>
                                 <th>Sport Type</th>
                                 <th>Phone Number</th>
+                                <th>location</th>
                                 <th>Confirm</th>
                                 <th>Remove</th>
                             </tr>
@@ -541,6 +542,7 @@
                         row.append($('<td>').text(reservation.date));
                         row.append($('<td>').text(reservation.type));
                         row.append($('<td>').text(reservation.player_phone));
+                        row.append($('<td>').text(reservation.location));
                         // Create a cell for the Confirm button
                         var confirmCell = $('<td>');
                         var confirmButton = $('<button>').addClass('btn btn-primary confirm-btn').attr('data-id', reservation.reservation_Id).text('Confirm');
@@ -591,6 +593,7 @@
                                     row.append($('<td>').text(reservation.date));
                                     row.append($('<td>').text(reservation.type));
                                     row.append($('<td>').text(reservation.player_phone));
+                                    row.append($('<td>').text(reservation.location));
                                     // Create a cell for the Confirm button
                                     var confirmCell = $('<td>');
                                     var confirmButton = $('<button>').addClass('btn btn-primary confirm-btn').attr('data-id', reservation.reservation_Id).text('Confirm');

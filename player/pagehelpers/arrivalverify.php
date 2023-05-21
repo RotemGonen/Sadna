@@ -16,7 +16,15 @@ if (!$conn) {
 $username = $_POST['username'];
 $code = $_POST['code'];
 // check if the user id and qr id match to the closest reservation of the user
-$sql = "SELECT * FROM field_reservation WHERE player_username = '$username' AND arrival != 1 ORDER BY date DESC LIMIT 1";
+$sql = "SELECT *
+FROM field_reservation
+WHERE player_username = '$username'
+  AND arrival != 1
+  AND date = CURDATE()
+  AND starttime BETWEEN TIME(DATE_SUB(NOW(), INTERVAL 15 MINUTE)) AND TIME(DATE_ADD(NOW(), INTERVAL 15 MINUTE))
+ORDER BY date DESC
+LIMIT 1;
+";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
