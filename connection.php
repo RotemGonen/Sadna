@@ -1,6 +1,6 @@
 <?php
 $host = "localhost"; // database host
-$username = "test"; // database username
+$username = "isomersk_test"; // database username
 $password = "12345"; // database password
 $dbname = "isomersk_sadna"; // database name
 
