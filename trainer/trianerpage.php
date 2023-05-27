@@ -240,7 +240,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <div style="height: 100%">
+                    <div id="wrap" style="height: 100%">
                         <div id="map" class="w-100 h-100"></div>
                     </div>
                 </div>
@@ -530,6 +530,21 @@
             });
         });
         $(document).ready(function() {
+
+            function setWrapHeight() {
+                var wrap = document.getElementById("wrap");
+                var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+                if (screenWidth <= 991.98) {
+                    wrap.style.height = "300px";
+                } else {
+                    wrap.style.height = "100%";
+                }
+            }
+
+            window.addEventListener("load", setWrapHeight);
+            window.addEventListener("resize", setWrapHeight);
+
             // Retrieve initial data on page load
             $.ajax({
                 type: 'GET',
