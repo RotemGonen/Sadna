@@ -239,7 +239,7 @@
 
         function Getreserv() {
             $.ajax({
-                url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php', // change this to the url of your server-side script that fetches the data from the database
+                url: 'http://localhost/Sadna/player/pagehelpers/carouseldata.php',
                 type: 'get',
                 dataType: 'json',
                 data: {

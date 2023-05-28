@@ -45,12 +45,6 @@
                         <div class="invalid-feedback">
                             The field cannot be empty </div>
                     </div>
-                    <!-- <div class="form-group col">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                        <div class="invalid-feedback">
-                            The field cannot be empty </div>
-                    </div> -->
                     <div class="form-group col">
                         <label for="password">Password</label>
                         <div class="input-group">

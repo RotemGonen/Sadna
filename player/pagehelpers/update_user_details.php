@@ -1,6 +1,5 @@
 <?php
 // Get the form data
-// Get the form data
 $username = $_POST['username'];
 $password = $_POST['password'];
 $city = $_POST['city'];

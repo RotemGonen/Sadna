@@ -4,7 +4,6 @@ if (isset($_POST['id'])) {
     // get the ID parameter value
     $id = $_POST['id'];
 
-    // connect to the database (replace "hostname", "username", "password", and "dbname" with your actual database credentials)
     $mysqli = new mysqli("localhost", "test", "12345", "sadna");
 
     // check for errors
@@ -34,4 +33,3 @@ if (isset($_POST['id'])) {
     // return an error message if the ID parameter was not passed
     echo "ID parameter is missing";
 }
-?>

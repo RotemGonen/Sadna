@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
     $productPrice = $row['price'];
     $dateTime = date("Y-m-d H:i:s");
 
-    if($quantity>0){
+    if ($quantity > 0) {
         // Insert order details into orders table
         $sql = "INSERT INTO shop_reservations (username, product, product_id, picture, price, quantity, date_time) 
                 VALUES ('$username', '$productName', $productId, '$productPicture', '$productPrice', '$quantity', '$dateTime')";
@@ -36,4 +36,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>
