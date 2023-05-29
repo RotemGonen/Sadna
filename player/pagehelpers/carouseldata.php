@@ -1,5 +1,4 @@
 <?php
-// connect to the database (replace "hostname", "username", "password", and "dbname" with your actual database credentials)
 $mysqli = new mysqli("localhost", "test", "12345", "sadna");
 
 // check for errors

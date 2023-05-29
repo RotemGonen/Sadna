@@ -170,7 +170,7 @@
                     <h3 class='justify-content-center text-center'>Total amount $<?php echo $total; ?></h3>
                     <br><br>
                     <div class="align-items-center text-center">
-                        <div> checkout with <img src="http://isomersk.mtacloud.co.il/images/paypal_icon.png" width="60" class="mb-1"></div><br>
+                        <div> checkout with <img src="http://localhost/Sadna/images/paypal_icon.png" width="60" class="mb-1"></div><br>
                             <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
                                 <br>
                                 <div id="paypal-button-container">
@@ -223,6 +223,7 @@
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
+                    //clear cart after payment
                     $.ajax({
                         url: 'http://localhost/Sadna/shop/clear_cart.php',
                         type: 'GET',

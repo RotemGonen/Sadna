@@ -4,11 +4,6 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $city = $_POST['city'];
 
-
-
-
-// Validate the form data (optional)
-
 // Connect to the database
 $conn = mysqli_connect("localhost", "test", "12345", "sadna");
 

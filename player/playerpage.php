@@ -191,9 +191,8 @@
                     <div id="reservationcarousel" class="carousel carousel-dark slide mb-3 mb-md-0 shadow">
                         <div class="carousel-inner text-center" id="cards">
                             <?php if ($num_reservations > 0) { ?>
-                                <!-- Display carousel items here -->
+                                
                             <?php } else { ?>
-                                <!-- Display default message here -->
                                 <div class="carousel-item active">
                                     <div class="card">
                                         <div class="card-body">

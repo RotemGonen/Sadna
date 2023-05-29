@@ -329,7 +329,7 @@
                     // Check if the trainer checkbox is not checked
                     if (!$('#trainer-checkbox').prop('checked')) {
 
-                        // The trainer checkbox is checked, do not execute the prior AJAX request
+                        // The trainer checkbox is checked, we do not execute the prior AJAX request
                         $('#starttime, #endtime, #datepicker').prop('readonly', false);
                         // Get the Select2 element
                         var select2Element = $('#location-search,#type-select');
@@ -534,7 +534,7 @@
             // Check if the trainer checkbox is not checked
             if (!$('#trainer-checkbox').prop('checked')) {
 
-                // The trainer checkbox is checked, do not execute the prior AJAX request
+                // The trainer checkbox is checked, we do not execute the prior AJAX request
                 $('#starttime, #endtime, #datepicker').prop('readonly', false);
                 // Get the Select2 element
                 var select2Element = $('#location-search,#type-select');
@@ -564,7 +564,7 @@
                     }
                 });
             } else {
-                // The trainer checkbox is checked, do not execute the prior AJAX request
+                // The trainer checkbox is checked, we do not execute the prior AJAX request
                 $('#datepicker').prop('readonly', true);
                 // Get the Select2 element
                 var select2Element = $('#location-search,#type-select');

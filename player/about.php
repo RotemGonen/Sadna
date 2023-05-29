@@ -99,7 +99,7 @@
                     <div class="col-lg-4">
                         <img class="bd-placeholder-img rounded-circle" width="140" height="140" src="http://localhost/Sadna/images/Diana.jpg">
 
-                        <h2 class="fw-normal">Diana Cohenim</h2>
+                        <h2 class="fw-normal">Dayana Cohanim</h2>
                         <p>"I'm really excited to take on my first role in the data industry."</p>
                     </div><!-- /.col-lg-4 -->
                     <div class="col-lg-4">
